@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39aad0c9ec1d35c418e62451926fe487, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: 
-  Name: Tree
   Key: 0
+  EnemyName: Tree
   EnemyPrefab: {fileID: 6218873534631264433, guid: 6d6a7946ca6b08d4e9f73e987f30d954, type: 3}

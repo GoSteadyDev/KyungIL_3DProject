@@ -13,7 +13,11 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     
+    [Header("Spawn Settings")]
     [SerializeField] private float spawnInterval = 2f;
+    [SerializeField] private int spawnCount = 5;
+    [SerializeField] private ParticleSystem spawnEffect;
+    
     private float timer;
     
     private void Awake()
@@ -26,9 +30,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        if (spawnedEnemies.Count >= spawnCount) return;
+        
         timer += Time.deltaTime;
-
-        if (timer >= spawnInterval)
+        
+        if (timer >= spawnInterval )
         {
             timer = 0f;
             Spawn("Tree");
@@ -37,12 +43,17 @@ public class EnemySpawner : MonoBehaviour
     
     public void Spawn(string enemyName)
     {
-        if (!enemyDic.ContainsKey(enemyName)) return;
+        spawnEffect.Play();
+        
+        if (!enemyDic.ContainsKey(enemyName))
+        {
+            Debug.Log("확인1");
+            return;
+        }
 
         GameObject enemy = Instantiate(enemyDic[enemyName], spawnPoint.position, Quaternion.identity);
         spawnedEnemies.Add(enemy);
         
-        // WayPoint 정보 전달
         EnemyController controller = enemy.GetComponent<EnemyController>();
         
         if (controller != null)
