@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float moveSpeed = 25.0f;
     [SerializeField] private float rotationSpeed = 5.0f;
     [SerializeField] private float turnDistance = 0.1f;
+
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -34,6 +42,13 @@ public class EnemyController : MonoBehaviour
         {
             wayPointIndex++;
         }
+    }
+    
+    public void PlayDeath()
+    {
+        animator.SetTrigger("IsDead");
+        moveSpeed = 0;
+        // 애니메이션 이벤트 or 코루틴으로 Destroy 처리
     }
     
     public void SetWayPoints(Transform[] points)
