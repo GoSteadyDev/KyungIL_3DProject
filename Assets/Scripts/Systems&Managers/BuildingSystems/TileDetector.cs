@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
 public class TileDetector : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class TileDetector : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        
         ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         DetectTileUnderMouse();

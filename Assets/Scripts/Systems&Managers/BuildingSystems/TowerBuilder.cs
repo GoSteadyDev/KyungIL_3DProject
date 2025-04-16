@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
 public class TowerBuilder : MonoBehaviour
 {
@@ -19,15 +20,18 @@ public class TowerBuilder : MonoBehaviour
 
        private void Update()
        { 
-           if (Input.GetMouseButtonDown(0))
-           {
-               BuildingPointTile tile = tileDetector.GetTileUnderMouse();
+              if (EventSystem.current.IsPointerOverGameObject()) 
+                     return;
+              
+              if (Input.GetMouseButtonDown(0))
+              {
+                     BuildingPointTile tile = tileDetector.GetTileUnderMouse();
                      
-               if (tile != null)
-               {
-                      OnTileClicked(tile);
-               }
-           }
+                     if (tile != null)
+                     {
+                            OnTileClicked(tile);
+                     }
+              }
        }
 
        public void OnTileClicked(BuildingPointTile tile)
@@ -36,14 +40,7 @@ public class TowerBuilder : MonoBehaviour
               tile.PickedByPlayer();
        }
 
-       public void OnBuildPointClicked(BuildingPoint buildingPoint)
-       {
-              // 위 데이터들을 고려해서 생성 되게 하는 로직 들어가기
-              Instantiate(towerPrefab, buildingPoint.transform.position, Quaternion.identity);
-              Destroy(buildingPoint.gameObject);
-       }
-
-       public void OnTowerSelected(GameObject towerPrefab, Vector3 position)
+       public void BuildTower(GameObject towerPrefab, Vector3 position)
        {
               Instantiate(towerPrefab, position, Quaternion.identity);
        }

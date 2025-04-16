@@ -26,7 +26,9 @@ public class BuildingSystem : MonoBehaviour
     {
         if (currentBuildPoint != null)
         {
-            // TowerBuilder에서 생성하는 로직 가져오기
+            TowerBuilder.Instance.BuildTower(towerPrefab, currentBuildPoint.transform.position);
+            Destroy(currentBuildPoint.gameObject);
+            currentBuildPoint = null;
         }
 
         buildUI.SetActive(false);
