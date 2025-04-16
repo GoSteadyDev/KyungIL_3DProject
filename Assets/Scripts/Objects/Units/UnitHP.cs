@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHP = 10f;
-    [SerializeField] private float deathTime = 1f;
+    [SerializeField] private float deathTime = 0.5f;
     private float currentHP;
     public float CurrentHP => currentHP;
     
@@ -14,6 +14,8 @@ public class UnitHP : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        swordMan = GetComponent<SwordMan>();
+        
         currentHP = Mathf.Clamp( currentHP, 0, maxHP);
         currentHP = maxHP;
     }
@@ -27,7 +29,19 @@ public class UnitHP : MonoBehaviour, IDamageable
 
         if (currentHP <= 0f)
         {
-            
+            Die();
         }
+    }
+    
+    private void Die()
+    {
+        swordMan.enabled = false;
+        StartCoroutine(DeathTerm());
+    }
+
+    private IEnumerator DeathTerm()
+    {
+        yield return new WaitForSeconds(deathTime);
+        Destroy(gameObject);
     }
 }

@@ -14556,7 +14556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965533731523027018, guid: 33d0b4c49f7fcbd4d9b402d9b4ee40d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6271379161043599374, guid: 33d0b4c49f7fcbd4d9b402d9b4ee40d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14790,7 +14790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6471452747649712725, guid: 2bdac3fafc85c6848808dfd178ff646f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31862,6 +31862,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swordman
       objectReference: {fileID: 0}
+    - target: {fileID: 990473712913296228, guid: 2fb52bc56ce66284d9cfbe98cfeedc5c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1096595447899636379, guid: 2fb52bc56ce66284d9cfbe98cfeedc5c, type: 3}
       propertyPath: warfGate
       value: 
@@ -34853,9 +34857,11 @@ GameObject:
   - component: {fileID: 543450653487230111}
   - component: {fileID: 3469287837403210554}
   - component: {fileID: 1711813855825401840}
-  m_Layer: 0
+  - component: {fileID: 3469287837403210555}
+  - component: {fileID: 3469287837403210556}
+  m_Layer: 7
   m_Name: Castle
-  m_TagString: Untagged
+  m_TagString: DamageableUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39862,6 +39868,45 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149234218533}
   m_Mesh: {fileID: 8698284916670781335, guid: 5e5b53ca3b07322418bd969910a1a844, type: 3}
+--- !u!114 &3469287837403210555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149234218533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499599207126c2f48b5cc3b751417ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes:
+  - {fileID: 8698284916670781335, guid: 5e5b53ca3b07322418bd969910a1a844, type: 3}
+  - {fileID: 6497398583811497926, guid: 306d47c373eec6b4ca568a5f4f856327, type: 3}
+  - {fileID: -5347911586565183598, guid: 61861d91157477640b39157db0fc30bc, type: 3}
+  currentHP: 0
+--- !u!64 &3469287837403210556
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149234218533}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8698284916670781335, guid: 5e5b53ca3b07322418bd969910a1a844, type: 3}
 --- !u!198 &3762321279536811253
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -44702,6 +44747,10 @@ PrefabInstance:
     - target: {fileID: 3045896718432181450, guid: da95c73e4fbce8f46b011cd2ad954d57, type: 3}
       propertyPath: m_Name
       value: TB_BuildingPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045896718432181450, guid: da95c73e4fbce8f46b011cd2ad954d57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4924567605582269881, guid: da95c73e4fbce8f46b011cd2ad954d57, type: 3}
       propertyPath: m_LocalPosition.x

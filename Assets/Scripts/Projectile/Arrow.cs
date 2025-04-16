@@ -20,6 +20,7 @@ public class Arrow : MonoBehaviour
     {
         if (target == null)
         {
+            Destroy(gameObject);
             return;
         }
 

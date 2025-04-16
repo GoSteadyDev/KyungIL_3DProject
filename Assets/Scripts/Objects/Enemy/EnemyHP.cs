@@ -12,7 +12,8 @@ public class EnemyHP : MonoBehaviour, IDamageable
     
     private bool isDead = false;
     private EnemyController enemyController;
-    
+    public float MaxHP => maxHP;
+
     private void Awake()
     {
         enemyController = GetComponent<EnemyController>();

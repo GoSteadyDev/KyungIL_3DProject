@@ -94,11 +94,7 @@ public class SwordMan : MonoBehaviour
 
     private void AttackToTarget()
     {
-        if (Time.time >= nextAttackTime)
-        {
-            nextAttackTime = Time.time + attackSpeed;
-            StartAttackAnim();
-        }
+        StartAttackAnim();
     }
 
     private void StartAttackAnim()
