@@ -5,10 +5,11 @@ using UnityEngine;
 public class UnitHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHP = 10f;
-    [SerializeField] private float deathTime = 0.5f;
+    public float MaxHP { get; }
     private float currentHP;
     public float CurrentHP => currentHP;
-    
+    [SerializeField] private float deathTime = 0.5f;
+
     private bool isDead = false;
     private SwordMan swordMan;
 

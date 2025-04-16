@@ -27,6 +27,7 @@ public class EnemyAttack : MonoBehaviour
         {
             RotateTowardsTarget();           
             enemyController.PlayAttackAnimation();
+            enemyController.navMeshAgent.enabled = false;
             enemyController.enabled = false;
         }
         else

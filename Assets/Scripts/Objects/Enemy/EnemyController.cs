@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float turnDistance = 0.1f;
 
     private Animator animator;
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     private bool isChasingCastle = false;
 
     private void Awake()

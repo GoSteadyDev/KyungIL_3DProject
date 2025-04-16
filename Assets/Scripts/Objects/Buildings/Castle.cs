@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class Castle : MonoBehaviour, IDamageable
 {
+    [SerializeField] private GameObject hpViewerPrefab;
     [SerializeField] private Mesh[] meshes;
         
     private float maxHP = 100f;
-    public float currentHP;
+    public float MaxHP { get; }
+    private float currentHP;
+    public float CurrentHP { get; }
 
     private MeshFilter meshFilter;
     
@@ -16,6 +19,11 @@ public class Castle : MonoBehaviour, IDamageable
     {
         meshFilter = GetComponent<MeshFilter>();
         currentHP = maxHP;
+    }
+    
+    private void Start()
+    {
+        HPViewerSpawner.CreateHPViewer(this, this.transform, hpViewerPrefab);
     }
 
     public void TakeDamage(float damage)

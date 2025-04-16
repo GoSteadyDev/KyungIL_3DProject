@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class EnemySpawner : MonoBehaviour
             Spawn("Tree");
         }
     }
+
+    [SerializeField] private GameObject hpViewerPrefab;
     
     public void Spawn(string enemyName)
     {
@@ -63,5 +66,8 @@ public class EnemySpawner : MonoBehaviour
             controller.SetWayPoints(wayPoints);
             controller.SetCastleTarget(castleTransform);
         }
+        
+        EnemyHP enemyHP = enemy.GetComponent<EnemyHP>();
+        HPViewerSpawner.CreateHPViewer(enemyHP, enemy.transform, hpViewerPrefab);
     }
 }
