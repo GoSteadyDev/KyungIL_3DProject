@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-public class SwordMan : MonoBehaviour, IDamageable
+public class SwordMan : MonoBehaviour
 {
     [Header("Move Settings")]
     [SerializeField] private float moveSpeed = 3f;
@@ -110,11 +110,6 @@ public class SwordMan : MonoBehaviour, IDamageable
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRange);
-    }
-
-    public void TakeDamage(float amount)
-    {
-        
     }
 }
 

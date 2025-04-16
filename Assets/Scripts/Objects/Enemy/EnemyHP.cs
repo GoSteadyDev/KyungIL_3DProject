@@ -35,7 +35,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        enemyController.PlayDeath();
+        enemyController.PlayDeathAnimation();
         StartCoroutine(DeathTerm());
     }
 

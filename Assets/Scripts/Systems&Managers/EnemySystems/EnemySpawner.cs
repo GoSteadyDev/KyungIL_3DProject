@@ -6,17 +6,19 @@ using UnityEngine.Serialization;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Enemy Transform Settings")]
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform[] wayPoints;
+    [SerializeField] private Transform castleTransform;
     [SerializeField] private EnemyData enemyData;
 
-    private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
-    
     [Header("Spawn Settings")]
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private ParticleSystem spawnEffect;
+    
+    private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
     
     private float timer;
     
@@ -59,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
         if (controller != null)
         {
             controller.SetWayPoints(wayPoints);
+            controller.SetCastleTarget(castleTransform);
         }
     }
 }

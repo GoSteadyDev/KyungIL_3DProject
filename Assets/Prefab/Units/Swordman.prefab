@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4739309939581869737}
   - component: {fileID: 2342891215780645522}
   - component: {fileID: 3285600759278955383}
-  - component: {fileID: 3374802196025807461}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TB_Soldier_Swordman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,29 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3374802196025807461
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23257574394327215}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.2
-  m_Height: 4
-  m_Direction: 1
-  m_Center: {x: 0.21007752, y: 2, z: -0.095807076}
 --- !u!1 &990473712913296228
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,10 +96,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3952138650876358754}
   - component: {fileID: 2279657551372367085}
+  - component: {fileID: 3342493937193301352}
+  - component: {fileID: 2361425083953456508}
   - component: {fileID: 1096595447899636379}
-  m_Layer: 0
+  - component: {fileID: -4956902913087508520}
+  m_Layer: 7
   m_Name: Swordman
-  m_TagString: Untagged
+  m_TagString: DamageableUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,6 +144,51 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &3342493937193301352
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990473712913296228}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2, z: -0.095807076}
+--- !u!195 &2361425083953456508
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990473712913296228}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &1096595447899636379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +206,20 @@ MonoBehaviour:
   warfGate: {fileID: 0}
   attackSpeed: 1
   attackRange: 3.5
+--- !u!114 &-4956902913087508520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990473712913296228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ccb7f44fcc01924c99e54e6b69699e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 10
+  deathTime: 1
 --- !u!1 &2594044788228809324
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +231,7 @@ GameObject:
   - component: {fileID: 7116656050685355212}
   - component: {fileID: 3256356568239028035}
   - component: {fileID: 5104923601053848228}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TB_Soldier_Swordman_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +315,7 @@ GameObject:
   - component: {fileID: 3636194736674330369}
   - component: {fileID: 1003677590038982336}
   - component: {fileID: 5720438400415855832}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SwordHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +410,7 @@ GameObject:
   - component: {fileID: 6985376623821094342}
   - component: {fileID: 898245124454839159}
   - component: {fileID: 1448723979149147072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TB_Soldier_Swordman_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +494,7 @@ GameObject:
   - component: {fileID: 7693923274207737402}
   - component: {fileID: 6174525282717298713}
   - component: {fileID: 1001260517415072834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TB_Soldier_Swordman_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
