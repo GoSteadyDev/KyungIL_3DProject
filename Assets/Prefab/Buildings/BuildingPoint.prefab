@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5832459941581062770}
   - component: {fileID: 3471362715488276230}
   - component: {fileID: 7406200973427960820}
-  - component: {fileID: -6926713846200023275}
+  - component: {fileID: 4057782913943469404}
   m_Layer: 0
   m_Name: BuildingPoint
   m_TagString: Untagged
@@ -107,7 +107,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d2495a52df85b1b49a1e802a50eb1021, type: 3}
---- !u!114 &-6926713846200023275
+--- !u!114 &4057782913943469404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,4 +119,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bb9c6f28e948e4883df55dfacae62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 5965533731523027018, guid: 33d0b4c49f7fcbd4d9b402d9b4ee40d4, type: 3}
