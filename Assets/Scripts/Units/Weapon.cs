@@ -12,8 +12,6 @@ public class Weapon : MonoBehaviour
         if (!other.CompareTag("Enemy"))
             return;
         
-        Debug.Log(damage);
-        
         CombatEvent combatEvent = new CombatEvent
         {
             Sender = this.gameObject,
