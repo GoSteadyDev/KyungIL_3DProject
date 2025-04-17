@@ -94,4 +94,18 @@ public class EnemyController : MonoBehaviour
     {
         castleTarget = target;
     }
+    
+    public Vector3 GetVelocity()
+    {
+        if (navMeshAgent.enabled)
+            return navMeshAgent.velocity;
+
+        Vector3 direction = (wayPoints[wayPointIndex].position - transform.position).normalized;
+        return direction * moveSpeed;
+    }
+    
+    public Vector3 GetCurrentPosition()
+    {
+        return transform.position;
+    }
 }

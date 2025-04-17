@@ -1,34 +1,48 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonBall : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private float damage;
-    [SerializeField] private float speed;
-    [SerializeField] private Collider fireRange;
-    [SerializeField] private ParticleSystem fireParticle;
-    
-    private Rigidbody rigidbody;
-    
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-        }
-        
-        CombatEvent combatEvent = new CombatEvent
-        {
-            Sender = this.gameObject,
-            Receiver = other.gameObject,
-            Damage = damage,
-            HitPosition = transform.position,
-            Collider = other
-        };
+    [SerializeField] private float areaRange = 3f;
+    [SerializeField] private GameObject areaDamagePrefab;
+    [SerializeField] private float rotateSpeed = 10f;     // 유도 강도 조절
+    [SerializeField] private float arcHeight = 4f;       // 고정된 포물선 높이
 
-        CombatSystem.Instance.AddCombatEvent(combatEvent);
+    public Rigidbody rb;
+    private Transform target;
+
+    private Vector3 velocity;
+
+    public void SetTarget(Vector3 target, float timeToTarget)
+    {
+        rb = GetComponent<Rigidbody>();
+
+        Vector3 dir = target - transform.position;
+        Vector3 dirXZ = new Vector3(dir.x, 0, dir.z);
+
+        float gravity = Mathf.Abs(Physics.gravity.y);
+
+        // 수직 속도 계산 (y 방향으로 위로 올라갔다가 떨어지도록)
+        float Vy = (dir.y + 0.5f * gravity * timeToTarget * timeToTarget) / timeToTarget;
+
+        // 수평 속도 계산
+        Vector3 Vxz = dirXZ / timeToTarget;
+
+        // 최종 velocity
+        Vector3 velocity = Vxz + Vector3.up * Vy;
+
+        rb.velocity = velocity;
+    }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        Instantiate(areaDamagePrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
+
+
+
+

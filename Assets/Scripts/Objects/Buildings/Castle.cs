@@ -31,7 +31,6 @@ public class Castle : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         currentHP -= damage;
-        Debug.Log($"왕국 HP : {currentHP}");
 
         if (currentHP >= maxHP * 0.6f)
         {
