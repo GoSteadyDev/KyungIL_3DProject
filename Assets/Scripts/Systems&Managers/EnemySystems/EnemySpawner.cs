@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private ParticleSystem spawnEffect;
+    [SerializeField] private GameObject hpViewerPrefab;
     
     private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -43,8 +44,6 @@ public class EnemySpawner : MonoBehaviour
             Spawn("Tree");
         }
     }
-
-    [SerializeField] private GameObject hpViewerPrefab;
     
     public void Spawn(string enemyName)
     {

@@ -20,8 +20,7 @@ public class TowerBuilder : MonoBehaviour
 
        private void Update()
        { 
-              if (EventSystem.current.IsPointerOverGameObject()) 
-                     return;
+              if (EventSystem.current.IsPointerOverGameObject()) return;
               
               if (Input.GetMouseButtonDown(0))
               {

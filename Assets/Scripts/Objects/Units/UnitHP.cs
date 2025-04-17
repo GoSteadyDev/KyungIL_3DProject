@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitHP : MonoBehaviour, IDamageable
 {
@@ -20,7 +22,16 @@ public class UnitHP : MonoBehaviour, IDamageable
         currentHP = Mathf.Clamp( currentHP, 0, maxHP);
         currentHP = maxHP;
     }
-    
+
+    private void Update()
+    {
+        // float value = CurrentHP / MaxHP;
+        // hpSlider.value = Mathf.Clamp01(value);
+        //
+        // Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 10f);
+        // hpSlider.transform.position = screenPos;
+    }
+
     public void TakeDamage(float amount)
     {
         if (isDead) return;

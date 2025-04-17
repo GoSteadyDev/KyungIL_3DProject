@@ -7,11 +7,13 @@ public class Castle : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject hpViewerPrefab;
     [SerializeField] private Mesh[] meshes;
-        
+    
     private float maxHP = 100f;
-    public float MaxHP { get; }
+    public float MaxHP => maxHP;
+
     private float currentHP;
-    public float CurrentHP { get; }
+    public float CurrentHP => currentHP;
+
 
     private MeshFilter meshFilter;
     
