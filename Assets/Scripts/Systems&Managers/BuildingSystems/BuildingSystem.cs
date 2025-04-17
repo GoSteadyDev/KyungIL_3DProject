@@ -24,14 +24,17 @@ public class BuildingSystem : MonoBehaviour
 
     public void OnTowerSelected(GameObject towerPrefab)
     {
-        
         if (currentBuildPoint != null)
         {
-            TowerBuilder.Instance.BuildTower(towerPrefab, currentBuildPoint.transform.position);
-            Destroy(currentBuildPoint.gameObject);
-            currentBuildPoint = null;
+            bool success = TowerBuilder.Instance.BuildTower(towerPrefab, currentBuildPoint.transform.position);
+
+            if (success)
+            {
+                Destroy(currentBuildPoint.gameObject);
+                currentBuildPoint = null;
+            }
         }
 
-        buildUI.SetActive(false);
+        buildUI.SetActive(false); // UI는 regardless
     }
 }

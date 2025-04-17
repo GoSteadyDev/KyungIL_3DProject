@@ -13,7 +13,7 @@ public class Archer : MonoBehaviour
 
     private Animator animator;
     private float nextAttackTime;
-    private Transform target;
+    private Transform targetTransform;
     private float targetdistance;
 
     private void Awake()
@@ -25,11 +25,11 @@ public class Archer : MonoBehaviour
     {
         FindTarget();
         
-        if (target != null)
+        if (targetTransform != null)
         {
             //transform.LookAt(target.position);
             // 수평만 바라보도록
-            Vector3 dir = target.position - transform.position;
+            Vector3 dir = targetTransform.position - transform.position;
             dir.y = 0;
             
             if (dir != Vector3.zero)
@@ -40,18 +40,18 @@ public class Archer : MonoBehaviour
                 nextAttackTime = Time.time + attackSpeed;
                 FireArrow();
             }
-            targetdistance = Vector3.Distance(transform.position, target.position);
+            targetdistance = Vector3.Distance(transform.position, targetTransform.position);
         }
         
         
         if (targetdistance > attackRange)
-            target = null;
+            targetTransform = null;
     }
 
     private void FindTarget()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
-        target = hits.Length > 0 ? hits[0].transform : null;
+        targetTransform = hits.Length > 0 ? hits[0].transform : null;
     }
 
     private void OnDrawGizmosSelected()
@@ -68,11 +68,11 @@ public class Archer : MonoBehaviour
     // 애니메이션 이벤트에서 호출
     public void FireArrow()
     {
-        if (target == null) return;
+        if (targetTransform == null) return;
 
         GameObject arrowObj = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
         Arrow arrow = arrowObj.GetComponent<Arrow>();
-        arrow.SetTarget(target);
+        arrow.SetTarget(targetTransform);
         
         StartAttackAnim();
     }

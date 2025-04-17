@@ -9,7 +9,7 @@ public class TowerBuilder : MonoBehaviour
 {
        public static TowerBuilder Instance { get; private set; }
        
-       [FormerlySerializedAs("objectDector")] [FormerlySerializedAs("tileDector")] [SerializeField] private TileDetector tileDetector;
+       [SerializeField] private TileDetector tileDetector;
        [SerializeField] private GameObject buildPointPrefab;
        [SerializeField] private GameObject towerPrefab;
        [SerializeField] private int buildMoney;
@@ -40,11 +40,15 @@ public class TowerBuilder : MonoBehaviour
               tile.PickedByPlayer();
        }
 
-       public void BuildTower(GameObject towerPrefab, Vector3 position)
+       public bool BuildTower(GameObject towerPrefab, Vector3 position)
        {
               if (ResourceManager.Instance.TrySpendGold(buildMoney))
               {
-                  Instantiate(towerPrefab, position, Quaternion.identity);
+                     Instantiate(towerPrefab, position, Quaternion.identity);
+                     return true; // 성공
               }
+
+              UIManager.Instance.ShowWarning("You don't have enough gold!");
+              return false;
        }
 }
