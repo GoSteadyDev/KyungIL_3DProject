@@ -12,6 +12,7 @@ public class TowerBuilder : MonoBehaviour
        [FormerlySerializedAs("objectDector")] [FormerlySerializedAs("tileDector")] [SerializeField] private TileDetector tileDetector;
        [SerializeField] private GameObject buildPointPrefab;
        [SerializeField] private GameObject towerPrefab;
+       [SerializeField] private int buildMoney;
 
        private void Awake()
        {
@@ -41,6 +42,9 @@ public class TowerBuilder : MonoBehaviour
 
        public void BuildTower(GameObject towerPrefab, Vector3 position)
        {
-              Instantiate(towerPrefab, position, Quaternion.identity);
+              if (ResourceManager.Instance.TrySpendGold(buildMoney))
+              {
+                  Instantiate(towerPrefab, position, Quaternion.identity);
+              }
        }
 }

@@ -24,6 +24,7 @@ public class BuildingSystem : MonoBehaviour
 
     public void OnTowerSelected(GameObject towerPrefab)
     {
+        
         if (currentBuildPoint != null)
         {
             TowerBuilder.Instance.BuildTower(towerPrefab, currentBuildPoint.transform.position);

@@ -8,6 +8,9 @@ public class EnemyHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private Slider hpViewerPrefab;
     [SerializeField] private float maxHP = 10f;
+    [SerializeField] private int enemyGold;
+    
+    
     public float MaxHP => maxHP;
     
     private float currentHP;
@@ -49,6 +52,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
     {
         yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);
+        ResourceManager.Instance.AddGold(enemyGold);
     }
 }
 

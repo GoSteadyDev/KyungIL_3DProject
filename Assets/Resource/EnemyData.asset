@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Key: 0
   EnemyName: Tree
-  EnemyPrefab: {fileID: 6218873534631264433, guid: 6d6a7946ca6b08d4e9f73e987f30d954, type: 3}
+  EnemyPrefab: {fileID: 3867399357001758382, guid: 26342d84c0d866442a9729d473407aab, type: 3}
