@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aad0c9ec1d35c418e62451926fe487, type: 3}
-  m_Name: EnemyData
+  m_Name: Tree
   m_EditorClassIdentifier: 
   Key: 0
   EnemyName: Tree

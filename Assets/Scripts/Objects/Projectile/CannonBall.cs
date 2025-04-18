@@ -27,9 +27,11 @@ public class CannonBall : MonoBehaviour
         // 수직 속도 계산 (y 방향으로 위로 올라갔다가 떨어지도록)
         // 등가속도 운동 공식 활용, 초기 수직 속도 계산
         
-        float extraArcHeight = 6f;
-        float boostedY = dir.y + extraArcHeight;
-        
+        float distance = dirXZ.magnitude;
+        float dynamicArcHeight = Mathf.Clamp(distance * 0.25f, 3f, 12f); // 비율 조정
+
+        float boostedY = dir.y + dynamicArcHeight;
+
         float Vy = (boostedY + 0.5f * gravity * timeToTarget * timeToTarget) / timeToTarget;
 
         // 수평 속도 계산

@@ -10,4 +10,9 @@ public class TowerSelectButton : MonoBehaviour
     {
         BuildingSystem.Instance.OnTowerSelected(towerPrefab);
     }
+
+    public void OnCloseButtonClicked()
+    {
+        UIManager.Instance.HideBuildUI();
+    }
 }

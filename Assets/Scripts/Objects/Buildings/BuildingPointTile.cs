@@ -30,4 +30,10 @@ public class BuildingPointTile : MonoBehaviour
     {
         collider.enabled = false;
     }
+    
+    public void ResetTile()
+    {
+        collider.enabled = true;
+    }
+
 }

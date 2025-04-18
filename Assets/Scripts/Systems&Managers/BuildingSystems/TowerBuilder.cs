@@ -33,11 +33,13 @@ public class TowerBuilder : MonoBehaviour
                      }
               }
        }
-
        public void OnTileClicked(BuildingPointTile tile)
        {
-              Instantiate(buildPointPrefab, tile.transform.position, Quaternion.identity);
+              GameObject buildPointGO = Instantiate(buildPointPrefab, tile.transform.position, Quaternion.identity);
               tile.PickedByPlayer();
+
+              BuildingPoint point = buildPointGO.GetComponent<BuildingPoint>();
+              point.Init(tile); // ✅ 생성된 BuildPoint에게 타일 정보 넘김
        }
 
        public bool BuildTower(GameObject towerPrefab, Vector3 position)
@@ -47,7 +49,6 @@ public class TowerBuilder : MonoBehaviour
                      Instantiate(towerPrefab, position, Quaternion.identity);
                      return true; // 성공
               }
-
               UIManager.Instance.ShowWarning("You don't have enough gold!");
               return false;
        }

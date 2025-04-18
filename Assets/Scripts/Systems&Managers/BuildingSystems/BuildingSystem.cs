@@ -6,20 +6,17 @@ public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem Instance;
     
-    [SerializeField] private GameObject buildUI;
-    
     private BuildingPoint currentBuildPoint;
     
     private void Awake()
     {
         Instance = this;
-        buildUI.SetActive(false);
     }
 
     public void OpenBuildUI(BuildingPoint point)
     {
         currentBuildPoint = point;
-        buildUI.SetActive(true);
+        UIManager.Instance.ShowBuildUI(point.transform.position);
     }
 
     public void OnTowerSelected(GameObject towerPrefab)
@@ -35,6 +32,6 @@ public class BuildingSystem : MonoBehaviour
             }
         }
 
-        buildUI.SetActive(false); // UI는 regardless
+        UIManager.Instance.HideBuildUI();
     }
 }

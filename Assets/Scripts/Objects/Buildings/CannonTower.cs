@@ -53,6 +53,7 @@ public class CannonTower : MonoBehaviour
         float projectileSpeed = cannonBallSpeed;
 
         // ✅ 1. 미래 위치 예측
+        
         Vector3 predictedPosition = PredictFuturePosition(enemyPos, enemyVelocity, firePoint.position, projectileSpeed);
 
         // ✅ 2. 예측 시간 재계산 (더 정확하게)
@@ -63,15 +64,15 @@ public class CannonTower : MonoBehaviour
         GameObject ball = Instantiate(cannonBallPrefab, firePoint.position, Quaternion.identity);
         ball.GetComponent<CannonBall>().SetTarget(predictedPosition, timeToTarget);
     }
-
-
+    
     private Vector3 PredictFuturePosition(Vector3 enemyPos, Vector3 enemyVelocity, Vector3 shooterPos, float projectileSpeed)
     {
         Vector3 toEnemy = enemyPos - shooterPos;
         float distance = toEnemy.magnitude;
         float timeToTarget = distance / projectileSpeed;    // 타겟에 이동하는 시간
+        float overshootFactor = 0.85f; // 1보다 작게 하면 조준을 짧게 함
 
-        return enemyPos + enemyVelocity * timeToTarget;     // 적 위치 + 적 속도 * 타겟에 이동하는 시간
+        return enemyPos + enemyVelocity * (timeToTarget * overshootFactor);     // 적 위치 + 적 속도 * 타겟에 이동하는 시간
     }
 
     private void OnDrawGizmosSelected()
