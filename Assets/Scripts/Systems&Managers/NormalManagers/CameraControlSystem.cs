@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraControlSystem : MonoBehaviour
 {
     [Header("Cam MoveSettings")]
     public float moveSpeed = 50f;

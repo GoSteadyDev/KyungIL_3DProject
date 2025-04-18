@@ -69,9 +69,9 @@ public class CannonTower : MonoBehaviour
     {
         Vector3 toEnemy = enemyPos - shooterPos;
         float distance = toEnemy.magnitude;
-        float timeToTarget = distance / projectileSpeed;
+        float timeToTarget = distance / projectileSpeed;    // 타겟에 이동하는 시간
 
-        return enemyPos + enemyVelocity * timeToTarget;
+        return enemyPos + enemyVelocity * timeToTarget;     // 적 위치 + 적 속도 * 타겟에 이동하는 시간
     }
 
     private void OnDrawGizmosSelected()

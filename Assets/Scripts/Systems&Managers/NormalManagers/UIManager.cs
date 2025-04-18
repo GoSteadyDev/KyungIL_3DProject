@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 { 
@@ -14,6 +16,9 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private Canvas hpViewerCanvas;
     [SerializeField] private TextMeshProUGUI goldText;
+    
+    [SerializeField] private TextMeshProUGUI GameoverText;
+    [SerializeField] private Button GameoverCheckButton;
     
     private void Awake() 
     {
@@ -39,7 +44,7 @@ public class UIManager : MonoBehaviour
 
         warningCoroutine = StartCoroutine(ShowWarningRoutine(message));
     }
-
+    
     private IEnumerator ShowWarningRoutine(string message)
     {
         warningText.text = message;
@@ -48,5 +53,26 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(warningDuration);
 
         warningText.gameObject.SetActive(false);
+    }
+    
+    public void ShowGameOver(string message)
+    {
+        GameoverText.gameObject.SetActive(true);
+        GameoverText.text = message;
+
+        GameoverCheckButton.gameObject.SetActive(true);
+        GameoverCheckButton.interactable = true;
+    }
+    
+    public void OnGameOverButtonClick()
+    {
+        GameManager.Instance.OnExitClick();
+    }
+    
+    [SerializeField] private GameObject pausePanel;
+
+    public void ShowPauseUI(bool isShow)
+    {
+        pausePanel.SetActive(isShow);
     }
 }

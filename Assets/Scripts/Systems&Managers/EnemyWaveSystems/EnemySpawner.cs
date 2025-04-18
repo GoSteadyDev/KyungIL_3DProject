@@ -13,60 +13,34 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform castleTransform;
     [SerializeField] private EnemyData enemyData;
 
-    [Header("Spawn Settings")]
-    [SerializeField] private float spawnInterval = 2f;
-    [SerializeField] private int spawnCount = 5;
+    [Header("Visuals")]
     [SerializeField] private ParticleSystem spawnEffect;
     [SerializeField] private GameObject hpViewerPrefab;
     
     private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     
-    private float timer;
-    
-    private void Awake()
+    public void Spawn(EnemyData data)
     {
-        if (!enemyDic.ContainsKey(enemyData.EnemyName))
+        if (!enemyDic.ContainsKey(data.EnemyName))
         {
-            enemyDic.Add(enemyData.EnemyName, enemyData.EnemyPrefab);
-        }
-    }
-
-    private void Update()
-    {
-        if (spawnedEnemies.Count >= spawnCount) return;
-        
-        timer += Time.deltaTime;
-        
-        if (timer >= spawnInterval )
-        {
-            timer = 0f;
-            Spawn("Tree");
-        }
-    }
-    
-    public void Spawn(string enemyName)
-    {
-        spawnEffect.Play();
-        
-        if (!enemyDic.ContainsKey(enemyName))
-        {
-            Debug.Log("확인1");
-            return;
+            enemyDic.Add(data.EnemyName, data.EnemyPrefab);
         }
 
-        GameObject enemy = Instantiate(enemyDic[enemyName], spawnPoint.position, Quaternion.identity);
+        GameObject enemy = Instantiate(data.EnemyPrefab, spawnPoint.position, Quaternion.identity);
         spawnedEnemies.Add(enemy);
-        
-        EnemyController controller = enemy.GetComponent<EnemyController>();
+
+        var controller = enemy.GetComponent<EnemyController>();
         
         if (controller != null)
         {
             controller.SetWayPoints(wayPoints);
             controller.SetCastleTarget(castleTransform);
         }
-        
-        EnemyHP enemyHP = enemy.GetComponent<EnemyHP>();
+
+        var enemyHP = enemy.GetComponent<EnemyHP>();
         HPViewerSpawner.CreateHPViewer(enemyHP, enemy.transform, hpViewerPrefab);
+
+        spawnEffect.Play();
     }
 }

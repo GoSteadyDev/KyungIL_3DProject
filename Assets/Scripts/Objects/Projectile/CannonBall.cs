@@ -9,7 +9,7 @@ public class CannonBall : MonoBehaviour
     [SerializeField] private GameObject areaDamagePrefab;
     [SerializeField] private float rotateSpeed = 10f;     // 유도 강도 조절
     [SerializeField] private float arcHeight = 4f;       // 고정된 포물선 높이
-
+    
     public Rigidbody rb;
     private Transform target;
 
@@ -25,7 +25,12 @@ public class CannonBall : MonoBehaviour
         float gravity = Mathf.Abs(Physics.gravity.y);
 
         // 수직 속도 계산 (y 방향으로 위로 올라갔다가 떨어지도록)
-        float Vy = (dir.y + 0.5f * gravity * timeToTarget * timeToTarget) / timeToTarget;
+        // 등가속도 운동 공식 활용, 초기 수직 속도 계산
+        
+        float extraArcHeight = 6f;
+        float boostedY = dir.y + extraArcHeight;
+        
+        float Vy = (boostedY + 0.5f * gravity * timeToTarget * timeToTarget) / timeToTarget;
 
         // 수평 속도 계산
         Vector3 Vxz = dirXZ / timeToTarget;
@@ -42,7 +47,3 @@ public class CannonBall : MonoBehaviour
         Destroy(gameObject);
     }
 }
-
-
-
-

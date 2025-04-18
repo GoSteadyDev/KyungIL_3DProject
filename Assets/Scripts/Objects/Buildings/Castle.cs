@@ -7,6 +7,7 @@ public class Castle : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject hpViewerPrefab;
     [SerializeField] private Mesh[] meshes;
+    [SerializeField] private GameObject DestroyEffect;
     
     private float maxHP = 100f;
     public float MaxHP => maxHP;
@@ -46,6 +47,7 @@ public class Castle : MonoBehaviour, IDamageable
         }
         else
         {
+            GameManager.Instance.OnCastleDestroyed();
             Destroy(gameObject);
         }
     }
