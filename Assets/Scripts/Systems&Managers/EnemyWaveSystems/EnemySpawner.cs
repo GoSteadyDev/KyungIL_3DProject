@@ -43,4 +43,11 @@ public class EnemySpawner : MonoBehaviour
 
         spawnEffect.Play();
     }
+    
+    public bool HasAliveEnemies()
+    {
+        // 리스트에 살아있는 적이 하나라도 있으면 true
+        spawnedEnemies.RemoveAll(enemy => enemy == null); // null 정리
+        return spawnedEnemies.Count > 0;
+    }
 }

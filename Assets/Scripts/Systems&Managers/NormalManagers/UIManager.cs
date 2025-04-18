@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI GameoverText;
     [SerializeField] private Button GameoverCheckButton;
     
+    [SerializeField] private GameObject pausePanel;
     private void Awake() 
     {
         Instance = this;
@@ -68,11 +69,16 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Instance.OnExitClick();
     }
-    
-    [SerializeField] private GameObject pausePanel;
 
     public void ShowPauseUI(bool isShow)
     {
         pausePanel.SetActive(isShow);
+    }
+    
+    [SerializeField] private TextMeshProUGUI WaveNumberText;
+
+    public void ShowWaveNumber(int waveNumber)
+    {
+        WaveNumberText.text = "Wave : " + waveNumber.ToString();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Game/WaveData")]
 public class WaveData : ScriptableObject
@@ -9,7 +10,7 @@ public class WaveData : ScriptableObject
     public struct EnemySpawnInfo
     {
         public EnemyData enemyData;
-        public int count;
+        public int enemyCount;
     }
 
     public float spawnInterval = 1f;
