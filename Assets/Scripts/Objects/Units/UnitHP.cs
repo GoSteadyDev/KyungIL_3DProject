@@ -37,7 +37,6 @@ public class UnitHP : MonoBehaviour, IDamageable
         if (isDead) return;
 
         currentHP -= amount;
-        Debug.Log($"남은 HP: {currentHP}");
 
         if (currentHP <= 0f)
         {

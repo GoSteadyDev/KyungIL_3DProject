@@ -9,4 +9,5 @@ public class CombatEvent
     public Collider Collider;
     public Vector3 HitPosition;
     public float Damage;
+    // public int GoldOnKill; -> KillEvent 별도로 두기
 }

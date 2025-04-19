@@ -12,17 +12,28 @@ public class WaveManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private bool isWaveRunning = false;
 
-    private void Update()
+    private void OnEnable()
     {
-        UIManager.Instance.ShowWaveNumber(currentWaveIndex);
+        KillEventSystem.Instance.OnKill += HandleKillEvent;
     }
 
+    private void OnDisable()
+    {
+        KillEventSystem.Instance.OnKill -= HandleKillEvent;
+    }
+    
     public void StartNextWave()
     {
         // 웨이브가 이미 진행 중이거나 마지막 웨이브를 넘었거나 적이 남아있으면 리턴
         if (isWaveRunning || spawner.HasAliveEnemies() || currentWaveIndex >= waveDatas.Count)
             return;
 
+        UIManager.Instance.ShowWaveInfo(
+            currentWaveIndex + 1,
+            spawner.GetAliveEnemyCount(),
+            waveDatas[currentWaveIndex].GetTotalEnemyCount
+        );
+        
         StartCoroutine(RunWave(waveDatas[currentWaveIndex]));
         currentWaveIndex++;
     }
@@ -48,6 +59,25 @@ public class WaveManager : MonoBehaviour
         if (currentWaveIndex >= waveDatas.Count)
         {
             GameManager.Instance.OnGameWin();
+        }
+    }
+    
+    private void HandleKillEvent(KillEvent killEvent)
+    {
+        if (!isWaveRunning) return;
+
+        int alive = spawner.GetAliveEnemyCount(); // 아래에서 정의
+        int total = CurrentWaveEnemyCount;        // 기존 WaveData에서 계산
+
+        UIManager.Instance.ShowWaveInfo(currentWaveIndex + 1, alive, total);
+    }
+    
+    public int CurrentWaveEnemyCount
+    {
+        get
+        {
+            if (currentWaveIndex >= waveDatas.Count) return 0;
+            return waveDatas[currentWaveIndex].GetTotalEnemyCount;
         }
     }
 }

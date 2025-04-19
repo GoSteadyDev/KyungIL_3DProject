@@ -15,4 +15,17 @@ public class WaveData : ScriptableObject
 
     public float spawnInterval = 1f;
     public List<EnemySpawnInfo> enemyList;
+    
+    public int GetTotalEnemyCount
+    {
+        get
+        {
+            int total = 0;
+            foreach (var info in enemyList)
+            {
+                total += info.enemyCount;
+            }
+            return total;
+        }
+    }
 }

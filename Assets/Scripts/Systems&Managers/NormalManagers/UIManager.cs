@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     
     [Header("WaveUI Settings")]
-    [SerializeField] private TextMeshProUGUI WaveNumberText;
+    [SerializeField] private TextMeshProUGUI WaveDescriptionText;
 
     [Header("BuildingUI Settings")]
     [SerializeField] private GameObject towerBuildUI;             // World Space UI Panel
@@ -87,9 +87,9 @@ public class UIManager : MonoBehaviour
     }
     
     
-    public void ShowWaveNumber(int waveNumber)
+    public void ShowWaveInfo(int waveNumber, int aliveEnemies, int totalEnemies)
     {
-        WaveNumberText.text = "Wave : " + waveNumber.ToString();
+        WaveDescriptionText.text = $"Wave {waveNumber}\n Enemies {aliveEnemies} / {totalEnemies}";
     }
 
     public void ShowBuildUI(Vector3 worldPos)

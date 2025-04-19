@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
-
 public class BuildingPoint : MonoBehaviour
 {    
     private BuildingPointTile originTile;  // 자신이 생성된 타일

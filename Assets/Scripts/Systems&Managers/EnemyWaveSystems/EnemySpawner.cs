@@ -20,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     
+    
     public void Spawn(EnemyData data)
     {
         if (!enemyDic.ContainsKey(data.EnemyName))
@@ -50,4 +51,11 @@ public class EnemySpawner : MonoBehaviour
         spawnedEnemies.RemoveAll(enemy => enemy == null); // null 정리
         return spawnedEnemies.Count > 0;
     }
+    
+    public int GetAliveEnemyCount()
+    {
+        spawnedEnemies.RemoveAll(enemy => enemy == null);
+        return spawnedEnemies.Count;
+    }
+
 }

@@ -34,7 +34,6 @@ public class EnemyHP : MonoBehaviour, IDamageable
         if (isDead) return;
 
         currentHP -= amount;
-        Debug.Log($"남은 HP: {currentHP}");
 
         if (currentHP <= 0f)
         {
@@ -44,15 +43,26 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        enemyController.PlayDeathAnimation();
+        isDead = true;
+        // 골드 지급 등 내부 처리
+        ResourceManager.Instance.AddGold(enemyGold);
+
+        // 💥 KillEvent 발생
+        KillEventSystem.Instance.Broadcast(new KillEvent
+        {
+            Victim = gameObject,
+            Position = transform.position,
+            GoldReward = enemyGold
+        });
+
         StartCoroutine(DeathTerm());
     }
+
 
     private IEnumerator DeathTerm()
     {
         yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);
-        ResourceManager.Instance.AddGold(enemyGold);
     }
 }
 
