@@ -43,8 +43,6 @@ public class FollowUIController : MonoBehaviour
             0.75f,
             Color.red
         );
-        
-        
     }
     
     // public void ShowGoldText(Vector3 worldPosition, int amount)

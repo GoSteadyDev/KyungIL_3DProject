@@ -11,31 +11,40 @@ public class WaveManager : MonoBehaviour
 
     private int currentWaveIndex = 0;
     private bool isWaveRunning = false;
+    private int killedEnemyCount = 0;
 
-    private void OnEnable()
+
+    private void Start()
     {
-        KillEventSystem.Instance.OnKill += HandleKillEvent;
+        if (KillEventSystem.Instance != null)
+        {
+            KillEventSystem.Instance.OnKill += HandleKillEvent;
+        }
     }
 
     private void OnDisable()
     {
-        KillEventSystem.Instance.OnKill -= HandleKillEvent;
+        if (KillEventSystem.Instance != null)
+        {
+            KillEventSystem.Instance.OnKill -= HandleKillEvent;
+        }
     }
     
     public void StartNextWave()
     {
+        killedEnemyCount = 0;
+        
         // 웨이브가 이미 진행 중이거나 마지막 웨이브를 넘었거나 적이 남아있으면 리턴
         if (isWaveRunning || spawner.HasAliveEnemies() || currentWaveIndex >= waveDatas.Count)
             return;
 
         UIManager.Instance.ShowWaveInfo(
             currentWaveIndex + 1,
-            spawner.GetAliveEnemyCount(),
-            waveDatas[currentWaveIndex].GetTotalEnemyCount
+            killedEnemyCount,
+            CurrentWaveEnemyCount
         );
         
         StartCoroutine(RunWave(waveDatas[currentWaveIndex]));
-        currentWaveIndex++;
     }
 
     private IEnumerator RunWave(WaveData waveData)
@@ -55,6 +64,9 @@ public class WaveManager : MonoBehaviour
 
         isWaveRunning = false;
 
+        // ✅ 웨이브 종료 후에 증가
+        currentWaveIndex++;
+        
         // 모든 웨이브를 끝냈다면 바로 승리 처리
         if (currentWaveIndex >= waveDatas.Count)
         {
@@ -65,11 +77,13 @@ public class WaveManager : MonoBehaviour
     private void HandleKillEvent(KillEvent killEvent)
     {
         if (!isWaveRunning) return;
-
-        int alive = spawner.GetAliveEnemyCount(); // 아래에서 정의
-        int total = CurrentWaveEnemyCount;        // 기존 WaveData에서 계산
-
-        UIManager.Instance.ShowWaveInfo(currentWaveIndex + 1, alive, total);
+        
+        killedEnemyCount++;
+        
+        UIManager.Instance.ShowWaveInfo(
+            currentWaveIndex + 1,killedEnemyCount,
+            CurrentWaveEnemyCount
+        );
     }
     
     public int CurrentWaveEnemyCount

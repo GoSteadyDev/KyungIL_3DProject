@@ -57,5 +57,4 @@ public class EnemySpawner : MonoBehaviour
         spawnedEnemies.RemoveAll(enemy => enemy == null);
         return spawnedEnemies.Count;
     }
-
 }

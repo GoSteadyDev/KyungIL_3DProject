@@ -87,9 +87,9 @@ public class UIManager : MonoBehaviour
     }
     
     
-    public void ShowWaveInfo(int waveNumber, int aliveEnemies, int totalEnemies)
+    public void ShowWaveInfo(int waveNumber, int killedEnemies, int totalEnemies)
     {
-        WaveDescriptionText.text = $"Wave {waveNumber}\n Enemies {aliveEnemies} / {totalEnemies}";
+        WaveDescriptionText.text = $"Wave {waveNumber}\n Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
     }
 
     public void ShowBuildUI(Vector3 worldPos)
