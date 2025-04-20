@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonTower : MonoBehaviour
+public class CannonTower : MonoBehaviour, ISelectable
 {
     [Header("Attack Settings")] 
     [SerializeField] private float attackSpeed = 2f;
@@ -12,6 +12,9 @@ public class CannonTower : MonoBehaviour
     [SerializeField] private float cannonBallSpeed = 30f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private ParticleSystem fireEffect;
+    
+    public float GetAttackRange() => attackRange;
+    public Transform GetTransform() => transform;
     
     private Transform targetTransform;
     private float currentCooldown;

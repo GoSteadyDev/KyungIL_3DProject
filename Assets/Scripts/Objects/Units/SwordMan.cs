@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-public class SwordMan : MonoBehaviour
+public class SwordMan : MonoBehaviour, ISelectable
 {
     [Header("Move Settings")]
     [SerializeField] private float moveSpeed = 3f;
@@ -16,6 +16,9 @@ public class SwordMan : MonoBehaviour
     [Header("Attack Settings")]
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackRange = 3.5f;
+    
+    public float GetAttackRange() => attackRange;
+    public Transform GetTransform() => transform;
     
     private Collider damgeCollider;
     private Animator animator;
@@ -107,5 +110,6 @@ public class SwordMan : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRange);
     }
+
 }
 

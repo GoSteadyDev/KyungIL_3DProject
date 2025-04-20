@@ -32,6 +32,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject towerBuildUI;             // World Space UI Panel
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
     
+    [Header("InfoPanel Settings")]
+    [SerializeField] private GameObject infoPanelRoot;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI descText;
+    [SerializeField] private Image iconImage;
+    
     private void Awake() 
     {
         Instance = this;
@@ -86,7 +92,6 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(isShow);
     }
     
-    
     public void ShowWaveInfo(int waveNumber, int killedEnemies, int totalEnemies)
     {
         WaveDescriptionText.text = $"Wave {waveNumber}\n Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
@@ -116,4 +121,24 @@ public class UIManager : MonoBehaviour
     {
         towerBuildUI.SetActive(false);
     }
+    
+    public void ShowInfoPanel(IHasInfoPanel target)
+    {
+        if (target == null)
+        {
+            infoPanelRoot.SetActive(false);
+            return;
+        }
+
+        infoPanelRoot.SetActive(true);
+        nameText.text = target.GetDisplayName();
+        descText.text = target.GetDescription();
+        iconImage.sprite = target.GetIcon();
+    }
+
+    public void HideInfoPanel()
+    {
+        infoPanelRoot.SetActive(false);
+    }
+
 }

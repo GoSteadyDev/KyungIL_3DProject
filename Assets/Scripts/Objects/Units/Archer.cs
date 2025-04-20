@@ -3,13 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : MonoBehaviour
+public class Archer : MonoBehaviour, ISelectable, IHasInfoPanel
 {
     [Header("Attack Settings")] 
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Sprite icon;
+    
+    public string GetDisplayName() => "Archer"; 
+    public Sprite GetIcon() => icon; 
+    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
+    
+    public float GetAttackRange() => attackRange;
+    public Transform GetTransform() => transform;
 
     private Animator animator;
     private float nextAttackTime;
@@ -53,7 +61,8 @@ public class Archer : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
         targetTransform = hits.Length > 0 ? hits[0].transform : null;
     }
-
+    
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -76,5 +85,6 @@ public class Archer : MonoBehaviour
         
         StartAttackAnim();
     }
+    
 }
 

@@ -5079,6 +5079,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8801377149829466415}
   - component: {fileID: 8497148663179974470}
+  - component: {fileID: 8988356991071709041}
   m_Layer: 0
   m_Name: CannonTower_Lv1
   m_TagString: Untagged
@@ -5122,6 +5123,29 @@ MonoBehaviour:
   cannonBallSpeed: 20
   firePoint: {fileID: 8799969745142157544}
   fireEffect: {fileID: 6958107657466473123}
+--- !u!136 &8988356991071709041
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007066557237126988}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6107218685109577920
 GameObject:
   m_ObjectHideFlags: 0

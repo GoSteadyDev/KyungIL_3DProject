@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Castle : MonoBehaviour, IDamageable
+public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
 {
     [SerializeField] private GameObject hpViewerPrefab;
     [SerializeField] private Mesh[] meshes;
     [SerializeField] private GameObject DestroyEffect;
+    [SerializeField] private Sprite icon;
+    
+    public string GetDisplayName() => "Castle"; 
+    public Sprite GetIcon() => icon; 
+    public string GetDescription() => $"HP : {currentHP}/{maxHP}";
     
     private float maxHP = 100f;
     public float MaxHP => maxHP;
