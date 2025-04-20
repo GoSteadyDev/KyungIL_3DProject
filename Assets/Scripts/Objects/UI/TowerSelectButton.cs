@@ -13,6 +13,7 @@ public class TowerSelectButton : MonoBehaviour
 
     public void OnCloseButtonClicked()
     {
-        UIManager.Instance.HideBuildUI();
+        BuildingSystem.Instance.CancelBuild(); // 💥 빌딩 포인트까지 제거
     }
+
 }

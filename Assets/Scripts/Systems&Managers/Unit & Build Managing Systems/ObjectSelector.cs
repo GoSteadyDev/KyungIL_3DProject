@@ -51,10 +51,23 @@ public class ObjectSelector : MonoBehaviour
                 if (infoTarget != null)
                 {
                     UIManager.Instance.ShowInfoPanel(infoTarget);
+
+                    // ✅ 추가: 타워일 경우에만 World UI 호출
+                    if (infoTarget is ITower tower)
+                    {
+                        Vector3 pos = tower.GetTransform().position;
+                        UIManager.Instance.ShowTowerActionUI(pos);
+                    }
+                    else
+                    {
+                        UIManager.Instance.HideTowerActionUI();
+                    }
                 }
                 else
                 {
                     UIManager.Instance.HideInfoPanel();
+                    UIManager.Instance.HideTowerActionUI();
+                    
                 }
             }
 

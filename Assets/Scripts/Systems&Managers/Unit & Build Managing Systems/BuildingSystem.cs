@@ -34,4 +34,15 @@ public class BuildingSystem : MonoBehaviour
 
         UIManager.Instance.HideBuildUI();
     }
+    
+    public void CancelBuild()
+    {
+        if (currentBuildPoint != null)
+        {
+            Destroy(currentBuildPoint.gameObject); // 💥 BuildPoint 제거
+            currentBuildPoint = null;
+            UIManager.Instance.HideBuildUI();
+            // 타일 복구 ❌ X → 다시 생성 방지
+        }
+    }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.EventSystems;
-
 public class TileDetector : MonoBehaviour
 {
     private Ray ray;
@@ -61,4 +60,14 @@ public class TileDetector : MonoBehaviour
         }
         return null;
     }
+    
+    public void ClearTileHighlight()
+    {
+        if (previousTile != null)
+        {
+            previousTile.TurnOffRenderer();
+            previousTile = null;
+        }
+    }
+
 }

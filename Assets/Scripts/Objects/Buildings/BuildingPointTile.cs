@@ -8,6 +8,14 @@ public class BuildingPointTile : MonoBehaviour
     private MeshRenderer Renderer;
     private Collider collider;
     
+    private bool isUsed = false;
+
+    public bool IsUsed => isUsed;
+    
+    public void SetUsed()
+    {
+        isUsed = true;
+    }
     private void Awake()
     {
         Renderer = GetComponent<MeshRenderer>();

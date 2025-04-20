@@ -28,9 +28,10 @@ public class UIManager : MonoBehaviour
     [Header("WaveUI Settings")]
     [SerializeField] private TextMeshProUGUI WaveDescriptionText;
 
-    [Header("BuildingUI Settings")]
-    [SerializeField] private GameObject towerBuildUI;             // World Space UI Panel
+    [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
+    [SerializeField] private GameObject towerBuildUI;             // World Space UI Panel
+    [SerializeField] private GameObject towerActionUI;
     
     [Header("InfoPanel Settings")]
     [SerializeField] private GameObject infoPanelRoot;
@@ -120,6 +121,27 @@ public class UIManager : MonoBehaviour
     public void HideBuildUI()
     {
         towerBuildUI.SetActive(false);
+    }
+    
+    public void ShowTowerActionUI(Vector3 worldPos)
+    {
+        StartCoroutine(ShowTowerActionWithDelay(worldPos));
+    }
+
+    private IEnumerator ShowTowerActionWithDelay(Vector3 worldPos)
+    {
+        yield return new WaitForEndOfFrame();
+
+        towerActionUI.transform.position = worldPos + new Vector3(0f, 15f, 0f);
+        towerActionUI.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        towerActionUI.transform.SetParent(towerBuildCanvas.transform);
+
+        towerActionUI.SetActive(true);
+    }
+
+    public void HideTowerActionUI()
+    {
+        towerActionUI.SetActive(false);
     }
     
     public void ShowInfoPanel(IHasInfoPanel target)

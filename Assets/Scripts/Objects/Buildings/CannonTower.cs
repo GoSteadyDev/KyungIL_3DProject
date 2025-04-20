@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonTower : MonoBehaviour, ISelectable
+public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
     [Header("Attack Settings")] 
     [SerializeField] private float attackSpeed = 2f;
@@ -12,7 +12,11 @@ public class CannonTower : MonoBehaviour, ISelectable
     [SerializeField] private float cannonBallSpeed = 30f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private ParticleSystem fireEffect;
+    [SerializeField] private Sprite icon;
     
+    public string GetDisplayName() => "CannonTower"; 
+    public Sprite GetIcon() => icon;
+    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     
@@ -83,5 +87,6 @@ public class CannonTower : MonoBehaviour, ISelectable
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
 }
 
