@@ -26,6 +26,12 @@ public class PreviewController : MonoBehaviour
         isActive = true;
 
         tileDetector.enabled = true; // ✅ TileDetector 켜기
+        
+        foreach (var tile in tileDetector.Tiles)
+        {
+            if (!tile.IsUsed)
+                tile.ResetTile(); // collider.enabled = true
+        }
     }
 
     public void DeactivatePreview()

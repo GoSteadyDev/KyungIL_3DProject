@@ -31,7 +31,7 @@ public class BuildingSystem : MonoBehaviour
                 currentBuildPoint = null;
             }
         }
-
+        
         UIManager.Instance.HideBuildUI();
     }
     

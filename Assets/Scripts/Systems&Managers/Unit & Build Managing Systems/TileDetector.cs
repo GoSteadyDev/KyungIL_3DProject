@@ -13,11 +13,23 @@ public class TileDetector : MonoBehaviour
     private BuildingPointTile currentTile = null;
     private BuildingPointTile previousTile = null;
 
+    [SerializeField] private List<BuildingPointTile> allTiles = new List<BuildingPointTile>();
+    public List<BuildingPointTile> Tiles => allTiles;
+    
     private void Awake()
     {
         mainCamera = Camera.main;
     }
-
+    
+    // Inspector에서 수동 연결하거나 Start에서 자동 할당
+    private void Start()
+    {
+        if (allTiles.Count == 0)
+        {
+            allTiles.AddRange(FindObjectsOfType<BuildingPointTile>());
+        }
+    }
+    
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())

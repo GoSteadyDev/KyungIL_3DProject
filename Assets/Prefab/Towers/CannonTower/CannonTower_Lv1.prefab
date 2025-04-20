@@ -5123,6 +5123,7 @@ MonoBehaviour:
   cannonBallSpeed: 20
   firePoint: {fileID: 8799969745142157544}
   fireEffect: {fileID: 6958107657466473123}
+  icon: {fileID: 0}
 --- !u!136 &8988356991071709041
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5138,7 +5139,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
