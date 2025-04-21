@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [Header("Settings")] 
-    [SerializeField] private float damage;
+    [Header("Settings")]
     [SerializeField] private float speed;
-
+    private float damage;
     private Transform target;
 
-    public void SetTarget(Transform newTarget)
+    public void SetTargetAndDamage(Transform newTarget, float newDamage)
     {
         target = newTarget;
+        damage = newDamage;
     }
-
     private void Update()
     {
         if (target == null)

@@ -9,7 +9,7 @@ public class FollowUI : MonoBehaviour
     private Vector3 endPos;
 
     private float duration = -1f;
-    private float elapsedTime = 0f;
+    private float tempTime = 0f;
     private bool isFloating = false;
 
     private TextMeshProUGUI text;
@@ -35,7 +35,7 @@ public class FollowUI : MonoBehaviour
     public void SetFloating(Vector3 worldPos, string content, float duration, Color color)
     {
         this.duration = duration;
-        this.elapsedTime = 0f;
+        this.tempTime = 0f;
         this.target = null;
         this.isFloating = true;
 
@@ -61,8 +61,8 @@ public class FollowUI : MonoBehaviour
 
         if (isFloating)
         {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / Mathf.Max(duration, 0.01f); // 방어
+            tempTime += Time.deltaTime;
+            float t = tempTime / Mathf.Max(duration, 0.01f); // 방어
             rectTransform.position = Vector3.Lerp(startPos, endPos, t);
         }
         else if (target != null)

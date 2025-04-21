@@ -16,10 +16,10 @@ public class EnemyHP : MonoBehaviour, IDamageable
     private float currentHP;
     public float CurrentHP => currentHP;
 
+    private EnemyController enemyController;
+
     [SerializeField] private float deathTime = 1f;
     private bool isDead = false;
-
-    private EnemyController enemyController;
     
     private void Awake()
     {

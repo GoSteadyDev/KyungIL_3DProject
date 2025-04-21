@@ -65,4 +65,18 @@ public class TowerBuilder : MonoBehaviour
               return false;
        }
 
+       public bool UpgradeTower(ITower oldTower, GameObject newTowerPrefab, Vector3 position, Quaternion rotation)
+       {
+              GameObject newTower = Instantiate(newTowerPrefab, position, rotation);
+
+              // 기존 타워 제거
+              if (oldTower is MonoBehaviour mb)
+              {
+                     Destroy(mb.gameObject);
+              }
+
+              // 타일 상태는 그대로 유지되도록 처리 필요 시 여기에 추가
+              return true;
+       }
+
 }

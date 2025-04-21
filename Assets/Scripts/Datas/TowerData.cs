@@ -5,20 +5,20 @@ using UnityEngine;
 public interface ITower
 {
     Transform GetTransform(); // 또는 property Transform Transform { get; }
+    TowerTemplate GetTowerTemplate();
+    int GetCurrentLevel();
 }
 
-
-public class TowerData : MonoBehaviour
+[CreateAssetMenu(menuName = "Template/TowerTemplate")]
+public class TowerTemplate : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<UpgradeData> upgrades;
+    
+    [System.Serializable]
+    public class UpgradeData
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public string levelName;
+        public GameObject towerPrefab;
+        public int cost;
     }
 }

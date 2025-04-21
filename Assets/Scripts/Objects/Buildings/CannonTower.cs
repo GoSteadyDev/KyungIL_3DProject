@@ -19,7 +19,16 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
     public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
-    
+    public TowerTemplate GetTowerTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public int GetCurrentLevel()
+    {
+        throw new NotImplementedException();
+    }
+
     private Transform targetTransform;
     private float currentCooldown;
 

@@ -6,14 +6,17 @@ using UnityEngine;
 public class Archer : MonoBehaviour, ISelectable, IHasInfoPanel
 {
     [Header("Attack Settings")] 
+    [SerializeField] private float damage = 2f;
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform firePoint;
+    
+    [Header("Info Settings")]
     [SerializeField] private Sprite icon;
     
     public string GetDisplayName() => "Archer"; 
-    public Sprite GetIcon() => icon; 
+    public Sprite GetIcon() => icon;
     public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     
     public float GetAttackRange() => attackRange;
@@ -61,18 +64,6 @@ public class Archer : MonoBehaviour, ISelectable, IHasInfoPanel
         Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
         targetTransform = hits.Length > 0 ? hits[0].transform : null;
     }
-    
-    
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-    
-    public void StartAttackAnim()
-    {
-        animator.SetTrigger("IsAttack");
-    }
 
     // 애니메이션 이벤트에서 호출
     public void FireArrow()
@@ -81,10 +72,20 @@ public class Archer : MonoBehaviour, ISelectable, IHasInfoPanel
 
         GameObject arrowObj = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
         Arrow arrow = arrowObj.GetComponent<Arrow>();
-        arrow.SetTarget(targetTransform);
+        arrow.SetTargetAndDamage(targetTransform, damage);
         
         StartAttackAnim();
     }
+        
+    public void StartAttackAnim()
+    {
+        animator.SetTrigger("IsAttack");
+    }
     
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
 }
 

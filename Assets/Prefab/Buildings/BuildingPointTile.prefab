@@ -151,7 +151,7 @@ MonoBehaviour:
   renderStyle: 1
   outlineParameters:
     enabled: 1
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    color: {r: 0.1495194, g: 1.509434, b: 0.3182786, a: 1}
     dilateShift: 1
     blurShift: 1
     fillPass:

@@ -31,8 +31,10 @@ public class UIManager : MonoBehaviour
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
     [SerializeField] private GameObject towerBuildUI;             // World Space UI Panel
-    [SerializeField] private GameObject towerActionUI;
-    
+    [SerializeField] private GameObject towerLv1Panel;
+    [SerializeField] private GameObject towerLv2Panel;
+    [SerializeField] private GameObject towerLv3Panel;
+
     [Header("InfoPanel Settings")]
     [SerializeField] private GameObject infoPanelRoot;
     [SerializeField] private TextMeshProUGUI nameText;
@@ -123,25 +125,67 @@ public class UIManager : MonoBehaviour
         towerBuildUI.SetActive(false);
     }
     
-    public void ShowTowerActionUI(Vector3 worldPos)
+    public void ShowTowerLv1Panel(Vector3 worldPos)
     {
-        StartCoroutine(ShowTowerActionWithDelay(worldPos));
+        StartCoroutine(ShowTowerLv1PanelWithDelay(worldPos));
     }
 
-    private IEnumerator ShowTowerActionWithDelay(Vector3 worldPos)
+    private IEnumerator ShowTowerLv1PanelWithDelay(Vector3 worldPos)
     {
         yield return new WaitForEndOfFrame();
 
-        towerActionUI.transform.position = worldPos + new Vector3(0f, 15f, 0f);
-        towerActionUI.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        towerActionUI.transform.SetParent(towerBuildCanvas.transform);
+        towerLv1Panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
+        towerLv1Panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        towerLv1Panel.transform.SetParent(towerBuildCanvas.transform);
 
-        towerActionUI.SetActive(true);
+        towerLv1Panel.SetActive(true);
     }
 
-    public void HideTowerActionUI()
+    public void HideTowerLv1Panel()
     {
-        towerActionUI.SetActive(false);
+        towerLv1Panel.SetActive(false);
+    }
+    
+    public void ShowTowerLv2Panel(Vector3 worldPos)
+    {
+        StartCoroutine(ShowTowerLv2PanelWithDelay(worldPos));
+    }
+
+    private IEnumerator ShowTowerLv2PanelWithDelay(Vector3 worldPos)
+    {
+        yield return new WaitForEndOfFrame();
+
+        towerLv2Panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
+        towerLv2Panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        towerLv2Panel.transform.SetParent(towerBuildCanvas.transform);
+
+        towerLv2Panel.SetActive(true);
+    }
+
+    public void HideTowerLv2Panel()
+    {
+        towerLv2Panel.SetActive(false);
+    }
+    
+    public void ShowTowerLv3Panel(Vector3 worldPos)
+    {
+        StartCoroutine(ShowTowerLv3PanelWithDelay(worldPos));
+    }
+
+    private IEnumerator ShowTowerLv3PanelWithDelay(Vector3 worldPos)
+    {
+        yield return new WaitForEndOfFrame();
+
+        towerLv3Panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
+        towerLv3Panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        towerLv3Panel.transform.SetParent(towerBuildCanvas.transform);
+
+        towerLv3Panel.SetActive(true);
+    }
+
+    public void HideTowerLv3Panel()
+    {
+        towerLv3Panel.SetActive(false);
     }
     
     public void ShowInfoPanel(IHasInfoPanel target)
