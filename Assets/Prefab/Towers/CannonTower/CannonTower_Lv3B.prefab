@@ -176,8 +176,8 @@ MonoBehaviour:
   - {fileID: 4769288133755714218}
   fireEffect: {fileID: 6553082300615395604}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 0}
-  currentLevel: 4
+  towerTemplate: {fileID: 11400000, guid: 92acb9da7d5cd1e4f928525bb05738ef, type: 2}
+  currentLevel: 3
 --- !u!136 &3379194014926662398
 CapsuleCollider:
   m_ObjectHideFlags: 0

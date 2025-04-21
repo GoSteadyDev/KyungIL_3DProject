@@ -21,6 +21,7 @@ public class CombatSystem : MonoBehaviour
         
         if (damageable != null)
         {
+            Debug.Log("Adding combat");
             damageable.TakeDamage(combatEvent.Damage);
         }
 

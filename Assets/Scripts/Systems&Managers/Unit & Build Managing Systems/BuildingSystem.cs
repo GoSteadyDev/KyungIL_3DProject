@@ -41,7 +41,6 @@ public class BuildingSystem : MonoBehaviour
 
         if (template == null || template.upgrades.Count <= index)
         {
-            Debug.LogWarning("Upgrade info not found!");
             return;
         }
 
@@ -50,7 +49,6 @@ public class BuildingSystem : MonoBehaviour
         // 골드 체크는 TowerBuilder에서 할 수도 있고 여기서 해도 OK
         if (!ResourceManager.Instance.TrySpendGold(data.cost))
         {
-            UIManager.Instance.ShowWarning("Not enough gold!");
             return;
         }
 

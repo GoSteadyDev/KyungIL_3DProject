@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class EnemyHP : MonoBehaviour, IDamageable
 {
-    [SerializeField] private Slider hpViewerPrefab;
     [SerializeField] private float maxHP = 10f;
     [SerializeField] private int enemyGold;
     

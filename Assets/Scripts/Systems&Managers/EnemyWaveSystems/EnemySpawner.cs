@@ -51,10 +51,4 @@ public class EnemySpawner : MonoBehaviour
         spawnedEnemies.RemoveAll(enemy => enemy == null); // null 정리
         return spawnedEnemies.Count > 0;
     }
-    
-    public int GetAliveEnemyCount()
-    {
-        spawnedEnemies.RemoveAll(enemy => enemy == null);
-        return spawnedEnemies.Count;
-    }
 }

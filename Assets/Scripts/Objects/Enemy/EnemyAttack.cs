@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    
     [SerializeField] private float damage;
     [SerializeField] private float searchRange = 5f;
     [SerializeField] private float attackInterval = 2.5f;
-    [SerializeField]private float attackSpeed;
     
     private EnemyController enemyController;
     private Transform attackTarget;

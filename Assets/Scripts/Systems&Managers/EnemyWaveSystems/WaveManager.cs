@@ -12,8 +12,7 @@ public class WaveManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private bool isWaveRunning = false;
     private int killedEnemyCount = 0;
-
-
+    
     private void Start()
     {
         if (KillEventSystem.Instance != null)
