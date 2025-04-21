@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonBall : MonoBehaviour
+public class Cannon : MonoBehaviour
 {
-    [SerializeField] private float areaRange = 3f;
     [SerializeField] private GameObject areaDamagePrefab;
-    [SerializeField] private float rotateSpeed = 10f;     // 유도 강도 조절
     [SerializeField] private float arcHeight = 4f;       // 고정된 포물선 높이
     
     public Rigidbody rb;

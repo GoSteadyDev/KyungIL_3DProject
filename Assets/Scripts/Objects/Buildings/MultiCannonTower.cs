@@ -3,20 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
+public class MultiCannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Attack Settings")] 
+    [Header("Settings")]
     [SerializeField] private float attackSpeed = 2f;
     [SerializeField] private float attackRange = 10f;
     [SerializeField] private GameObject cannonBallPrefab;
     [SerializeField] private float cannonBallSpeed = 30f;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform[] firePoints;
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private Sprite icon;
     [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private int currentLevel = 0;
-    
-    public string GetDisplayName() => "CannonTower"; 
+
+    public string GetDisplayName() => "CannonTower Lv3B";
     public Sprite GetIcon() => icon;
     public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     public float GetAttackRange() => attackRange;
@@ -26,7 +26,12 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 
     private Transform targetTransform;
     private float currentCooldown;
+    private Animator animator;
 
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -38,7 +43,7 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 
             if (currentCooldown <= 0f)
             {
-                Fire();
+                StartCoroutine(FireBurst()); // 3연속 발사
                 currentCooldown = attackSpeed;
             }
         }
@@ -50,40 +55,43 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         targetTransform = hits.Length > 0 ? hits[0].transform : null;
     }
 
-    private void Fire()
+    private IEnumerator FireBurst()
     {
         fireEffect.Play();
-        if (targetTransform == null) return;
+        animator.SetTrigger("IsAttack");
 
-        EnemyController enemy = targetTransform.GetComponent<EnemyController>();
-        if (enemy == null) return;
+        if (targetTransform == null) yield break;
 
-        Vector3 enemyPos = enemy.GetCurrentPosition();
-        Vector3 enemyVelocity = enemy.GetVelocity();
+        Vector3 enemyPos = targetTransform.position;
+        Vector3 enemyVelocity = Vector3.zero;
+
+        if (targetTransform.TryGetComponent(out EnemyController enemy))
+        {
+            enemyPos = enemy.GetCurrentPosition();
+            enemyVelocity = enemy.GetVelocity();
+        }
 
         float projectileSpeed = cannonBallSpeed;
+        Vector3 predictedPosition = PredictFuturePosition(enemyPos, enemyVelocity, transform.position, projectileSpeed);
+        float timeToTarget = Vector3.Distance(transform.position, predictedPosition) / projectileSpeed;
 
-        // ✅ 1. 미래 위치 예측
-        
-        Vector3 predictedPosition = PredictFuturePosition(enemyPos, enemyVelocity, firePoint.position, projectileSpeed);
+        for (int i = 0; i < firePoints.Length; i++)
+        {
+            GameObject ball = Instantiate(cannonBallPrefab, firePoints[i].position, Quaternion.identity);
+            ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
 
-        // ✅ 2. 예측 시간 재계산 (더 정확하게)
-        float distance = Vector3.Distance(firePoint.position, predictedPosition);
-        float timeToTarget = distance / projectileSpeed;
-
-        // ✅ 3. 포탄 생성 및 목표 위치 전달
-        GameObject ball = Instantiate(cannonBallPrefab, firePoint.position, Quaternion.identity);
-        ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
+            yield return new WaitForSeconds(0.2f); // 연사 간격
+        }
     }
-    
+
     private Vector3 PredictFuturePosition(Vector3 enemyPos, Vector3 enemyVelocity, Vector3 shooterPos, float projectileSpeed)
     {
         Vector3 toEnemy = enemyPos - shooterPos;
         float distance = toEnemy.magnitude;
-        float timeToTarget = distance / projectileSpeed;    // 타겟에 이동하는 시간
-        float overshootFactor = 0.85f; // 1보다 작게 하면 조준을 짧게 함
+        float timeToTarget = distance / projectileSpeed;
+        float overshootFactor = 0.85f;
 
-        return enemyPos + enemyVelocity * (timeToTarget * overshootFactor);     // 적 위치 + 적 속도 * 타겟에 이동하는 시간
+        return enemyPos + enemyVelocity * (timeToTarget * overshootFactor);
     }
 
     private void OnDrawGizmosSelected()
@@ -91,6 +99,4 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
 }
-
