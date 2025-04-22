@@ -36,6 +36,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
         if (currentHP <= 0f)
         {
+            Debug.Log($"적 HP : {currentHP}");
             Die();
         }
     }

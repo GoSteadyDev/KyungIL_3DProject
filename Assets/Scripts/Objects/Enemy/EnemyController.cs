@@ -17,8 +17,9 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
     public NavMeshAgent navMeshAgent;
+    
     private bool isChasingCastle = false;
-
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -110,4 +111,38 @@ public class EnemyController : MonoBehaviour
     {
         return transform.position;
     }
+    
+   private bool isSlowed = false;
+   private Coroutine slowCoroutine;
+   private GameObject activeSlowEffect;
+
+   public void ApplySlow(float slowRate, float duration, GameObject effectPrefab)
+   {
+       if (isSlowed) return;
+
+       slowCoroutine = StartCoroutine(SlowRoutine(slowRate, duration, effectPrefab));
+   }
+
+   private IEnumerator SlowRoutine(float rate, float duration, GameObject effectPrefab)
+   {
+       isSlowed = true;
+       float originalSpeed = moveSpeed;
+
+       moveSpeed *= (1f - rate); // 슬로우 적용
+
+       // 이펙트 생성 후 적에게 붙이기
+       if (effectPrefab != null)
+       {
+           activeSlowEffect = Instantiate(effectPrefab, transform.position + Vector3.up * 7.5f, Quaternion.Euler(-90f, 0f, 0f));
+           activeSlowEffect.transform.SetParent(transform); // 따라다니게
+       }
+
+       yield return new WaitForSeconds(duration);
+
+       moveSpeed = originalSpeed; // 속도 복구
+       isSlowed = false;
+
+       if (activeSlowEffect != null)
+           Destroy(activeSlowEffect); // 이펙트 제거
+   }
 }

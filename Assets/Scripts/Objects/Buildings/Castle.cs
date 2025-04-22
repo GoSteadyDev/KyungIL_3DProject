@@ -57,4 +57,3 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
         }
     }
 }
-

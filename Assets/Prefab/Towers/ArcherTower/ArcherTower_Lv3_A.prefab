@@ -384,7 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 8
   attackSpeed: 0.5
-  attackRange: 27.5
+  attackRange: 30
   arrowPrefab: {fileID: 6144767720853113890, guid: e86e584b73c7cd54fbb2e465ff8e462f, type: 3}
   firePoint: {fileID: 3070892496572293104}
   icon: {fileID: 21300000, guid: f4ccc06afd03c814f8563e9e898a0c58, type: 3}
