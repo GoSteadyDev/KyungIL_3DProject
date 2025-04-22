@@ -17,22 +17,33 @@ public class EnemyAttack : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
     }
 
+    private float attackTimer;
+
     private void Update()
     {
+        attackTimer -= Time.deltaTime;
         FindTarget();
-        
+
         if (attackTarget != null)
         {
-            RotateTowardsTarget();           
-            enemyController.PlayAttackAnimation();
-            enemyController.navMeshAgent.enabled = false;
-            enemyController.enabled = false;
+            RotateTowardsTarget();
+
+            if (attackTimer <= 0f)
+            {
+                if (isRanged) FireProjectile(); // 원거리 공격
+
+                enemyController.PlayAttackAnimation(); // 근접 공격 애니메이션
+                enemyController.navMeshAgent.enabled = false;
+                enemyController.enabled = false;
+                attackTimer = attackInterval;
+            }
         }
         else
         {
             enemyController.enabled = true;
         }
     }
+
 
     public void OnHit(Collider other)
     {
@@ -65,11 +76,21 @@ public class EnemyAttack : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(dir);
         transform.rotation = targetRotation;
     }
-
     
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRange);
+    }
+    
+    [SerializeField] private bool isRanged = false;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firePoint;
+    
+    private void FireProjectile()
+    {
+        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        EnemyProjectile projectile = proj.GetComponent<EnemyProjectile>();
+        projectile.Initialize(attackTarget, damage);
     }
 }

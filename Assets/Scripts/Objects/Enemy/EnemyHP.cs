@@ -9,7 +9,6 @@ public class EnemyHP : MonoBehaviour, IDamageable
     [SerializeField] private float maxHP = 10f;
     [SerializeField] private int enemyGold;
     
-    
     public float MaxHP => maxHP;
     
     private float currentHP;
