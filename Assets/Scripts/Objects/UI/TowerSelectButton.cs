@@ -14,8 +14,29 @@ public class TowerSelectButton : MonoBehaviour
     {
         ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
         BuildingSystem.Instance.UpgradeTower(tower, 1); // Lv2
+        UpgradeTower(tower, 1);
     }
+    
+    public void UpgradeTower(ITower current, int nextIndex)
+    {
+        var template = current.GetTowerTemplate();
+        Debug.Log($"[업그레이드] Template: {template}");
 
+        if (template == null)
+        {
+            Debug.LogError("[업그레이드] template is NULL");
+            return;
+        }
+
+        Debug.Log($"[업그레이드] Upgrade Count: {template.upgrades?.Count}");
+
+        if (template.upgrades == null || template.upgrades.Count <= nextIndex)
+        {
+            Debug.LogError("[업그레이드] template.upgrades is NULL or too short");
+            return;
+        }
+    }
+    
     public void OnUpgradeAClicked()
     {
         var tower = ObjectSelector.Instance.CurrentSelectedTower;

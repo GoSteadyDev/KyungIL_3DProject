@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(menuName = "Game/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    public int Key;
     public string EnemyName;
     
     public GameObject EnemyPrefab;
