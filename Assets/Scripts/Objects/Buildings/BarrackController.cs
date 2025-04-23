@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class BarrackController : MonoBehaviour, IHasInfoPanel
 {
-    [Header("패널 표시 정보")]
+    [Header("Panel Info")]
     [SerializeField] private Sprite icon;
     [SerializeField] private string displayName = "Barracks";
     [TextArea]
     [SerializeField] private string description = "You can create Units";
 
-    [Header("유닛 생성 시스템")]
+    [Header("Unit SpawnSystem")]
     [SerializeField] private UnitSpawner unitSpawner;
 
     public string GetDisplayName() => displayName;

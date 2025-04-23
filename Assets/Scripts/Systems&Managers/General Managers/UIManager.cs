@@ -228,6 +228,11 @@ public class UIManager : MonoBehaviour
         HideAllBuildingPanels();
     }
 
+    public void ShowBarrackPanel()
+    {
+        barracksPanelRoot.SetActive(true);
+    }
+
     private void HideAllBuildingPanels()
     {
         infoPanelRoot.SetActive(false);
