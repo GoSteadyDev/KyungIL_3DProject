@@ -594,6 +594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   archerUnit: {fileID: 3326827513472359617}
-  towerTemplate: {fileID: 11400000, guid: a55756f3c37f7844eae3a8e06b5dbb92, type: 2}
+  towerTemplate: {fileID: 11400000, guid: 664e1fcb66b93624ca86ea7023efca50, type: 2}
   currentLevel: 1
   icon: {fileID: 0}

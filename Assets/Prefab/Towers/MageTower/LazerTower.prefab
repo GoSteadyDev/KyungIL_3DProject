@@ -180,7 +180,7 @@ MonoBehaviour:
   LazerEffect: {fileID: 4098928400075945897}
   firePoint: {fileID: 563568612348716948}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 92acb9da7d5cd1e4f928525bb05738ef, type: 2}
+  towerTemplate: {fileID: 11400000, guid: 07848c93d2544614cada5f3f6dbe6b07, type: 2}
   currentLevel: 3
 --- !u!1 &975819782028599945
 GameObject:

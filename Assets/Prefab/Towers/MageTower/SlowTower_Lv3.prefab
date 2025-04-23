@@ -5008,7 +5008,7 @@ MonoBehaviour:
   attackEffectPrefab: {fileID: 7099211349604058653}
   slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: ec97a5ed7eb51fe43872027b3dd69f3c, type: 2}
+  towerTemplate: {fileID: 11400000, guid: 07848c93d2544614cada5f3f6dbe6b07, type: 2}
   currentLevel: 2
 --- !u!1 &5728315911284393949
 GameObject:

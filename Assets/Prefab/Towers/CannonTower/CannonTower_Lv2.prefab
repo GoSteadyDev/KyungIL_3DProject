@@ -14903,7 +14903,7 @@ MonoBehaviour:
   firePoint: {fileID: 2829503470646709962}
   fireEffect: {fileID: 1848732814100434878}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 92acb9da7d5cd1e4f928525bb05738ef, type: 2}
+  towerTemplate: {fileID: 11400000, guid: 05c5f58687fb2644b916d328c7b62cb4, type: 2}
   currentLevel: 1
 --- !u!136 &3604110353358538646
 CapsuleCollider:
