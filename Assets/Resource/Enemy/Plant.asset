@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aad0c9ec1d35c418e62451926fe487, type: 3}
+  m_Name: Plant
+  m_EditorClassIdentifier: 
+  Key: 0
+  EnemyName: Plant
+  EnemyPrefab: {fileID: 9060024694017685613, guid: 96576c755c6bec14cba9884d45ccd3e5, type: 3}

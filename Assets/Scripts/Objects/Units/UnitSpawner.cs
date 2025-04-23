@@ -12,13 +12,34 @@ public class UnitSpawner : MonoBehaviour
 
     [Header("Visuals")] 
     [SerializeField] private GameObject SwordManPrefab;
+    [SerializeField] private GameObject SpearManPrefab;
     [SerializeField] private ParticleSystem spawnEffect;
     [SerializeField] private GameObject hpViewerPrefab;
     
-    public void Spawn()
+    public void SpawnSwordMan()
     {
+        ResourceManager.Instance.TrySpendGold(10);
+        
         spawnEffect.Play();
         GameObject unit = Instantiate(SwordManPrefab, spawnPoint.position, Quaternion.identity);
+
+        var controller = unit.GetComponent<UnitController>();
+        
+        if (controller != null)
+        {
+            controller.SetWayPath(startPoint, endPoint);
+        }
+
+        var unitHP = unit.GetComponent<UnitHP>();
+        HPViewerSpawner.CreateHPViewer(unitHP, unit.transform, hpViewerPrefab);
+    }
+    
+    public void SpawnSpearMan()
+    {
+        ResourceManager.Instance.TrySpendGold(10);
+        
+        spawnEffect.Play();
+        GameObject unit = Instantiate(SpearManPrefab, spawnPoint.position, Quaternion.identity);
 
         var controller = unit.GetComponent<UnitController>();
         
