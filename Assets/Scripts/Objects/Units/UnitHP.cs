@@ -13,25 +13,16 @@ public class UnitHP : MonoBehaviour, IDamageable
     [SerializeField] private float deathTime = 0.5f;
 
     private bool isDead = false;
-    private SwordMan swordMan;
+    private UnitController unitController;
 
     private void Awake()
     {
-        swordMan = GetComponent<SwordMan>();
+        unitController = GetComponent<UnitController>();
         
         currentHP = Mathf.Clamp( currentHP, 0, maxHP);
         currentHP = maxHP;
     }
-
-    private void Update()
-    {
-        // float value = CurrentHP / MaxHP;
-        // hpSlider.value = Mathf.Clamp01(value);
-        //
-        // Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 10f);
-        // hpSlider.transform.position = screenPos;
-    }
-
+    
     public void TakeDamage(float amount)
     {
         Debug.Log(amount);
@@ -47,7 +38,7 @@ public class UnitHP : MonoBehaviour, IDamageable
     
     private void Die()
     {
-        swordMan.enabled = false;
+        unitController.enabled = false;
         StartCoroutine(DeathTerm());
     }
 

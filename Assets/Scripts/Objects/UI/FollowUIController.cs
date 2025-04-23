@@ -44,15 +44,4 @@ public class FollowUIController : MonoBehaviour
             Color.red
         );
     }
-    
-    // public void ShowGoldText(Vector3 worldPosition, int amount)
-    // {
-    //     FollowUI ui = Instantiate(damageTextPrefab, followCanvas.transform);
-    //     ui.SetFloating(
-    //         worldPosition,
-    //         $"+{amount}",
-    //         UIduration,
-    //         Color.yellow
-    //     );
-    // }
 }
