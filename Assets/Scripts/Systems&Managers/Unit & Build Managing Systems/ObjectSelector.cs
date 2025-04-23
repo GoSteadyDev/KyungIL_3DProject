@@ -22,14 +22,13 @@ public class ObjectSelector : MonoBehaviour
     
     [SerializeField] private Camera mainCamera;
     [SerializeField] private RangeViewerController rangeViewer;
-    
+
     private ITower currentSelectedTower;
     public ITower CurrentSelectedTower => currentSelectedTower;
     
     private void Awake()
     {
         Instance = this;
-        
         if (mainCamera == null)
             mainCamera = Camera.main;
     }
@@ -40,59 +39,70 @@ public class ObjectSelector : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            HandleMouseClick();
+        }
+    }
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                ISelectable selectable = hit.collider.GetComponent<ISelectable>();
-                if (selectable != null)
-                {
-                    rangeViewer.SetTarget(selectable.GetTransform(), selectable.GetAttackRange());
-                }
-                else
-                {
-                    rangeViewer.Clear();
-                }
+    private void HandleMouseClick()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-                IHasInfoPanel infoTarget = hit.collider.GetComponent<IHasInfoPanel>();
-                if (infoTarget != null)
-                {
-                    UIManager.Instance.ShowInfoPanel(infoTarget);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            HandleSelection(hit);
+        }
+    }
 
-                    // ✅ 추가: 타워일 경우에만 World UI 호출
-                    if (infoTarget is ITower tower)
-                    {
-                        currentSelectedTower = tower;
-                        Vector3 pos = tower.GetTransform().position;
+    private void HandleSelection(RaycastHit hit)
+    {
+        HandleSelectable(hit);
+        HandleInfoPanel(hit);
+    }
 
-                        int level = tower.GetCurrentLevel();
+    private void HandleSelectable(RaycastHit hit)
+    {
+        ISelectable selectable = hit.collider.GetComponent<ISelectable>();
 
-                        // Final Upgrade 선택 분기
-                        if (level == 0)
-                        {
-                            UIManager.Instance.ShowTowerLv1Panel(pos);
-                        }
-                        // 최종 레벨인 경우 → Sell 전용 패널
-                        else if (level == 1)
-                        {
-                            UIManager.Instance.ShowTowerLv2Panel(pos);
-                        }
-                        else
-                        {
-                            UIManager.Instance.ShowTowerLv3Panel(pos);
-                        }
-                    }
+        if (selectable != null)
+        {
+            rangeViewer.SetTarget(selectable.GetTransform(), selectable.GetAttackRange());
+        }
+        else
+        {
+            rangeViewer.Clear();
+        }
+    }
 
-                }
-                else
-                {
-                    UIManager.Instance.HideInfoPanel();
-                    UIManager.Instance.HideTowerLv1Panel();
-                    
-                }
-            }
+    private void HandleInfoPanel(RaycastHit hit)
+    {
+        IHasInfoPanel infoTarget = hit.collider.GetComponent<IHasInfoPanel>();
 
+        if (infoTarget != null)
+        {
+            UIManager.Instance.ShowInfoPanel(infoTarget);
+            HandleTowerPanel(infoTarget);
+        }
+        else
+        {
+            UIManager.Instance.HideInfoPanel();
+            UIManager.Instance.HideTowerLv1Panel();
+        }
+    }
+
+    private void HandleTowerPanel(IHasInfoPanel infoTarget)
+    {
+        if (infoTarget is ITower tower)
+        {
+            currentSelectedTower = tower;
+            Vector3 pos = tower.GetTransform().position;
+            int level = tower.GetCurrentLevel();
+
+            if (level == 0)
+                UIManager.Instance.ShowTowerLv1Panel(pos);
+            else if (level == 1)
+                UIManager.Instance.ShowTowerLv2Panel(pos);
+            else
+                UIManager.Instance.ShowTowerLv3Panel(pos);
         }
     }
 }
-

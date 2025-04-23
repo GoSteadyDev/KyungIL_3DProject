@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6985376623821094342}
@@ -117,7 +117,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 6, y: 0, z: -31}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4739309939581869737}
@@ -203,9 +203,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   searchRange: 10
-  warfGate: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
   attackSpeed: 1
   attackRange: 3.5
+  icon: {fileID: 0}
 --- !u!114 &-4956902913087508520
 MonoBehaviour:
   m_ObjectHideFlags: 0

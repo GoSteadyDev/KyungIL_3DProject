@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UnitHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHP = 10f;
-    public float MaxHP { get; }
+    public float MaxHP => maxHP;
     private float currentHP;
     public float CurrentHP => currentHP;
     [SerializeField] private float deathTime = 0.5f;

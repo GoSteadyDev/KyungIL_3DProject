@@ -1258,8 +1258,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  searchRange: 5
+  searchRange: 7
   attackInterval: 2.5
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
 --- !u!114 &3262313329106839606
 MonoBehaviour:
   m_ObjectHideFlags: 0

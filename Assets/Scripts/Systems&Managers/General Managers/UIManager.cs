@@ -37,6 +37,11 @@ public class UIManager : MonoBehaviour
 
     [Header("InfoPanel Settings")]
     [SerializeField] private GameObject infoPanelRoot;
+    
+    [SerializeField] private GameObject barracksPanelRoot;
+    [SerializeField] private GameObject upgradePanelRoot;
+    [SerializeField] private GameObject storePanelRoot;
+
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private Image iconImage;
@@ -190,21 +195,44 @@ public class UIManager : MonoBehaviour
     
     public void ShowInfoPanel(IHasInfoPanel target)
     {
-        if (target == null)
+        HideAllBuildingPanels(); // 우선 모든 패널 비활성화
+
+        if (target == null) return;
+
+        // ➤ Barrack
+        if (target is BarrackController)
         {
-            infoPanelRoot.SetActive(false);
-            return;
+            barracksPanelRoot.SetActive(true);
         }
-
-        infoPanelRoot.SetActive(true);
-        nameText.text = target.GetDisplayName();
-        descText.text = target.GetDescription();
-        iconImage.sprite = target.GetIcon();
+        // ➤ Upgrade Center
+        else if (target is UpgradeCenterController)
+        {
+            upgradePanelRoot.SetActive(true);
+        }
+        // ➤ Store
+        else if (target is StoreController)
+        {
+            storePanelRoot.SetActive(true);
+        }
+        // ➤ 기본 Info Panel
+        else
+        {
+            infoPanelRoot.SetActive(true);
+            nameText.text = target.GetDisplayName();
+            descText.text = target.GetDescription();
+            iconImage.sprite = target.GetIcon();
+        }
     }
-
     public void HideInfoPanel()
     {
-        infoPanelRoot.SetActive(false);
+        HideAllBuildingPanels();
     }
 
+    private void HideAllBuildingPanels()
+    {
+        infoPanelRoot.SetActive(false);
+        barracksPanelRoot.SetActive(false);
+        upgradePanelRoot.SetActive(false);
+        storePanelRoot.SetActive(false);
+    }
 }

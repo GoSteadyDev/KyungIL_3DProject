@@ -26,6 +26,9 @@ public class EnemyAttack : MonoBehaviour
 
         if (attackTarget != null)
         {
+            enemyController.navMeshAgent.enabled = false;
+            enemyController.enabled = false;
+            
             RotateTowardsTarget();
 
             if (attackTimer <= 0f)
@@ -33,8 +36,6 @@ public class EnemyAttack : MonoBehaviour
                 if (isRanged) FireProjectile(); // 원거리 공격
 
                 enemyController.PlayAttackAnimation(); // 근접 공격 애니메이션
-                enemyController.navMeshAgent.enabled = false;
-                enemyController.enabled = false;
                 attackTimer = attackInterval;
             }
         }

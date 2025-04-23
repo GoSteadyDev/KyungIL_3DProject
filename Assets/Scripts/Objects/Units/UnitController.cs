@@ -12,14 +12,11 @@ public class UnitController : MonoBehaviour, ISelectable, IHasInfoPanel
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float searchRange = 10f;
     
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Transform startPoint; // waypoint07
-    [SerializeField] private Transform endPoint;   // warfGate
-
+    private Transform startPoint; // waypoint07
+    private Transform endPoint;   // warfGate
     private int patrolIndex = 0;
     private bool isInitialPath = true;
     private Vector3[] patrolPath;
-
     
     [Header("Attack Settings")]
     [SerializeField] private float attackSpeed = 1f;
@@ -34,13 +31,19 @@ public class UnitController : MonoBehaviour, ISelectable, IHasInfoPanel
     public Sprite GetIcon() => icon;
     public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     
-    private Collider col;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
-    
-    private float nextAttackTime;
     private float targetdistance;
     private Transform target;
+    
+    private enum UnitState
+    {
+        Idle,
+        InitialMove,    // spawn → startPoint → endPoint
+        Patrol,         // startPoint ↔ endPoint
+        Combat
+    }
+    private UnitState currentState = UnitState.InitialMove;
     
     private void Awake()
     {
@@ -63,55 +66,91 @@ public class UnitController : MonoBehaviour, ISelectable, IHasInfoPanel
     
     private void Update()
     {
-        FindTarget();
+        if (target == null)
+            FindTarget();
 
+        switch (currentState)
+        {
+            case UnitState.InitialMove:
+            case UnitState.Patrol:
+                HandleMovement();
+                break;
+            case UnitState.Combat:
+                StopMoving();
+                HandleCombat();
+                break;
+        }
+    }
+    
+    public void SetWayPath(Transform startpos, Transform endpos)
+    {
+        startPoint = startpos;
+        endPoint = endpos;
+    }
+    
+    private void HandleMovement()
+    {
+        if (target != null)
+        {
+            currentState = UnitState.Combat;
+            StopMoving();
+            return;
+        }
+
+        if (navMeshAgent.remainingDistance <= 0.2f && !navMeshAgent.pathPending)
+        {
+            switch (currentState)
+            {
+                case UnitState.InitialMove:
+                    if (patrolIndex == 0)
+                    {
+                        patrolIndex++;
+                        MoveTo(endPoint.position);
+                    }
+                    else
+                    {
+                        currentState = UnitState.Patrol;
+                        patrolIndex = 1;
+                        MoveTo(startPoint.position);
+                    }
+                    break;
+
+                case UnitState.Patrol:
+                    patrolIndex = (patrolIndex + 1) % patrolPath.Length;
+                    MoveTo(patrolPath[patrolIndex]);
+                    break;
+            }
+        }
+    }
+
+    private void HandleCombat()
+    {
         if (target == null)
         {
-            PatrolMovement();
+            currentState = UnitState.Patrol;
+            MoveTo(patrolPath[patrolIndex]);
+            return;
+        }
+
+        float targetDistance = Vector3.Distance(transform.position, target.position);
+
+        if (targetDistance > attackRange)
+        {
+            MoveToTarget(); // 네비게이션 방식으로 바꾸면 여기 수정
         }
         else
         {
-            targetdistance = Vector3.Distance(transform.position, target.position);
-            StopMoving();
-
-            if (targetdistance > attackRange)
-            {
-                MoveToTarget();
-            }
-            else
-            {
-                AttackToTarget();
-            }
+            StartAttackAnim();
         }
     }
-
-    private void PatrolMovement()
+    
+    private void MoveToTarget()
     {
-        if (navMeshAgent.remainingDistance <= 0.2f && !navMeshAgent.pathPending)
-        {
-            // 최초 경로 처리
-            if (isInitialPath)
-            {
-                if (patrolIndex == 0)
-                {
-                    patrolIndex++;
-                    MoveTo(endPoint.position);
-                }
-                else
-                {
-                    isInitialPath = false;
-                    patrolIndex = 1;
-                    MoveTo(startPoint.position);
-                }
-            }
-            else
-            {
-                patrolIndex = (patrolIndex + 1) % patrolPath.Length;
-                MoveTo(patrolPath[patrolIndex]);
-            }
-        }
-    }
+        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 stopPosition = target.position - direction * (attackRange - 0.1f); // 조금 덜 가까이 감
 
+        MoveTo(stopPosition);
+    }
 
     private void FindTarget()
     {
@@ -137,22 +176,6 @@ public class UnitController : MonoBehaviour, ISelectable, IHasInfoPanel
             navMeshAgent.isStopped = true;
     }
     
-    private void MoveToTarget()
-    {
-        animator.SetTrigger("IsWalk");
-        
-        Vector3 direction = (target.position - transform.position).normalized;
-        direction.y = 0f; // 수평 이동만
-
-        transform.position += direction * (moveSpeed * Time.deltaTime);
-        transform.forward = direction; // 타겟 바라보게
-    }
-
-    private void AttackToTarget()
-    {
-        StartAttackAnim();
-    }
-
     private void StartAttackAnim()
     {
         animator.SetTrigger("IsAttack");
@@ -165,3 +188,47 @@ public class UnitController : MonoBehaviour, ISelectable, IHasInfoPanel
     }
 }
 
+//
+// private void PatrolMovement()
+// {
+//     if (navMeshAgent.remainingDistance <= 0.2f && !navMeshAgent.pathPending)
+//     {
+//         // 최초 경로 처리
+//         if (isInitialPath)
+//         {
+//             if (patrolIndex == 0)
+//             {
+//                 patrolIndex++;
+//                 MoveTo(endPoint.position);
+//             }
+//             else
+//             {
+//                 isInitialPath = false;
+//                 patrolIndex = 1;
+//                 MoveTo(startPoint.position);
+//             }
+//         }
+//         else
+//         {
+//             patrolIndex = (patrolIndex + 1) % patrolPath.Length;
+//             MoveTo(patrolPath[patrolIndex]);
+//         }
+//     }
+// }
+
+    
+// private void MoveToTarget()
+// {
+//     animator.SetTrigger("IsWalk");
+//     
+//     Vector3 direction = (target.position - transform.position).normalized;
+//     direction.y = 0f; // 수평 이동만
+//
+//     transform.position += direction * (moveSpeed * Time.deltaTime);
+//     transform.forward = direction; // 타겟 바라보게
+// }
+
+// private void AttackToTarget()
+// {
+//     StartAttackAnim();
+// }

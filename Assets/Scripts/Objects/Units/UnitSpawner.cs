@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{   
+    [Header("Unit Transform Settings")]
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform startPoint; // waypoint07
+    [SerializeField] private Transform endPoint;   // warfGate
+    [SerializeField] private UnitData unitData;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Visuals")] 
+    [SerializeField] private GameObject SwordManPrefab;
+    [SerializeField] private ParticleSystem spawnEffect;
+    [SerializeField] private GameObject hpViewerPrefab;
+    
+    public void Spawn()
     {
+        spawnEffect.Play();
+        GameObject unit = Instantiate(SwordManPrefab, spawnPoint.position, Quaternion.identity);
+
+        var controller = unit.GetComponent<UnitController>();
         
+        if (controller != null)
+        {
+            controller.SetWayPath(startPoint, endPoint);
+        }
+
+        var unitHP = unit.GetComponent<UnitHP>();
+        HPViewerSpawner.CreateHPViewer(unitHP, unit.transform, hpViewerPrefab);
     }
 }
