@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlowTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
+public class SlowTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
 {
     [Header("Tower Settings")]
     [SerializeField] private int currentLevel = 0;

@@ -3008,7 +3008,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 281712419}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: HideTowerLv2Panel
+        m_MethodName: HideAllTowerPanels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6336,19 +6336,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5701963c8291e004f87728b3e50afcc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningText: {fileID: 1389959739}
   warningDuration: 1
-  hpViewerCanvas: {fileID: 1592003352}
-  goldText: {fileID: 814590387}
+  warningText: {fileID: 1389959739}
+  followUIControlCanvas: {fileID: 1592003352}
+  attackRangeViewer: {fileID: 37588251}
   GameoverText: {fileID: 2119188535}
   GameoverCheckButton: {fileID: 833042773}
+  goldText: {fileID: 814590387}
   pausePanel: {fileID: 1158852827}
   WaveDescriptionText: {fileID: 1694286808}
   towerBuildCanvas: {fileID: 957434331}
-  towerBuildUI: {fileID: 1225272154}
-  towerLv1Panel: {fileID: 1367356379}
-  towerLv2Panel: {fileID: 1954743488}
-  towerLv3Panel: {fileID: 615312062}
+  towerCreatePanel: {fileID: 1225272154}
+  towerLevelPanels:
+  - {fileID: 1367356379}
+  - {fileID: 1954743488}
+  - {fileID: 615312062}
   infoPanelRoot: {fileID: 1011037074}
   barracksPanelRoot: {fileID: 1189193201}
   upgradePanelRoot: {fileID: 1189193201}
@@ -14352,7 +14354,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 281712419}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: HideTowerLv3Panel
+        m_MethodName: HideAllTowerPanels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15046,7 +15048,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 281712419}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: HideTowerLv1Panel
+        m_MethodName: HideAllTowerPanels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -48137,7 +48139,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 1692068406}
   startPoint: {fileID: 1916388430}
   endPoint: {fileID: 2030158840}
-  unitData: {fileID: 0}
   SwordManPrefab: {fileID: 990473712913296228, guid: 2fb52bc56ce66284d9cfbe98cfeedc5c, type: 3}
   SpearManPrefab: {fileID: 3376540712286229372, guid: 7421889305be10e468eb54007dd91ffd, type: 3}
   spawnEffect: {fileID: 4419478392851377877}
@@ -136126,19 +136127,6 @@ SceneRoots:
   - {fileID: 586535335}
   - {fileID: 945040980}
   - {fileID: 1140836316}
-  - {fileID: 1349202589}
-  - {fileID: 1672132424}
-  - {fileID: 185733604}
-  - {fileID: 128559679}
-  - {fileID: 499866283}
-  - {fileID: 160666314}
-  - {fileID: 281712420}
-  - {fileID: 1788831048}
-  - {fileID: 1929448098}
-  - {fileID: 37588256}
-  - {fileID: 957434332}
-  - {fileID: 1592003353}
-  - {fileID: 1784087334}
   - {fileID: 140841606}
   - {fileID: 2030158840}
   - {fileID: 331474643}
@@ -136149,5 +136137,18 @@ SceneRoots:
   - {fileID: 543450653487230111}
   - {fileID: 137635874}
   - {fileID: 1236833190}
+  - {fileID: 1788831048}
+  - {fileID: 1929448098}
+  - {fileID: 37588256}
+  - {fileID: 957434332}
+  - {fileID: 1592003353}
+  - {fileID: 1784087334}
+  - {fileID: 1349202589}
+  - {fileID: 1672132424}
+  - {fileID: 185733604}
+  - {fileID: 128559679}
+  - {fileID: 499866283}
+  - {fileID: 160666314}
+  - {fileID: 281712420}
   - {fileID: 844934185}
   - {fileID: 1043119511}

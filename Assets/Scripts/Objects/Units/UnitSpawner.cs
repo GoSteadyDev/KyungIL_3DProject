@@ -8,7 +8,6 @@ public class UnitSpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform startPoint; // waypoint07
     [SerializeField] private Transform endPoint;   // warfGate
-    [SerializeField] private UnitData unitData;
 
     [Header("Visuals")] 
     [SerializeField] private GameObject SwordManPrefab;

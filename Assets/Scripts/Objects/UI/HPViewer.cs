@@ -24,9 +24,10 @@ public static class HPViewerSpawner
         viewer.Setup(target, followTransform);
     }
 }
+
 public class HPViewer : MonoBehaviour
 {
-    [SerializeField] private Vector3 hpViewerPosition = Vector3.up * 10f;
+    [SerializeField] private Vector3 hpViewerPosition = Vector3.up * 15f;
     [SerializeField] private Slider hpSlider;
     [SerializeField] private bool isStatic = false;
     

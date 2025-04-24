@@ -12,17 +12,18 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     
     [Header("Warning Settings")]
-    private Coroutine warningCoroutine;
-    public TextMeshProUGUI warningText;
     [SerializeField] private float warningDuration = 2f;
+    public TextMeshProUGUI warningText;
+    private Coroutine warningCoroutine;
     
-    [Header("HpViewer Settings")]
-    [SerializeField] private Canvas hpViewerCanvas;
-    [SerializeField] private TextMeshProUGUI goldText;
+    [Header("FollowUI Settings")]
+    [SerializeField] private Canvas followUIControlCanvas;
+    [SerializeField] private GameObject attackRangeViewer;
     
     [Header("GameplayUI Settings")]
     [SerializeField] private TextMeshProUGUI GameoverText;
     [SerializeField] private Button GameoverCheckButton;
+    [SerializeField] private TextMeshProUGUI goldText;
     [SerializeField] private GameObject pausePanel;
     
     [Header("WaveUI Settings")]
@@ -30,10 +31,9 @@ public class UIManager : MonoBehaviour
 
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
-    [SerializeField] private GameObject towerBuildUI;             // World Space UI Panel
-    [SerializeField] private GameObject towerLv1Panel;
-    [SerializeField] private GameObject towerLv2Panel;
-    [SerializeField] private GameObject towerLv3Panel;
+    [SerializeField] private GameObject towerCreatePanel; // Lv0 (빌딩 포인트 클릭 시)
+    [SerializeField] private List<GameObject> towerLevelPanels; // Lv1~Lv3
+    private Dictionary<int, GameObject> towerPanelDict;
 
     [Header("InfoPanel Settings")]
     [SerializeField] private GameObject infoPanelRoot;
@@ -45,11 +45,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private Image iconImage;
-    
-    private void Awake() 
+
+    private void Awake()
     {
         Instance = this;
-        HPViewerSpawner.Initialize(hpViewerCanvas.transform);
+        HPViewerSpawner.Initialize(followUIControlCanvas.transform);
+        
+        towerPanelDict = new Dictionary<int, GameObject>();
+    
+        // Lv1~Lv3 등록
+        for (int i = 0; i < towerLevelPanels.Count; i++)
+            towerPanelDict[i + 1] = towerLevelPanels[i];
     }
     
     private void Start()
@@ -104,101 +110,50 @@ public class UIManager : MonoBehaviour
     {
         WaveDescriptionText.text = $"Wave {waveNumber}\n Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
     }
-
-    public void ShowBuildUI(Vector3 worldPos)
+    
+    public void ShowTowerPanelByLevel(int level, Vector3 worldPos)
     {
-        StartCoroutine(ShowWithDelay(worldPos));
+        if (level == 0)
+        {
+            ShowTowerCreatePanel(worldPos);
+        }
+        else if (towerPanelDict.TryGetValue(level, out var panel))
+        {
+            StartCoroutine(ShowPanelWithDelay(panel, worldPos));
+        }
     }
 
-    private IEnumerator ShowWithDelay(Vector3 worldPos)
+    private void ShowTowerCreatePanel(Vector3 worldPos)
+    {
+        StartCoroutine(ShowPanelWithDelay(towerCreatePanel, worldPos));
+    }
+
+    private IEnumerator ShowPanelWithDelay(GameObject panel, Vector3 worldPos)
     {
         yield return new WaitForEndOfFrame();
 
-        // ✅ 위치: BuildPoint 위로 띄우기
-        towerBuildUI.transform.position = worldPos + new Vector3(0f, 15f, 0f);
-
-        // ✅ 회전: 항상 카메라를 향하도록
-        towerBuildUI.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-
-        // ✅ Canvas 자식으로 붙이기 (안정성)
-        towerBuildUI.transform.SetParent(towerBuildCanvas.transform);
-
-        towerBuildUI.SetActive(true);
-    }
-    public void HideBuildUI()
-    {
-        towerBuildUI.SetActive(false);
+        panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
+        panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        panel.transform.SetParent(towerBuildCanvas.transform);
+        panel.SetActive(true);
     }
     
-    public void ShowTowerLv1Panel(Vector3 worldPos)
+    public void HideAllTowerPanels()
     {
-        StartCoroutine(ShowTowerLv1PanelWithDelay(worldPos));
-    }
+        towerCreatePanel.SetActive(false);
 
-    private IEnumerator ShowTowerLv1PanelWithDelay(Vector3 worldPos)
-    {
-        yield return new WaitForEndOfFrame();
-
-        towerLv1Panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
-        towerLv1Panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        towerLv1Panel.transform.SetParent(towerBuildCanvas.transform);
-
-        towerLv1Panel.SetActive(true);
-    }
-
-    public void HideTowerLv1Panel()
-    {
-        towerLv1Panel.SetActive(false);
-    }
-    
-    public void ShowTowerLv2Panel(Vector3 worldPos)
-    {
-        StartCoroutine(ShowTowerLv2PanelWithDelay(worldPos));
-    }
-
-    private IEnumerator ShowTowerLv2PanelWithDelay(Vector3 worldPos)
-    {
-        yield return new WaitForEndOfFrame();
-
-        towerLv2Panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
-        towerLv2Panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        towerLv2Panel.transform.SetParent(towerBuildCanvas.transform);
-
-        towerLv2Panel.SetActive(true);
-    }
-
-    public void HideTowerLv2Panel()
-    {
-        towerLv2Panel.SetActive(false);
-    }
-    
-    public void ShowTowerLv3Panel(Vector3 worldPos)
-    {
-        StartCoroutine(ShowTowerLv3PanelWithDelay(worldPos));
-    }
-
-    private IEnumerator ShowTowerLv3PanelWithDelay(Vector3 worldPos)
-    {
-        yield return new WaitForEndOfFrame();
-
-        towerLv3Panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
-        towerLv3Panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        towerLv3Panel.transform.SetParent(towerBuildCanvas.transform);
-
-        towerLv3Panel.SetActive(true);
-    }
-
-    public void HideTowerLv3Panel()
-    {
-        towerLv3Panel.SetActive(false);
+        foreach (var panel in towerPanelDict.Values)
+            panel.SetActive(false);
+        
+        HideInfoPanel();
     }
     
     public void ShowInfoPanel(IHasInfoPanel target)
     {
         HideAllBuildingPanels(); // 우선 모든 패널 비활성화
-
+    
         if (target == null) return;
-
+    
         // ➤ Barrack
         if (target is BarrackController)
         {
@@ -225,6 +180,7 @@ public class UIManager : MonoBehaviour
     }
     public void HideInfoPanel()
     {
+        attackRangeViewer.gameObject.SetActive(false);
         HideAllBuildingPanels();
     }
 

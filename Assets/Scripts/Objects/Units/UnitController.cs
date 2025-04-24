@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-public class UnitController : MonoBehaviour, ISelectable, IHasInfoPanel
+public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
 {
     [Header("Move Settings")]
     [SerializeField] private float moveSpeed = 3f;

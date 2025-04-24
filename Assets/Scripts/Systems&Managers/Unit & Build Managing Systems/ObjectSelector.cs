@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface ISelectable
+public interface IHasRangeUI
 {
     float GetAttackRange();
     Transform GetTransform();
@@ -14,6 +14,13 @@ public interface IHasInfoPanel
     Sprite GetIcon();
     string GetDisplayName();
     string GetDescription(); // 나중에 확장 가능
+}
+
+public interface ITower
+{
+    Transform GetTransform();
+    TowerTemplate GetTowerTemplate();
+    int GetCurrentLevel();
 }
 
 public class ObjectSelector : MonoBehaviour
@@ -55,17 +62,17 @@ public class ObjectSelector : MonoBehaviour
 
     private void HandleSelection(RaycastHit hit)
     {
-        HandleSelectable(hit);
+        HandleRangeUI(hit);
         HandleInfoPanel(hit);
     }
 
-    private void HandleSelectable(RaycastHit hit)
+    private void HandleRangeUI(RaycastHit hit)
     {
-        ISelectable selectable = hit.collider.GetComponent<ISelectable>();
+        IHasRangeUI hasRangeUI = hit.collider.GetComponent<IHasRangeUI>();
 
-        if (selectable != null)
+        if (hasRangeUI != null)
         {
-            rangeViewer.SetTarget(selectable.GetTransform(), selectable.GetAttackRange());
+            rangeViewer.SetTarget(hasRangeUI.GetTransform(), hasRangeUI.GetAttackRange());
         }
         else
         {
@@ -85,7 +92,7 @@ public class ObjectSelector : MonoBehaviour
         else
         {
             UIManager.Instance.HideInfoPanel();
-            UIManager.Instance.HideTowerLv1Panel();
+            UIManager.Instance.HideAllTowerPanels();
         }
     }
 
@@ -98,11 +105,11 @@ public class ObjectSelector : MonoBehaviour
             int level = tower.GetCurrentLevel();
 
             if (level == 0)
-                UIManager.Instance.ShowTowerLv1Panel(pos);
+                UIManager.Instance.ShowTowerPanelByLevel(1, pos);
             else if (level == 1)
-                UIManager.Instance.ShowTowerLv2Panel(pos);
+                UIManager.Instance.ShowTowerPanelByLevel(2, pos);
             else
-                UIManager.Instance.ShowTowerLv3Panel(pos);
+                UIManager.Instance.ShowTowerPanelByLevel(3, pos);
         }
     }
 }

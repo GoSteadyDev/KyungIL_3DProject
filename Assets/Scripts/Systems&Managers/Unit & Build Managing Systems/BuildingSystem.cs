@@ -16,7 +16,7 @@ public class BuildingSystem : MonoBehaviour
     public void OpenBuildUI(BuildingPoint point)
     {
         currentBuildPoint = point;
-        UIManager.Instance.ShowBuildUI(point.transform.position);
+        UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
     }
 
     public void OnTowerSelected(GameObject towerPrefab)
@@ -31,8 +31,7 @@ public class BuildingSystem : MonoBehaviour
                 currentBuildPoint = null;
             }
         }
-        
-        UIManager.Instance.HideBuildUI();
+        UIManager.Instance.HideAllTowerPanels();
     }
 
     public void UpgradeTower(ITower tower, int index)
@@ -58,7 +57,7 @@ public class BuildingSystem : MonoBehaviour
 
         TowerBuilder.Instance.UpgradeTower(tower, data.towerPrefab, pos, rot);
 
-        UIManager.Instance.HideTowerLv1Panel();
+        UIManager.Instance.HideAllTowerPanels();
     }
     
     public void CancelBuild()
@@ -67,8 +66,8 @@ public class BuildingSystem : MonoBehaviour
         {
             Destroy(currentBuildPoint.gameObject); // 💥 BuildPoint 제거
             currentBuildPoint = null;
-            UIManager.Instance.HideBuildUI();
-            // 타일 복구 ❌ X → 다시 생성 방지
+            
+            UIManager.Instance.HideAllTowerPanels();
         }
     }
 }

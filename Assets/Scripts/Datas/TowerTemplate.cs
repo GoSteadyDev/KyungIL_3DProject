@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITower
-{
-    Transform GetTransform();
-    TowerTemplate GetTowerTemplate();
-    int GetCurrentLevel();
-}
-
 [CreateAssetMenu(menuName = "Template/TowerTemplate")]
 public class TowerTemplate : ScriptableObject
 {

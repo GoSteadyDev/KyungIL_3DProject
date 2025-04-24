@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
+public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
 {
     [Header("Tower Settings")]
     [SerializeField] private int currentLevel = 0;

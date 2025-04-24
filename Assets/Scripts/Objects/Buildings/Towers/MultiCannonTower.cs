@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class MultiCannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
+public class MultiCannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
 {
     [Header("Tower Settings")]
     [SerializeField] private int currentLevel = 0;

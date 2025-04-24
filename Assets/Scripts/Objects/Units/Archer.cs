@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : MonoBehaviour, ISelectable, IHasInfoPanel
+public class Archer : MonoBehaviour, IHasRangeUI, IHasInfoPanel
 {
     [Header("Attack Settings")] 
     [SerializeField] private float damage = 2f;
