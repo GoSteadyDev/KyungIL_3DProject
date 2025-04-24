@@ -6,8 +6,8 @@ using UnityEngine.Serialization;
 public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
 {
     [Header("Tower Settings")]
+    [SerializeField] private TowerType TowerType;
     [SerializeField] private int currentLevel = 0;
-    [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private float damagePerSec = 10f;
     [SerializeField] private float attackRange = 30f;
     
@@ -28,7 +28,7 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     public string GetDescription() => $"직선형 범위 데미지\nDamage: {damagePerSec}";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
-    public TowerTemplate GetTowerTemplate() => towerTemplate;
+    public TowerType GetTowerType() => TowerType;
     public int GetCurrentLevel() => currentLevel;
 
     private void Awake()

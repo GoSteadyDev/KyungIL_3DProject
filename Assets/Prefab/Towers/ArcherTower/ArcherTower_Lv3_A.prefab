@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f1620195ed4c940b2e3ee39c495060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerType: 0
+  currentLevel: 3
   archerUnit: {fileID: 7650594240062026822}
-  towerTemplate: {fileID: 11400000, guid: 664e1fcb66b93624ca86ea7023efca50, type: 2}
-  currentLevel: 2
   icon: {fileID: 0}

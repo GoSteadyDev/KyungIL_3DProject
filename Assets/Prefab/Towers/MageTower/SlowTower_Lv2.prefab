@@ -151,15 +151,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9efc55b77ade9459f2ac2110ec457c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerType: 2
+  currentLevel: 2
+  damage: 2
   slowRate: 0.5
   slowDuration: 2
-  damage: 2
   attackRange: 15
   slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
-  firePoint: {fileID: 0}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 07848c93d2544614cada5f3f6dbe6b07, type: 2}
-  currentLevel: 1
 --- !u!135 &993491684023329575
 SphereCollider:
   m_ObjectHideFlags: 0

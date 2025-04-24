@@ -177,8 +177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1822203893404373054}
   - component: {fileID: 7389394218564957806}
-  - component: {fileID: 5321943005860138386}
   - component: {fileID: 4674795111847337583}
+  - component: {fileID: 5321943005860138386}
   m_Layer: 0
   m_Name: SlowTower_Lv1
   m_TagString: Untagged
@@ -223,27 +223,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5321943005860138386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4201940873334442896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9efc55b77ade9459f2ac2110ec457c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slowRate: 0.25
-  slowDuration: 2
-  damage: 1
-  attackRange: 15
-  slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
-  firePoint: {fileID: 0}
-  icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 07848c93d2544614cada5f3f6dbe6b07, type: 2}
-  currentLevel: 0
 --- !u!135 &4674795111847337583
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -265,3 +244,23 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &5321943005860138386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201940873334442896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9efc55b77ade9459f2ac2110ec457c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerType: 2
+  currentLevel: 1
+  damage: 1
+  slowRate: 0.25
+  slowDuration: 2
+  attackRange: 15
+  slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
+  icon: {fileID: 0}

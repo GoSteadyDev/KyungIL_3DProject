@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem Instance;
+
+    [SerializeField] private List<TowerTemplate> allTowerTemplates;
     
     private BuildingPoint currentBuildPoint;
     
@@ -18,12 +21,28 @@ public class BuildingSystem : MonoBehaviour
         currentBuildPoint = point;
         UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
     }
+    
+    public TowerTemplate GetTemplate(TowerType type, int level)
+    {
+        return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == level);
+    }
+    
+    public TowerTemplate GetNextTemplate(TowerType type, int currentLevel)
+    {
+        return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == currentLevel + 1);
+    }
+    
+    public TowerTemplate GetTemplateB(TowerType type, int currentLevel)
+    {
+        return allTowerTemplates.FirstOrDefault(t => 
+            t.towerType == type && t.level == currentLevel + 2);
+    }
 
-    public void OnTowerSelected(GameObject towerPrefab)
+    public void OnTowerSelected(TowerTemplate template)
     {
         if (currentBuildPoint != null)
         {
-            bool success = TowerBuilder.Instance.BuildTower(towerPrefab, currentBuildPoint.transform.position);
+            bool success = TowerBuilder.Instance.BuildTower(template, currentBuildPoint.transform.position);
 
             if (success)
             {
@@ -31,32 +50,47 @@ public class BuildingSystem : MonoBehaviour
                 currentBuildPoint = null;
             }
         }
+
         UIManager.Instance.HideAllTowerPanels();
     }
-
-    public void UpgradeTower(ITower tower, int index)
+    
+    // 순차 업그레이드 메서드
+    public void UpgradeNextTower(ITower tower)
     {
-        TowerTemplate template = tower.GetTowerTemplate();
+        var type = tower.GetTowerType();
+        var currentLevel = tower.GetCurrentLevel();
+        var nextTemplate = GetNextTemplate(type, currentLevel);
 
-        if (template == null || template.upgrades.Count <= index)
+        if (nextTemplate == null)
         {
             return;
         }
 
-        TowerTemplate.UpgradeData data = template.upgrades[index];
-
-        // 골드 체크는 TowerBuilder에서 할 수도 있고 여기서 해도 OK
-        if (!ResourceManager.Instance.TrySpendGold(data.cost))
+        if (!ResourceManager.Instance.TrySpendGold(nextTemplate.cost))
         {
             return;
         }
 
-        // TowerBuilder에 넘김
-        Vector3 pos = tower.GetTransform().position;
-        Quaternion rot = tower.GetTransform().rotation;
+        var pos = tower.GetTransform().position;
+        var rot = tower.GetTransform().rotation;
 
-        TowerBuilder.Instance.UpgradeTower(tower, data.towerPrefab, pos, rot);
+        TowerBuilder.Instance.UpgradeTower(tower, nextTemplate.towerPrefab, pos, rot);
+        UIManager.Instance.HideAllTowerPanels();
+    }
+    
+    // 선택 (분기형) 업그레이드 메서드
+    public void UpgradeWithTemplate(ITower tower, TowerTemplate selectedTemplate)
+    {
+        if (!ResourceManager.Instance.TrySpendGold(selectedTemplate.cost))
+        {
+            Debug.Log("골드 부족");
+            return;
+        }
 
+        var pos = tower.GetTransform().position;
+        var rot = tower.GetTransform().rotation;
+
+        TowerBuilder.Instance.UpgradeTower(tower, selectedTemplate.towerPrefab, pos, rot);
         UIManager.Instance.HideAllTowerPanels();
     }
     

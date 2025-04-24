@@ -5,12 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Template/TowerTemplate")]
 public class TowerTemplate : ScriptableObject
 {
-    public List<UpgradeData> upgrades;
-    
-    [System.Serializable]
-    public class UpgradeData
-    {
-        public GameObject towerPrefab;
-        public int cost;
-    }
+    public TowerType towerType;         // 예: Cannon
+    public int level;                   // 예: 1, 2, 3
+    public GameObject towerPrefab;      // 해당 레벨의 프리팹
+    public int cost;                    // 업그레이드 비용
 }

@@ -124,9 +124,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820340700656765334}
-  - component: {fileID: 2725471223304148488}
-  - component: {fileID: 3379194014926662398}
   - component: {fileID: 3871103700098304871}
+  - component: {fileID: 3379194014926662398}
+  - component: {fileID: 2725471223304148488}
   m_Layer: 0
   m_Name: CannonTower_Lv3B
   m_TagString: Untagged
@@ -154,30 +154,27 @@ Transform:
   - {fileID: 4769288133755714218}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2725471223304148488
-MonoBehaviour:
+--- !u!95 &3871103700098304871
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2535757855108152780}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f297276c62178040a291b47b478cf53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevel: 3
-  towerTemplate: {fileID: 11400000, guid: 05c5f58687fb2644b916d328c7b62cb4, type: 2}
-  attackSpeed: 1.5
-  attackRange: 15
-  firePoints:
-  - {fileID: 5009598169434139152}
-  - {fileID: 454903137117984782}
-  - {fileID: 4769288133755714218}
-  cannonPrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
-  cannonSpeed: 30
-  fireEffect: {fileID: 6553082300615395604}
-  icon: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9003fbc5ac88afa4889730d172aa6a47, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!136 &3379194014926662398
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -201,27 +198,30 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &3871103700098304871
-Animator:
-  serializedVersion: 5
+--- !u!114 &2725471223304148488
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2535757855108152780}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9003fbc5ac88afa4889730d172aa6a47, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f297276c62178040a291b47b478cf53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerType: 1
+  currentLevel: 4
+  attackSpeed: 1.5
+  attackRange: 15
+  firePoints:
+  - {fileID: 5009598169434139152}
+  - {fileID: 454903137117984782}
+  - {fileID: 4769288133755714218}
+  cannonPrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
+  cannonSpeed: 30
+  fireEffect: {fileID: 6553082300615395604}
+  icon: {fileID: 0}
 --- !u!1 &3106837895981641174
 GameObject:
   m_ObjectHideFlags: 0

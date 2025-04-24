@@ -6,8 +6,8 @@ using UnityEngine;
 public class SlowTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
 {
     [Header("Tower Settings")]
+    [SerializeField] private TowerType TowerType;
     [SerializeField] private int currentLevel = 0;
-    [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private float damage = 5f;
     [SerializeField] private float slowRate = 0.25f;
     [SerializeField] private float slowDuration = 3f;
@@ -25,7 +25,7 @@ public class SlowTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     public string GetDescription() => "Damage : \n\n Slow AttackRange : \n\nAttackSpeed : ";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
-    public TowerTemplate GetTowerTemplate() => towerTemplate;
+    public TowerType GetTowerType() => TowerType;
     public int GetCurrentLevel() => currentLevel;
 
     private Transform targetTransform;

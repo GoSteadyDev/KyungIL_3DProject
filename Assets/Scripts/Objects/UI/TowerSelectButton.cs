@@ -4,55 +4,72 @@ using UnityEngine;
 
 public class TowerSelectButton : MonoBehaviour
 {
-    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private TowerTemplate towerTemplate;
 
     public void OnTowerClicked()
     {
-        BuildingSystem.Instance.OnTowerSelected(towerPrefab);
+        BuildingSystem.Instance.OnTowerSelected(towerTemplate);
     }
     
-    public void OnUpgradeClicked()
+    public void OnUpgradeNextClicked()
     {
         ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
-        BuildingSystem.Instance.UpgradeTower(tower, 1); // Lv2
+        BuildingSystem.Instance.UpgradeNextTower(tower); // Lv2
     }
     
-    public void OnUpgradeAClicked()
+    public void OnUpgradeWithTemplateClicked()
     {
         var tower = ObjectSelector.Instance.CurrentSelectedTower;
         if (tower != null)
         {
-            BuildingSystem.Instance.UpgradeTower(tower, 2); // Lv3A index
+            BuildingSystem.Instance.UpgradeWithTemplate(tower, this.towerTemplate);
         }
+    }
+    
+    public void OnUpgradeA()
+    {
+        var tower = ObjectSelector.Instance.CurrentSelectedTower;
+        var type = tower.GetTowerType();
+        var level = tower.GetCurrentLevel();
+
+        var template = BuildingSystem.Instance.GetNextTemplate(type, level); // level + 1
+        BuildingSystem.Instance.UpgradeWithTemplate(tower, template);
     }
 
-    public void OnUpgradeBClicked()
+    public void OnUpgradeB()
     {
         var tower = ObjectSelector.Instance.CurrentSelectedTower;
-        if (tower != null)
-        {
-            BuildingSystem.Instance.UpgradeTower(tower, 3); // Lv3B index
-        }
+        var type = tower.GetTowerType();
+        var level = tower.GetCurrentLevel();
+
+        var template = BuildingSystem.Instance.GetTemplateB(type, level); // level + 2
+        BuildingSystem.Instance.UpgradeWithTemplate(tower, template);
     }
+
     
     public void OnSellClicked()
     {
         ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
         if (tower == null) return;
 
-        TowerTemplate template = tower.GetTowerTemplate();
+        TowerType type = tower.GetTowerType();
         int level = tower.GetCurrentLevel();
-        int cost = template.upgrades[level].cost;
-        int refund = Mathf.RoundToInt(cost * 0.5f); // 또는 cost / 2
 
+        // TowerTemplate 찾아오기
+        TowerTemplate template = BuildingSystem.Instance.GetTemplate(type, level);
+        if (template == null)
+        {
+            Debug.LogWarning("타워 템플릿을 찾을 수 없습니다.");
+            return;
+        }
+
+        int refund = Mathf.RoundToInt(template.cost * 0.5f);
         ResourceManager.Instance.AddGold(refund);
 
-        // 타워 삭제
         GameObject towerGO = (tower as MonoBehaviour)?.gameObject;
         if (towerGO != null)
             GameObject.Destroy(towerGO);
 
-        // UI 닫기
         UIManager.Instance.HideAllTowerPanels();
     }
     

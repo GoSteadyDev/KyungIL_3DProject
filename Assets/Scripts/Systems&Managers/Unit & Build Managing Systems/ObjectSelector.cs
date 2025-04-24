@@ -16,10 +16,17 @@ public interface IHasInfoPanel
     string GetDescription(); // 나중에 확장 가능
 }
 
+public enum TowerType
+{
+    Archer,
+    Cannon,
+    Mage
+}
+
 public interface ITower
 {
     Transform GetTransform();
-    TowerTemplate GetTowerTemplate();
+    TowerType GetTowerType();
     int GetCurrentLevel();
 }
 
@@ -104,9 +111,9 @@ public class ObjectSelector : MonoBehaviour
             Vector3 pos = tower.GetTransform().position;
             int level = tower.GetCurrentLevel();
 
-            if (level == 0)
+            if (level == 1)
                 UIManager.Instance.ShowTowerPanelByLevel(1, pos);
-            else if (level == 1)
+            else if (level == 2)
                 UIManager.Instance.ShowTowerPanelByLevel(2, pos);
             else
                 UIManager.Instance.ShowTowerPanelByLevel(3, pos);

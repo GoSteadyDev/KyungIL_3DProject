@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 public class CannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
 {
     [Header("Tower Settings")] 
+    [SerializeField] private TowerType TowerType;
     [SerializeField] private int currentLevel = 0;
-    [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private float attackSpeed = 2f;
     [SerializeField] private float attackRange = 10f;
     
@@ -30,7 +30,7 @@ public class CannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
-    public TowerTemplate GetTowerTemplate() => towerTemplate;
+    public TowerType GetTowerType() => TowerType;
     public int GetCurrentLevel() => currentLevel;
     
     void Update()

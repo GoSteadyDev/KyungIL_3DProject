@@ -5000,16 +5000,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090bc993b1211a4418ec6550e2e455f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerType: 2
+  currentLevel: 3
+  damage: 6
   slowRate: 0.4
   slowDuration: 3
-  damage: 6
   attackRange: 20
   attackInterval: 2
-  attackEffectPrefab: {fileID: 7099211349604058653}
   slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
+  attackEffectPrefab: {fileID: 7099211349604058653}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 07848c93d2544614cada5f3f6dbe6b07, type: 2}
-  currentLevel: 2
 --- !u!1 &5728315911284393949
 GameObject:
   m_ObjectHideFlags: 0

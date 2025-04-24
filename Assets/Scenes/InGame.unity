@@ -2550,7 +2550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 5007066557237126988, guid: 88c5528d5b8abab44b8c9abb05ef0162, type: 3}
+  towerTemplate: {fileID: 11400000, guid: 81421387e0cb9764185b7d53efc61b06, type: 2}
 --- !u!114 &112006156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7750,7 +7750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerTemplate: {fileID: 0}
 --- !u!1 &344037929
 GameObject:
   m_ObjectHideFlags: 0
@@ -10955,7 +10955,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 476623682}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUpgradeClicked
+        m_MethodName: OnUpgradeNextClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11015,7 +11015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerTemplate: {fileID: 0}
 --- !u!1001 &476638766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11759,7 +11759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerTemplate: {fileID: 0}
 --- !u!1 &488019130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821374989505724, guid: 1a51fe95cc8cc3a4ca8f62728430ca9f, type: 3}
@@ -14654,7 +14654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &615312063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22609,7 +22609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 5007066557237126988, guid: 88c5528d5b8abab44b8c9abb05ef0162, type: 3}
+  towerTemplate: {fileID: 0}
 --- !u!114 &958234027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26033,7 +26033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 4201940873334442896, guid: 7bfdf1009f69e1d49941285c1c464d81, type: 3}
+  towerTemplate: {fileID: 11400000, guid: d43159b1aca5cdd45afeeec4924f772c, type: 2}
 --- !u!114 &1090356560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28173,7 +28173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerTemplate: {fileID: 0}
 --- !u!114 &1176601299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28220,7 +28220,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1176601298}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUpgradeAClicked
+        m_MethodName: OnUpgradeA
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29107,7 +29107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerTemplate: {fileID: 0}
 --- !u!4 &1210456088 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6737647049439382803, guid: 59793ef5e9bf91d49a32278ea6b9c7f7, type: 3}
@@ -29561,7 +29561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1225272155
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30758,7 +30758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 5965533731523027018, guid: 33d0b4c49f7fcbd4d9b402d9b4ee40d4, type: 3}
+  towerTemplate: {fileID: 11400000, guid: 14c6c8286c93ddf47aaf18c02ae02541, type: 2}
 --- !u!1001 &1258507836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32011,7 +32011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerTemplate: {fileID: 0}
 --- !u!114 &1294823339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32058,7 +32058,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1294823338}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUpgradeBClicked
+        m_MethodName: OnUpgradeB
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -33374,7 +33374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1367356380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34351,6 +34351,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3ad27610cd56641b6f1f81bc71e4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allTowerTemplates:
+  - {fileID: 11400000, guid: 14c6c8286c93ddf47aaf18c02ae02541, type: 2}
+  - {fileID: 11400000, guid: c4dcc1f2fbf4f694284e0df7d0b2e75e, type: 2}
+  - {fileID: 11400000, guid: 230d6e0ea17f42b4da57318d1123618a, type: 2}
+  - {fileID: 11400000, guid: 7f1b92619241c3146974a9582f8ec866, type: 2}
+  - {fileID: 11400000, guid: 81421387e0cb9764185b7d53efc61b06, type: 2}
+  - {fileID: 11400000, guid: 8aee11a11fc57e448b677fa15e702e1f, type: 2}
+  - {fileID: 11400000, guid: 8442c2aed6f78a940a4570f5db3a337b, type: 2}
+  - {fileID: 11400000, guid: 1815b9fb50d3ef9499cef2850a5aef6b, type: 2}
+  - {fileID: 11400000, guid: d43159b1aca5cdd45afeeec4924f772c, type: 2}
+  - {fileID: 11400000, guid: b671df87e1972a4438ef6adf22a70cf9, type: 2}
+  - {fileID: 11400000, guid: 372f2523f1746464a848730c108bfa0a, type: 2}
+  - {fileID: 11400000, guid: c4084fe76afb37941af49c911c624f0f, type: 2}
 --- !u!4 &1398823183
 Transform:
   m_ObjectHideFlags: 0
@@ -49937,7 +49950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1954743489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57441,8 +57454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a230660433ce249846e839c55bae4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerType: 0
   currentLevel: 3
-  towerTemplate: {fileID: 11400000, guid: 92acb9da7d5cd1e4f928525bb05738ef, type: 2}
   damagePerSec: 10
   attackRange: 25
   firePoint: {fileID: 563568613143041270}

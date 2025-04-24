@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a230660433ce249846e839c55bae4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 3
-  towerTemplate: {fileID: 11400000, guid: 07848c93d2544614cada5f3f6dbe6b07, type: 2}
+  TowerType: 2
+  currentLevel: 4
   damagePerSec: 10
   attackRange: 25
   firePoint: {fileID: 563568612348716948}

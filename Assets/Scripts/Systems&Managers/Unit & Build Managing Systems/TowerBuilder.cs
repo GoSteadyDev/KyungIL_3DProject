@@ -44,25 +44,25 @@ public class TowerBuilder : MonoBehaviour
               point.Init(tile); // ✅ 생성된 BuildPoint에게 타일 정보 넘김
        }
 
-       public bool BuildTower(GameObject towerPrefab, Vector3 position)
+       public bool BuildTower(TowerTemplate template, Vector3 position)
        {
-              if (ResourceManager.Instance.TrySpendGold(buildMoney))
+              if (!ResourceManager.Instance.TrySpendGold(template.cost))
               {
-                     GameObject tower = Instantiate(towerPrefab, position, Quaternion.identity);
-
-                     // ✅ 해당 위치의 타일 찾아서 사용 처리
-                     Ray ray = new Ray(position + Vector3.up * 10, Vector3.down);
-                     if (Physics.Raycast(ray, out RaycastHit hit, 20f))
-                     {
-                            var tile = hit.collider.GetComponent<BuildingPointTile>();
-                            if (tile != null)
-                                   tile.SetUsed(); // 타워 설치된 경우만 사용 상태로!
-                     }
-                     return true;
+                     UIManager.Instance.ShowWarning("You don't have enough gold!");
+                     return false;
               }
 
-              UIManager.Instance.ShowWarning("You don't have enough gold!");
-              return false;
+              GameObject tower = Instantiate(template.towerPrefab, position, Quaternion.identity);
+
+              // 위치한 타일에 설치됨 표시
+              Ray ray = new Ray(position + Vector3.up * 10, Vector3.down);
+              if (Physics.Raycast(ray, out RaycastHit hit, 20f))
+              {
+                     var tile = hit.collider.GetComponent<BuildingPointTile>();
+                     tile?.SetUsed();
+              }
+
+              return true;
        }
 
        public bool UpgradeTower(ITower oldTower, GameObject newTowerPrefab, Vector3 position, Quaternion rotation)
