@@ -21,6 +21,7 @@ public class WaveData : ScriptableObject
         get
         {
             int total = 0;
+            
             foreach (var info in enemyList)
             {
                 total += info.enemyCount;

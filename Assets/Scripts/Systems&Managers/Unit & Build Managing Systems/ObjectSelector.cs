@@ -11,8 +11,8 @@ public interface ISelectable
 
 public interface IHasInfoPanel
 {
-    string GetDisplayName();
     Sprite GetIcon();
+    string GetDisplayName();
     string GetDescription(); // 나중에 확장 가능
 }
 

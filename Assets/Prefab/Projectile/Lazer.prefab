@@ -19007,7 +19007,7 @@ GameObject:
   - component: {fileID: 7306037062649763718}
   - component: {fileID: 1743882297525961811}
   m_Layer: 0
-  m_Name: LazerTowerEffect
+  m_Name: Lazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class SlowTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Attack Settings")]
+    [Header("Tower Settings")]
+    [SerializeField] private int currentLevel = 0;
+    [SerializeField] private TowerTemplate towerTemplate;
+    [SerializeField] private float damage = 5f;
     [SerializeField] private float slowRate = 0.25f;
     [SerializeField] private float slowDuration = 3f;
-    [SerializeField] private float damage = 5f;
-    private int damagePerSec => Mathf.CeilToInt(damage / slowDuration);
     [SerializeField] private float attackRange = 7.5f;
-    [SerializeField] private GameObject slowEffectPrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private Sprite icon;
-    [SerializeField] private TowerTemplate towerTemplate;
-    [SerializeField] private int currentLevel = 0;
     
+    [Header("Projectile Settings")]
+    [SerializeField] private GameObject slowEffectPrefab;
+    
+    [Header("Visual Settings")]
+    [SerializeField] private Sprite icon;
+    
+    private int damagePerSec => Mathf.CeilToInt(damage / slowDuration);
     public string GetDisplayName() => "SlowTower"; 
     public Sprite GetIcon() => icon;
     public string GetDescription() => "Damage : \n\n Slow AttackRange : \n\nAttackSpeed : ";
@@ -25,10 +28,11 @@ public class SlowTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
     public TowerTemplate GetTowerTemplate() => towerTemplate;
     public int GetCurrentLevel() => currentLevel;
 
-    private Animator animator;
     private Transform targetTransform;
-    private float currentCooldown;
+    private Animator animator;
+    
     private bool isFiring = false;
+    private float currentCooldown;
 
     private void Awake()
     {

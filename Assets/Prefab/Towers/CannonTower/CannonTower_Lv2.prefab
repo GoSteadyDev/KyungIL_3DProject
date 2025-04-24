@@ -14857,8 +14857,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1736604403359385930}
-  - component: {fileID: 3020183865702264469}
   - component: {fileID: 3604110353358538646}
+  - component: {fileID: 3020183865702264469}
   m_Layer: 0
   m_Name: CannonTower_Lv2
   m_TagString: Untagged
@@ -14884,27 +14884,6 @@ Transform:
   - {fileID: 2829503470646709962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3020183865702264469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6574811581407107528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d34ae0ecae89ef34299b0e12870c9835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackSpeed: 2
-  attackRange: 15
-  cannonBallPrefab: {fileID: 8964780451257961045, guid: 1fb5dce466b9014468cd67056b03144b, type: 3}
-  cannonBallSpeed: 40
-  firePoint: {fileID: 2829503470646709962}
-  fireEffect: {fileID: 1848732814100434878}
-  icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 05c5f58687fb2644b916d328c7b62cb4, type: 2}
-  currentLevel: 1
 --- !u!136 &3604110353358538646
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14928,6 +14907,27 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3020183865702264469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574811581407107528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34ae0ecae89ef34299b0e12870c9835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 1
+  towerTemplate: {fileID: 11400000, guid: 05c5f58687fb2644b916d328c7b62cb4, type: 2}
+  attackSpeed: 2
+  attackRange: 15
+  firePoint: {fileID: 2829503470646709962}
+  cannonPrefab: {fileID: 8964780451257961045, guid: 1fb5dce466b9014468cd67056b03144b, type: 3}
+  cannonSpeed: 30
+  fireEffect: {fileID: 1848732814100434878}
+  icon: {fileID: 0}
 --- !u!1 &8400163816201891466
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,5 @@ using UnityEngine.Serialization;
 public class EnemyData : ScriptableObject
 {
     public string EnemyName;
-    
     public GameObject EnemyPrefab;
 }

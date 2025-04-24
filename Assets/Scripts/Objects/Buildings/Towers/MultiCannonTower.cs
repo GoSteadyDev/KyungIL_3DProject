@@ -2,20 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MultiCannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Settings")]
+    [Header("Tower Settings")]
+    [SerializeField] private int currentLevel = 0;
+    [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private float attackSpeed = 2f;
     [SerializeField] private float attackRange = 10f;
-    [SerializeField] private GameObject cannonBallPrefab;
-    [SerializeField] private float cannonBallSpeed = 30f;
+    
+    [Header("Projectile Settings")]
     [SerializeField] private Transform[] firePoints;
+    [SerializeField] private GameObject cannonPrefab;
+    [SerializeField] private float cannonSpeed = 30f;
+    
+    [Header("Visual Settings")]
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private Sprite icon;
-    [SerializeField] private TowerTemplate towerTemplate;
-    [SerializeField] private int currentLevel = 0;
-
+    
+    private Transform targetTransform;
+    private Animator animator;
+    
+    private float currentCooldown;
+    
     public string GetDisplayName() => "CannonTower Lv3B";
     public Sprite GetIcon() => icon;
     public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
@@ -23,10 +33,6 @@ public class MultiCannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITowe
     public Transform GetTransform() => transform;
     public TowerTemplate GetTowerTemplate() => towerTemplate;
     public int GetCurrentLevel() => currentLevel;
-
-    private Transform targetTransform;
-    private float currentCooldown;
-    private Animator animator;
 
     private void Awake()
     {
@@ -71,13 +77,13 @@ public class MultiCannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITowe
             enemyVelocity = enemy.GetVelocity();
         }
 
-        float projectileSpeed = cannonBallSpeed;
+        float projectileSpeed = cannonSpeed;
         Vector3 predictedPosition = PredictFuturePosition(enemyPos, enemyVelocity, transform.position, projectileSpeed);
         float timeToTarget = Vector3.Distance(transform.position, predictedPosition) / projectileSpeed;
 
         for (int i = 0; i < firePoints.Length; i++)
         {
-            GameObject ball = Instantiate(cannonBallPrefab, firePoints[i].position, Quaternion.identity);
+            GameObject ball = Instantiate(cannonPrefab, firePoints[i].position, Quaternion.identity);
             ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
 
             yield return new WaitForSeconds(0.2f); // 연사 간격

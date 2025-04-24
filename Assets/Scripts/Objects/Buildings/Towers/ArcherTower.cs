@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class ArcherTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Components")]
-    [SerializeField] private Archer archerUnit;
-    [SerializeField] private TowerTemplate towerTemplate;
+    [Header("Tower Settings")]
     [SerializeField] private int currentLevel = 0;
+    [SerializeField] private TowerTemplate towerTemplate;
     
-    [Header("UI Info")]
+    [Header("Projectile Settings")]
+    [SerializeField] private Archer archerUnit;
+    
+    [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
 
     public string GetDisplayName() => "ArcherTower"; 

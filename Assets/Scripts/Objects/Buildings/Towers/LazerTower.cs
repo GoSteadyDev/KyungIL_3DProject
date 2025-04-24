@@ -5,20 +5,23 @@ using UnityEngine.Serialization;
 
 public class LazerTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Attack Settings")]
+    [Header("Tower Settings")]
+    [SerializeField] private int currentLevel = 0;
+    [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private float damagePerSec = 10f;
     [SerializeField] private float attackRange = 30f;
-    [SerializeField] private GameObject LazerEffect;
-    [SerializeField] private Transform firePoint; 
     
-    [Header("UI Info")]
+    [Header("Projectile Settings")]
+    [SerializeField] private Transform firePoint; 
+    [SerializeField] private GameObject Lazer;
+    
+    [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
-    [SerializeField] private TowerTemplate towerTemplate;
-    [SerializeField] private int currentLevel = 0;
 
-    private Animator animator;
-    private bool isFiring = false;
     private Transform targetTransform;
+    private Animator animator;
+    
+    private bool isFiring = false;
 
     public string GetDisplayName() => "LaserTower Lv3B";
     public Sprite GetIcon() => icon;
@@ -41,12 +44,12 @@ public class LazerTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         {
             animator.SetTrigger("IsAttack");
             
-            LazerEffect.SetActive(true);
-            LazerEffect.GetComponent<Lazer>().Initialize(firePoint, targetTransform, damagePerSec);
+            Lazer.SetActive(true);
+            Lazer.GetComponent<Lazer>().Initialize(firePoint, targetTransform, damagePerSec);
         }
         else
         {
-            LazerEffect.SetActive(false);
+            Lazer.SetActive(false);
         }
     }
     

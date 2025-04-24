@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class SlowTowerLv3 : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Attack Settings")]
+    [Header("Tower Settings")]
+    [SerializeField] private int currentLevel = 0;
+    [SerializeField] private TowerTemplate towerTemplate;
+    [SerializeField] private float damage = 5f;
     [SerializeField] private float slowRate = 0.25f;
     [SerializeField] private float slowDuration = 3f;
-    [SerializeField] private float damage = 5f;
     [SerializeField] private float attackRange = 7.5f;
     [SerializeField] private float attackInterval = 1f;
-    [SerializeField] private ParticleSystem attackEffectPrefab;
+    
+    [Header("Projectile Settings")]
     [SerializeField] private GameObject slowEffectPrefab;
+    [SerializeField] private ParticleSystem attackEffectPrefab;
+    
+    [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
-    [SerializeField] private TowerTemplate towerTemplate;
-    [SerializeField] private int currentLevel = 0;
 
     private Animator animator;
-    private bool isFiring = false;
     private List<EnemyController> detectedEnemies = new();
+    private bool isFiring = false;
 
     public string GetDisplayName() => "SlowTower Lv3A";
     public Sprite GetIcon() => icon;
-    public string GetDescription() => $"범위 슬로우 + 범위 데미지\nSlow: {slowRate * 100}% / {slowDuration}s\nDamage: {damage}";
+    public string GetDescription() => $"\nDamage: {damage} \nSlow: {slowRate * 100}% / {slowDuration}s";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerTemplate GetTowerTemplate() => towerTemplate;

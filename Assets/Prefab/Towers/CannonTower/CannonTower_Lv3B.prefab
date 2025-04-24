@@ -166,18 +166,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f297276c62178040a291b47b478cf53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 3
+  towerTemplate: {fileID: 11400000, guid: 05c5f58687fb2644b916d328c7b62cb4, type: 2}
   attackSpeed: 1.5
   attackRange: 15
-  cannonBallPrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
-  cannonBallSpeed: 40
   firePoints:
   - {fileID: 5009598169434139152}
   - {fileID: 454903137117984782}
   - {fileID: 4769288133755714218}
+  cannonPrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
+  cannonSpeed: 30
   fireEffect: {fileID: 6553082300615395604}
   icon: {fileID: 0}
-  towerTemplate: {fileID: 11400000, guid: 05c5f58687fb2644b916d328c7b62cb4, type: 2}
-  currentLevel: 3
 --- !u!136 &3379194014926662398
 CapsuleCollider:
   m_ObjectHideFlags: 0

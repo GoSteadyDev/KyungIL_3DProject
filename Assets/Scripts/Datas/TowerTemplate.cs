@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITower
 {
-    Transform GetTransform(); // 또는 property Transform Transform { get; }
+    Transform GetTransform();
     TowerTemplate GetTowerTemplate();
     int GetCurrentLevel();
 }
@@ -17,7 +17,6 @@ public class TowerTemplate : ScriptableObject
     [System.Serializable]
     public class UpgradeData
     {
-        public string levelName;
         public GameObject towerPrefab;
         public int cost;
     }

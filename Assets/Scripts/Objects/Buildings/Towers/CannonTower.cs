@@ -2,19 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
 {
-    [Header("Attack Settings")] 
+    [Header("Tower Settings")] 
+    [SerializeField] private int currentLevel = 0;
+    [SerializeField] private TowerTemplate towerTemplate;
     [SerializeField] private float attackSpeed = 2f;
     [SerializeField] private float attackRange = 10f;
-    [SerializeField] private GameObject cannonBallPrefab;
-    [SerializeField] private float cannonBallSpeed = 30f;
+    
+    [Header("Projectile Settings")]
     [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject cannonPrefab;
+    [SerializeField] private float cannonSpeed = 30f;
+    
+    [Header("Visual Settings")]
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private Sprite icon;
-    [SerializeField] private TowerTemplate towerTemplate;
-    [SerializeField] private int currentLevel = 0;
+    
+    private Transform targetTransform;
+    
+    private float currentCooldown;
     
     public string GetDisplayName() => "CannonTower"; 
     public Sprite GetIcon() => icon;
@@ -23,11 +32,7 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
     public Transform GetTransform() => transform;
     public TowerTemplate GetTowerTemplate() => towerTemplate;
     public int GetCurrentLevel() => currentLevel;
-
-    private Transform targetTransform;
-    private float currentCooldown;
-
-
+    
     void Update()
     {
         FindTarget();
@@ -61,10 +66,9 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         Vector3 enemyPos = enemy.GetCurrentPosition();
         Vector3 enemyVelocity = enemy.GetVelocity();
 
-        float projectileSpeed = cannonBallSpeed;
+        float projectileSpeed = cannonSpeed;
 
         // ✅ 1. 미래 위치 예측
-        
         Vector3 predictedPosition = PredictFuturePosition(enemyPos, enemyVelocity, firePoint.position, projectileSpeed);
 
         // ✅ 2. 예측 시간 재계산 (더 정확하게)
@@ -72,7 +76,7 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         float timeToTarget = distance / projectileSpeed;
 
         // ✅ 3. 포탄 생성 및 목표 위치 전달
-        GameObject ball = Instantiate(cannonBallPrefab, firePoint.position, Quaternion.identity);
+        GameObject ball = Instantiate(cannonPrefab, firePoint.position, Quaternion.identity);
         ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
     }
     
@@ -91,6 +95,5 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
 }
 
