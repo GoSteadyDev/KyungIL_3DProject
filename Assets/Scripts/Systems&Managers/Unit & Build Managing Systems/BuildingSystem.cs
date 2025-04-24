@@ -60,7 +60,6 @@ public class BuildingSystem : MonoBehaviour
 
         UIManager.Instance.HideTowerLv1Panel();
     }
-
     
     public void CancelBuild()
     {

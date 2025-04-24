@@ -81,7 +81,7 @@ public class CannonTower : MonoBehaviour, ISelectable, IHasInfoPanel, ITower
         Vector3 toEnemy = enemyPos - shooterPos;
         float distance = toEnemy.magnitude;
         float timeToTarget = distance / projectileSpeed;    // 타겟에 이동하는 시간
-        float overshootFactor = 0.85f; // 1보다 작게 하면 조준을 짧게 함
+        float overshootFactor = 0.5f; // 1보다 작게 하면 조준을 짧게 함
 
         return enemyPos + enemyVelocity * (timeToTarget * overshootFactor);     // 적 위치 + 적 속도 * 타겟에 이동하는 시간
     }

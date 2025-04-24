@@ -10,7 +10,6 @@ public class Cannon : MonoBehaviour
     
     public Rigidbody rb;
     private Transform target;
-
     private Vector3 velocity;
 
     public void SetTarget(Vector3 target, float timeToTarget)
@@ -37,8 +36,13 @@ public class Cannon : MonoBehaviour
 
         // 최종 velocity
         Vector3 velocity = Vxz + Vector3.up * Vy;
-
         rb.velocity = velocity;
+        
+        // ✅ 발사체가 이동 방향을 바라보게 설정
+        if (velocity != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(velocity) * Quaternion.Euler(-90, 0, 0);
+        }
     }
     
     private void OnCollisionEnter(Collision other)
