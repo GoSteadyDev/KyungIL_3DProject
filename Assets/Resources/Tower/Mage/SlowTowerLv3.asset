@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SlowTowerLv3
   m_EditorClassIdentifier: 
   towerType: 2
-  level: 3
-  towerPrefab: {fileID: 5548327178313028241, guid: ed4974877fbedab428af76f46ab430e9, type: 3}
+  level: 4
   cost: 150
+  pathCode: A
+  towerPrefab: {fileID: 5548327178313028241, guid: ed4974877fbedab428af76f46ab430e9, type: 3}

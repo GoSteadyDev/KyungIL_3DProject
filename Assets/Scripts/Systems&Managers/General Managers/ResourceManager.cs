@@ -31,6 +31,10 @@ public class ResourceManager : MonoBehaviour
             OnGoldChanged?.Invoke();
             return true;
         }
-        return false;
+        else
+        {
+            UIManager.Instance.ShowWarning("You don't have enough gold!");
+            return false;
+        }
     }
 }

@@ -6,13 +6,15 @@ using UnityEngine;
 public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
 {
     [SerializeField] private GameObject hpViewerPrefab;
-    [SerializeField] private Mesh[] meshes;
     [SerializeField] private GameObject DestroyEffect;
+    [SerializeField] private Mesh[] meshes;
     [SerializeField] private Sprite icon;
     
+    MeshRenderer meshRenderer;
+    
+    public string GetDescription() => $"HP : {currentHP}/{maxHP}";
     public string GetDisplayName() => "Castle"; 
     public Sprite GetIcon() => icon; 
-    public string GetDescription() => $"HP : {currentHP}/{maxHP}";
     
     private float maxHP = 100f;
     public float MaxHP => maxHP;
@@ -25,6 +27,7 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
     
     private void Awake()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponent<MeshFilter>();
         currentHP = maxHP;
     }
@@ -52,8 +55,18 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
         }
         else
         {
-            GameManager.Instance.OnCastleDestroyed();
-            Destroy(gameObject);
+            DestroyEffect.SetActive(true);
+            meshRenderer.enabled = false;
+            StartCoroutine(HandleCastleDestruction());
         }
+    }
+    
+    private IEnumerator HandleCastleDestruction()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+
+        // 실제 파괴 처리
+        Destroy(gameObject);
+        GameManager.Instance.OnCastleDestroyed();
     }
 }

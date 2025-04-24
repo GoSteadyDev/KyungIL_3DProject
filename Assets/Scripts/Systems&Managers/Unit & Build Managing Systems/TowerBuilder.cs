@@ -48,7 +48,6 @@ public class TowerBuilder : MonoBehaviour
        {
               if (!ResourceManager.Instance.TrySpendGold(template.cost))
               {
-                     UIManager.Instance.ShowWarning("You don't have enough gold!");
                      return false;
               }
 

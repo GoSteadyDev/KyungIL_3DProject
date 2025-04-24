@@ -17,7 +17,7 @@ public class UnitSpawner : MonoBehaviour
     
     public void SpawnSwordMan()
     {
-        ResourceManager.Instance.TrySpendGold(10);
+        if (!ResourceManager.Instance.TrySpendGold(10)) return;
         
         spawnEffect.Play();
         GameObject unit = Instantiate(SwordManPrefab, spawnPoint.position, Quaternion.identity);
@@ -35,7 +35,7 @@ public class UnitSpawner : MonoBehaviour
     
     public void SpawnSpearMan()
     {
-        ResourceManager.Instance.TrySpendGold(10);
+        if (!ResourceManager.Instance.TrySpendGold(10)) return;
         
         spawnEffect.Play();
         GameObject unit = Instantiate(SpearManPrefab, spawnPoint.position, Quaternion.identity);

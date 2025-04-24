@@ -44,6 +44,8 @@ public class HPViewer : MonoBehaviour
         transform.position = screenPos;
     }
     
+    [SerializeField] private Image fillImage; // Fill Area → Fill에 연결 (Inspector에서)
+    
     private void Update()
     {
         if (hpTarget == null)
@@ -57,6 +59,20 @@ public class HPViewer : MonoBehaviour
 
         if (value <= 0.01f)
             hpSlider.value = 0f;
+        
+        // ✅ 색상 변경 로직
+        if (value > 0.6f)
+        {
+            fillImage.color = Color.green;
+        }
+        else if (value > 0.3f)
+        {
+            fillImage.color = Color.yellow;
+        }
+        else
+        {
+            fillImage.color = Color.red;
+        }
         
         if (!isStatic && followTarget != null)
         {

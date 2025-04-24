@@ -25,6 +25,11 @@ public enum TowerType
 
 public interface ITower
 {
+    public interface IBranchingTower
+    {
+        string GetPathCode();
+    }
+
     Transform GetTransform();
     TowerType GetTowerType();
     int GetCurrentLevel();

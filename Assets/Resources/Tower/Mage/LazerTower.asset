@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LazerTower
   m_EditorClassIdentifier: 
   towerType: 2
-  level: 4
-  towerPrefab: {fileID: 258841353982987706, guid: 9452f0b92f3ff2042990cd77136fb812, type: 3}
+  level: 3
   cost: 200
+  pathCode: B
+  towerPrefab: {fileID: 258841353982987706, guid: 9452f0b92f3ff2042990cd77136fb812, type: 3}

@@ -148,7 +148,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 50}
+  m_SizeDelta: {x: 120, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7540879538897385955
 MonoBehaviour:
@@ -216,6 +216,7 @@ MonoBehaviour:
   hpViewerPosition: {x: 0, y: 10.5, z: 0}
   hpSlider: {fileID: 7540879538897385955}
   isStatic: 0
+  fillImage: {fileID: 1833244829757149944}
 --- !u!1 &5818541433030169871
 GameObject:
   m_ObjectHideFlags: 0

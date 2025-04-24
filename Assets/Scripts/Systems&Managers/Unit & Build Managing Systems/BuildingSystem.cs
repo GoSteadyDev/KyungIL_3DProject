@@ -16,12 +16,6 @@ public class BuildingSystem : MonoBehaviour
         Instance = this;
     }
 
-    public void OpenBuildUI(BuildingPoint point)
-    {
-        currentBuildPoint = point;
-        UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
-    }
-    
     public TowerTemplate GetTemplate(TowerType type, int level)
     {
         return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == level);
@@ -32,12 +26,20 @@ public class BuildingSystem : MonoBehaviour
         return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == currentLevel + 1);
     }
     
-    public TowerTemplate GetTemplateB(TowerType type, int currentLevel)
+    public TowerTemplate GetTemplateByPath(TowerType type, int currentLevel, string pathCode)
     {
-        return allTowerTemplates.FirstOrDefault(t => 
-            t.towerType == type && t.level == currentLevel + 2);
+        return allTowerTemplates.FirstOrDefault(t =>
+            t.towerType == type &&
+            t.level > currentLevel &&
+            t.pathCode == pathCode);
     }
-
+    
+    public void OpenBuildUI(BuildingPoint point)
+    {
+        currentBuildPoint = point;
+        UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
+    }
+    
     public void OnTowerSelected(TowerTemplate template)
     {
         if (currentBuildPoint != null)
@@ -83,7 +85,6 @@ public class BuildingSystem : MonoBehaviour
     {
         if (!ResourceManager.Instance.TrySpendGold(selectedTemplate.cost))
         {
-            Debug.Log("골드 부족");
             return;
         }
 

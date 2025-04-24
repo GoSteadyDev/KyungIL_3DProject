@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         // 이펙트 처리 등은 Castle 객체가 맡고
-        Debug.Log("Game Over - 패배");
         UIManager.Instance.ShowGameOver("Loose !");
     }
 

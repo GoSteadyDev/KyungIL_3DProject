@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   level: 4
-  towerPrefab: {fileID: 4524704038769322727, guid: afb654e5867e6d64ba3aac9b0e9d82b3, type: 3}
   cost: 100
+  pathCode: B
+  towerPrefab: {fileID: 4524704038769322727, guid: afb654e5867e6d64ba3aac9b0e9d82b3, type: 3}

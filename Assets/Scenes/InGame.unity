@@ -2551,6 +2551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 11400000, guid: 81421387e0cb9764185b7d53efc61b06, type: 2}
+  pathCode: 
 --- !u!114 &112006156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3151,7 +3152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93cb8e270c34ae4aba5bc342a8c2b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 500
+  gold: 0
 --- !u!4 &128559679
 Transform:
   m_ObjectHideFlags: 0
@@ -7751,6 +7752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: 
 --- !u!1 &344037929
 GameObject:
   m_ObjectHideFlags: 0
@@ -8506,7 +8508,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378966553}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10955,7 +10957,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 476623682}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUpgradeNextClicked
+        m_MethodName: OnUgradeClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11016,6 +11018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: 
 --- !u!1001 &476638766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11760,6 +11763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: 
 --- !u!1 &488019130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821374989505724, guid: 1a51fe95cc8cc3a4ca8f62728430ca9f, type: 3}
@@ -14654,7 +14658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &615312063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21349,7 +21353,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917489267}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -22610,6 +22614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: 
 --- !u!114 &958234027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26034,6 +26039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 11400000, guid: d43159b1aca5cdd45afeeec4924f772c, type: 2}
+  pathCode: 
 --- !u!114 &1090356560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27352,7 +27358,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145724275}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -28174,6 +28180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: A
 --- !u!114 &1176601299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28220,7 +28227,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1176601298}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUpgradeA
+        m_MethodName: OnUpgradeByPath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29108,6 +29115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: 
 --- !u!4 &1210456088 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6737647049439382803, guid: 59793ef5e9bf91d49a32278ea6b9c7f7, type: 3}
@@ -29561,7 +29569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1225272155
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29835,7 +29843,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230992817}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -30759,6 +30767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 11400000, guid: 14c6c8286c93ddf47aaf18c02ae02541, type: 2}
+  pathCode: 
 --- !u!1001 &1258507836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32012,6 +32021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 0}
+  pathCode: B
 --- !u!114 &1294823339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32058,7 +32068,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1294823338}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUpgradeB
+        m_MethodName: OnUpgradeByPath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -33374,7 +33384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1367356380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42988,8 +42998,8 @@ Transform:
   m_GameObject: {fileID: 1690517514}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 57.146137, y: 10.85, z: 31.010647}
-  m_LocalScale: {x: 4.2497754, y: 11.007, z: 3.7498126}
+  m_LocalPosition: {x: 56.173866, y: 10.85, z: 30.03838}
+  m_LocalScale: {x: 4.2497754, y: 11.007, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1929448098}
@@ -43001,7 +43011,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690517514}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -43715,7 +43725,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709914305}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -43942,7 +43952,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720502249}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -49950,7 +49960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1954743489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50915,7 +50925,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980390070}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -53782,7 +53792,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101759984}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -57355,7 +57365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &404397788759260865
 Transform:
   m_ObjectHideFlags: 0
@@ -57402,8 +57412,7 @@ Transform:
   m_LocalPosition: {x: -33.75, y: 0, z: -20.25}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2026372041908166919}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &563568613143041270
@@ -57432,7 +57441,6 @@ GameObject:
   - component: {fileID: 543450653487230111}
   - component: {fileID: 3469287837403210554}
   - component: {fileID: 1711813855825401840}
-  - component: {fileID: 3469287837403210556}
   - component: {fileID: 3469287837403210557}
   - component: {fileID: 3469287837403210555}
   m_Layer: 7
@@ -62473,14 +62481,14 @@ Transform:
   m_GameObject: {fileID: 2022844720091203869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6666667, y: 0, z: -0.8333334}
-  m_LocalScale: {x: 1.6666667, y: 1.6666667, z: 1.6666667}
+  m_LocalPosition: {x: -33.25, y: 5, z: -22.75}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2017958801991431297}
   - {fileID: 2026363451050215651}
   - {fileID: 2026339363040661839}
-  m_Father: {fileID: 543450653487230111}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2046289506178330823
 Transform:
@@ -96406,34 +96414,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpViewerPrefab: {fileID: 8563685939070021816, guid: edb311e641cb9c84ab2872f6cd0369b5, type: 3}
+  DestroyEffect: {fileID: 2022844720091203869}
   meshes:
   - {fileID: 8698284916670781335, guid: 5e5b53ca3b07322418bd969910a1a844, type: 3}
   - {fileID: 6497398583811497926, guid: 306d47c373eec6b4ca568a5f4f856327, type: 3}
   - {fileID: -5347911586565183598, guid: 61861d91157477640b39157db0fc30bc, type: 3}
-  DestroyEffect: {fileID: 0}
   icon: {fileID: 21300000, guid: d83d2b1669048d946ba834e7bebcec07, type: 3}
---- !u!64 &3469287837403210556
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149234218533}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8698284916670781335, guid: 5e5b53ca3b07322418bd969910a1a844, type: 3}
 --- !u!135 &3469287837403210557
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -96453,8 +96439,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5.428913
-  m_Center: {x: -0.26167822, y: 0, z: -0.00795428}
+  m_Radius: 5
+  m_Center: {x: -0.26167822, y: 0, z: -0.5}
 --- !u!95 &3574770589412434335
 Animator:
   serializedVersion: 5
@@ -136148,6 +136134,7 @@ SceneRoots:
   - {fileID: 382790052}
   - {fileID: 1887963541}
   - {fileID: 543450653487230111}
+  - {fileID: 2026372041908166919}
   - {fileID: 137635874}
   - {fileID: 1236833190}
   - {fileID: 1788831048}

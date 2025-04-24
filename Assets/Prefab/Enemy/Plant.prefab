@@ -1747,7 +1747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  searchRange: 7
+  searchRange: 10
   attackInterval: 2.5
   isRanged: 1
   projectilePrefab: {fileID: 8554284460346181029, guid: 87f375e1b1e06ce4d9968ddb985adca5, type: 3}
@@ -1771,10 +1771,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
-  m_Height: 3
+  m_Radius: 1.5
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &9194011688266809929
 GameObject:
   m_ObjectHideFlags: 0

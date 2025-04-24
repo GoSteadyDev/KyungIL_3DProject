@@ -5,47 +5,36 @@ using UnityEngine;
 public class TowerSelectButton : MonoBehaviour
 {
     [SerializeField] private TowerTemplate towerTemplate;
+    [SerializeField] private string pathCode; // A, B 등
 
     public void OnTowerClicked()
     {
         BuildingSystem.Instance.OnTowerSelected(towerTemplate);
     }
     
-    public void OnUpgradeNextClicked()
+    public void OnUgradeClicked()
     {
         ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
         BuildingSystem.Instance.UpgradeNextTower(tower); // Lv2
     }
     
-    public void OnUpgradeWithTemplateClicked()
+    public void OnUpgradeByPath()
     {
         var tower = ObjectSelector.Instance.CurrentSelectedTower;
-        if (tower != null)
+        if (tower == null) return;
+
+        TowerType type = tower.GetTowerType();
+        int level = tower.GetCurrentLevel();
+
+        TowerTemplate template = BuildingSystem.Instance.GetTemplateByPath(type, level, pathCode);
+        if (template == null)
         {
-            BuildingSystem.Instance.UpgradeWithTemplate(tower, this.towerTemplate);
+            Debug.LogWarning($"pathCode '{pathCode}' 에 해당하는 업그레이드 없음");
+            return;
         }
-    }
-    
-    public void OnUpgradeA()
-    {
-        var tower = ObjectSelector.Instance.CurrentSelectedTower;
-        var type = tower.GetTowerType();
-        var level = tower.GetCurrentLevel();
 
-        var template = BuildingSystem.Instance.GetNextTemplate(type, level); // level + 1
         BuildingSystem.Instance.UpgradeWithTemplate(tower, template);
     }
-
-    public void OnUpgradeB()
-    {
-        var tower = ObjectSelector.Instance.CurrentSelectedTower;
-        var type = tower.GetTowerType();
-        var level = tower.GetCurrentLevel();
-
-        var template = BuildingSystem.Instance.GetTemplateB(type, level); // level + 2
-        BuildingSystem.Instance.UpgradeWithTemplate(tower, template);
-    }
-
     
     public void OnSellClicked()
     {
