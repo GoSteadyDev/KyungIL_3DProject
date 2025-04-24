@@ -38,9 +38,9 @@ public class FollowUIController : MonoBehaviour
 
         FollowUI ui = Instantiate(damageTextPrefab, followCanvas.transform);
         ui.Set(
-            combatEvent.Receiver.transform,
+            combatEvent.Receiver.transform, "-" +
             Mathf.RoundToInt(combatEvent.Damage).ToString(),
-            0.75f,
+            0.5f,
             Color.red
         );
     }

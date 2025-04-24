@@ -181,7 +181,12 @@ MonoBehaviour:
   attackRange: 25
   firePoint: {fileID: 563568612348716948}
   Lazer: {fileID: 4098928400075945897}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 3404bfae15040ba42bd49d1ff5df9bf4, type: 3}
+  displayName: LazerTower
+  displayLevel: Lv.3B
+  displayAttackSpeed: 0
+  displayDamage: 0
+  displayRange: 0
 --- !u!1 &975819782028599945
 GameObject:
   m_ObjectHideFlags: 0

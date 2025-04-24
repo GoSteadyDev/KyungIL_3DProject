@@ -14,9 +14,18 @@ public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
 
-    public string GetDisplayName() => "ArcherTower";
+    [Header("InfoPanel")]
+    [SerializeField] private string displayName;
+    [SerializeField] private string displayLevel;
+    [SerializeField] private float displayAttackSpeed;
+    [SerializeField] private float displayDamage;
+    [SerializeField] private float displayRange;
+
     public Sprite GetIcon() => icon;
-    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
+    public string GetDisplayName() => displayName;
+    public string GetDescription() 
+        => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed}\nAttackRange : {displayRange}";
+    
     public float GetAttackRange() => archerUnit.GetAttackRange();
     public Transform GetTransform() => transform;
     

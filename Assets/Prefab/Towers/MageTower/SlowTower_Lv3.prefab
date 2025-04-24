@@ -5009,7 +5009,12 @@ MonoBehaviour:
   attackInterval: 2
   slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
   attackEffectPrefab: {fileID: 7099211349604058653}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a4d94fb31c5be9d4dabc5b33f3f357a5, type: 3}
+  displayName: SlowTower
+  displayLevel: Lv.3A
+  displayAttackSpeed: 0
+  displayDamage: 0
+  displayRange: 0
 --- !u!1 &5728315911284393949
 GameObject:
   m_ObjectHideFlags: 0

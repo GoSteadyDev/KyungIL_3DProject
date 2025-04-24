@@ -11,9 +11,9 @@ public class EnemyController : MonoBehaviour
     private Transform[] wayPoints;
     private int wayPointIndex = 0;
 
-    [SerializeField] private float moveSpeed = 25.0f;
-    [SerializeField] private float rotationSpeed = 5.0f;
-    [SerializeField] private float turnDistance = 0.1f;
+    [SerializeField] private float moveSpeed = 20.0f;
+    [SerializeField] private float rotationSpeed = 1.0f;
+    [SerializeField] private float turnDistance = 0.5f;
 
     private Animator animator;
     public NavMeshAgent navMeshAgent;
@@ -74,13 +74,6 @@ public class EnemyController : MonoBehaviour
 
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-    }
-
-    public void PlayDeathAnimation()
-    {
-        animator.SetTrigger("IsDead");
-        moveSpeed = 0;
-        // 애니메이션 이벤트 or 코루틴으로 Destroy 처리
     }
 
     public void PlayAttackAnimation()

@@ -26,9 +26,18 @@ public class MultiCannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITowe
     
     private float currentCooldown;
     
-    public string GetDisplayName() => "CannonTower Lv3B";
+    [Header("InfoPanel")]
+    [SerializeField] private string displayName;
+    [SerializeField] private string displayLevel;
+    [SerializeField] private float displayAttackSpeed;
+    [SerializeField] private float displayDamage;
+    [SerializeField] private float displayRange;
+
     public Sprite GetIcon() => icon;
-    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
+    public string GetDisplayName() => displayName;
+    public string GetDescription() 
+        => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed} \nAttackRange : {displayRange}";
+    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;

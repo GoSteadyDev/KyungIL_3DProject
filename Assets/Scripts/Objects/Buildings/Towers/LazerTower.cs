@@ -21,11 +21,18 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     private Transform targetTransform;
     private Animator animator;
     
-    private bool isFiring = false;
+    [Header("InfoPanel")]
+    [SerializeField] private string displayName;
+    [SerializeField] private string displayLevel;
+    [SerializeField] private float displayAttackSpeed;
+    [SerializeField] private float displayDamage;
+    [SerializeField] private float displayRange;
 
-    public string GetDisplayName() => "LaserTower Lv3B";
     public Sprite GetIcon() => icon;
-    public string GetDescription() => $"직선형 범위 데미지\nDamage: {damagePerSec}";
+    public string GetDisplayName() => displayName;
+    public string GetDescription() 
+        => $"Tower Level : {displayLevel} \nDamagePerSecond : {displayDamage} \nAttackSpeed : {displayAttackSpeed} \nAttackRange : {displayRange}";
+    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;

@@ -6,7 +6,6 @@ using UnityEngine;
 public class Cannon : MonoBehaviour
 {
     [SerializeField] private GameObject areaDamagePrefab;
-    [SerializeField] private float arcHeight = 4f;       // 고정된 포물선 높이
     
     public Rigidbody rb;
     private Transform target;
@@ -41,7 +40,7 @@ public class Cannon : MonoBehaviour
         // ✅ 발사체가 이동 방향을 바라보게 설정
         if (velocity != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(velocity) * Quaternion.Euler(-90, 0, 0);
+            transform.rotation = Quaternion.LookRotation(velocity) * Quaternion.Euler(90, 0, 0);
         }
     }
     

@@ -20,9 +20,19 @@ public class SlowTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [SerializeField] private Sprite icon;
     
     private int damagePerSec => Mathf.CeilToInt(damage / slowDuration);
-    public string GetDisplayName() => "SlowTower"; 
+    
+    [Header("InfoPanel")]
+    [SerializeField] private string displayName;
+    [SerializeField] private string displayLevel;
+    [SerializeField] private float displayAttackSpeed;
+    [SerializeField] private float displayDamage;
+    [SerializeField] private float displayRange;
+
     public Sprite GetIcon() => icon;
-    public string GetDescription() => "Damage : \n\n Slow AttackRange : \n\nAttackSpeed : ";
+    public string GetDisplayName() => displayName;
+    public string GetDescription() 
+        => $"Tower Level : {displayLevel} \nDamage: {damage} \nSlow: {slowRate * 100}% / {slowDuration} \nAttackRange : {displayRange}";
+    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;

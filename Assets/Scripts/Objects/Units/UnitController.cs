@@ -15,11 +15,9 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     private Transform startPoint; // waypoint07
     private Transform endPoint;   // warfGate
     private int patrolIndex = 0;
-    private bool isInitialPath = true;
     private Vector3[] patrolPath;
     
     [Header("Attack Settings")]
-    [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackRange = 3.5f;
     
     [Header("Info Settings")]
@@ -161,8 +159,6 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     
     private void MoveTo(Vector3 destination)
     {
-        animator.SetTrigger("IsWalk");
-
         if (navMeshAgent.destination != destination)
             navMeshAgent.SetDestination(destination);
 
@@ -187,48 +183,3 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
         Gizmos.DrawWireSphere(transform.position, searchRange);
     }
 }
-
-//
-// private void PatrolMovement()
-// {
-//     if (navMeshAgent.remainingDistance <= 0.2f && !navMeshAgent.pathPending)
-//     {
-//         // 최초 경로 처리
-//         if (isInitialPath)
-//         {
-//             if (patrolIndex == 0)
-//             {
-//                 patrolIndex++;
-//                 MoveTo(endPoint.position);
-//             }
-//             else
-//             {
-//                 isInitialPath = false;
-//                 patrolIndex = 1;
-//                 MoveTo(startPoint.position);
-//             }
-//         }
-//         else
-//         {
-//             patrolIndex = (patrolIndex + 1) % patrolPath.Length;
-//             MoveTo(patrolPath[patrolIndex]);
-//         }
-//     }
-// }
-
-    
-// private void MoveToTarget()
-// {
-//     animator.SetTrigger("IsWalk");
-//     
-//     Vector3 direction = (target.position - transform.position).normalized;
-//     direction.y = 0f; // 수평 이동만
-//
-//     transform.position += direction * (moveSpeed * Time.deltaTime);
-//     transform.forward = direction; // 타겟 바라보게
-// }
-
-// private void AttackToTarget()
-// {
-//     StartAttackAnim();
-// }

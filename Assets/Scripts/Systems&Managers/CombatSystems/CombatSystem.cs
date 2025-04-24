@@ -18,7 +18,7 @@ public class CombatSystem : MonoBehaviour
     public void AddCombatEvent(CombatEvent combatEvent)
     {
         var damageable = combatEvent.Receiver.GetComponent<IDamageable>();
-        
+
         if (damageable != null)
         {
             damageable.TakeDamage(combatEvent.Damage);

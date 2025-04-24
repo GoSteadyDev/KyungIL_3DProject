@@ -193,7 +193,12 @@ MonoBehaviour:
   cannonPrefab: {fileID: 6595468683168648190, guid: 17aa69c736672cd48bf4beec77dd867b, type: 3}
   cannonSpeed: 30
   fireEffect: {fileID: 5167164589422478646}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 671df89bb0a6fcb4e973b889e0a370cc, type: 3}
+  displayName: Cannon Tower
+  displayLevel: Lv3.A
+  displayAttackSpeed: 0
+  displayDamage: 0
+  displayRange: 0
 --- !u!1 &3373713883028659792
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 public class FollowUI : MonoBehaviour
 {
+    [SerializeField] private Vector3 offset = Vector3.up * 5f;
+    
     private Transform target;
     private Vector3 startPos;
     private Vector3 endPos;
@@ -67,7 +69,7 @@ public class FollowUI : MonoBehaviour
         }
         else if (target != null)
         {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 2f);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position + offset);
             text.enabled = screenPos.z > 0;
             rectTransform.position = screenPos;
         }

@@ -399,7 +399,12 @@ MonoBehaviour:
   TowerType: 0
   currentLevel: 4
   archerUnit: {fileID: 946495305173933432}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 27ecc2464a5c9b24d8f45ac9cf50df60, type: 3}
+  displayName: ArcherTower
+  displayLevel: Lv3B
+  displayAttackSpeed: 0.5
+  displayDamage: 10
+  displayRange: 20
 --- !u!1 &4815824982659701630
 GameObject:
   m_ObjectHideFlags: 0
