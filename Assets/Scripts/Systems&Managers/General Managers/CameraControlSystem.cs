@@ -34,6 +34,11 @@ public class CameraControlSystem : MonoBehaviour
         HandleZoom();
     }
 
+    public void SetPanSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
+    
     /// <summary>
     /// 클릭 지점이 카메라 시야 정중앙에 오도록 카메라 위치를 재설정
     /// </summary>

@@ -17,6 +17,12 @@ public class ResourceManager : MonoBehaviour
         Instance = this;
     }
 
+    public void SetGold(int amount)
+    {
+        gold = amount;
+        OnGoldChanged?.Invoke();
+    }
+    
     public void AddGold(int amount)
     {
         gold += amount;

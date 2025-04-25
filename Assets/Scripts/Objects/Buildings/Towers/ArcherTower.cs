@@ -7,7 +7,6 @@ public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [Header("Tower Settings")]
     [SerializeField] private TowerType TowerType;
     [SerializeField] private int currentLevel = 0;
-    
     [Header("Projectile Settings")]
     [SerializeField] private Archer archerUnit;
     

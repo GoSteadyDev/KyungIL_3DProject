@@ -57,7 +57,10 @@ public class TowerSelectButton : MonoBehaviour
 
         GameObject towerGO = (tower as MonoBehaviour)?.gameObject;
         if (towerGO != null)
+        {
+            BuildingSystem.Instance.Unregister(tower);
             GameObject.Destroy(towerGO);
+        }
 
         UIManager.Instance.HideAllTowerPanels();
     }

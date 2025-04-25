@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,32 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
+
         Instance = this;
+    }
+
+    private void Start()
+    {
+        // PendingLoad가 null이 아니면 복원 시도
+        var data = SaveSystem.PendingLoad;
+        if (data != null)
+        {
+            ApplyLoad(data);
+            SaveSystem.PendingLoad = null;
+        }
+    }
+
+    private void ApplyLoad(GameSaveData data)
+    {
+        // 1) 골드
+        ResourceManager.Instance.SetGold(data.gold);
+        // 2) 웨이브
+        WaveManager.Instance.SetWaveIndex(data.waveIndex);
+        // 3) 타워
+        BuildingSystem.Instance.ClearAll();
+        foreach (var ts in data.towers)
+            BuildingSystem.Instance.SpawnTowerFromSave(ts);
+        // (유닛 복원도 여기에)
     }
     
     private void Update()
@@ -25,8 +51,7 @@ public class GameManager : MonoBehaviour
             TogglePause();
         }
     }
-
-
+    
     public void OnCastleDestroyed()
     {
         if (IsGameOver) return;
@@ -34,7 +59,6 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         Time.timeScale = 0f;
 
-        // 이펙트 처리 등은 Castle 객체가 맡고
         UIManager.Instance.ShowGameOver("Loose !");
     }
 
@@ -44,8 +68,6 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Time.timeScale = 0f;
-
-        Debug.Log("Game Clear - 승리!");
         
         UIManager.Instance.ShowGameOver("Win !");  // true는 승리
     }

@@ -102,7 +102,7 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
             return;
         }
 
-        if (navMeshAgent.remainingDistance <= 0.2f && !navMeshAgent.pathPending)
+        if (navMeshAgent.remainingDistance <= 0.3f && !navMeshAgent.pathPending)
         {
             switch (currentState)
             {

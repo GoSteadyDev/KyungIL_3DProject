@@ -50,9 +50,13 @@ public class TowerBuilder : MonoBehaviour
               {
                      return false;
               }
-
-              GameObject tower = Instantiate(template.towerPrefab, position, Quaternion.identity);
-
+              
+              // BuildTower 내부
+              var towerGO = Instantiate(template.towerPrefab, position, Quaternion.identity);
+              // ITower 구현체를 GetComponent로 가져오고 등록
+              var towerComp = towerGO.GetComponent<ITower>();
+              BuildingSystem.Instance.Register(towerComp);
+              
               // 위치한 타일에 설치됨 표시
               Ray ray = new Ray(position + Vector3.up * 10, Vector3.down);
               if (Physics.Raycast(ray, out RaycastHit hit, 20f))
@@ -66,13 +70,20 @@ public class TowerBuilder : MonoBehaviour
 
        public bool UpgradeTower(ITower oldTower, GameObject newTowerPrefab, Vector3 position, Quaternion rotation)
        {
-              GameObject newTower = Instantiate(newTowerPrefab, position, rotation);
+              // UpgradeTower 내부
+              var oldMb = oldTower as MonoBehaviour;
+              BuildingSystem.Instance.Unregister(oldTower);
+              Destroy(oldMb.gameObject);
+
+              var newGO = Instantiate(newTowerPrefab, position, rotation);
+              var newTowerComp = newGO.GetComponent<ITower>();
+              BuildingSystem.Instance.Register(newTowerComp);
 
               // 기존 타워 제거
-              if (oldTower is MonoBehaviour mb)
-              {
-                     Destroy(mb.gameObject);
-              }
+              // if (oldTower is MonoBehaviour mb)
+              // {
+              //        Destroy(mb.gameObject);
+              // }
 
               // 타일 상태는 그대로 유지되도록 처리 필요 시 여기에 추가
               return true;

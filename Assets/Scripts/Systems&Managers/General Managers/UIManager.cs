@@ -7,8 +7,6 @@ using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-using System;
-
 public static class NotificationService
 {
     // 메시지를 받을 구독자(UIManager 등)

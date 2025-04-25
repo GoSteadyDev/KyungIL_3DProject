@@ -10,7 +10,7 @@ public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
     [Tooltip("메인 카메라 제어 스크립트")]
     [SerializeField] private CameraControlSystem cameraController;
     [Tooltip("지상 평면 Y 좌표")]
-    [SerializeField] private float groundY = 0f;
+    [SerializeField] private float groundY;
 
     // RawImage의 RectTransform
     private RectTransform rectTransform;

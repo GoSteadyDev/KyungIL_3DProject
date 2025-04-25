@@ -13,8 +13,18 @@ public class WaveManager : MonoBehaviour
 
     private int currentWaveIndex = 0;
     private bool isWaveRunning = false;
-    public bool IsWaveRunning => isWaveRunning;
     private int killedEnemyCount = 0;
+    
+    public bool IsWaveRunning => isWaveRunning;
+    // 읽기 전용으로 뒀던 프로퍼티를 지우고,
+    // 외부에서 값을 지정할 수 있게 메서드로 바꿔 주세요.
+    public void SetWaveIndex(int index)
+    {
+        currentWaveIndex = Mathf.Clamp(index, 0, waveDatas.Count);
+        // UI 업데이트가 필요하면 여기서 ShowWaveInfo 호출해도 됩니다.
+    }
+
+    public int CurrentWaveIndex => currentWaveIndex;
 
     private void Awake()
     {
