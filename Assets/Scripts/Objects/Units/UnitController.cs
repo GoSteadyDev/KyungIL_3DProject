@@ -20,14 +20,21 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     [Header("Attack Settings")]
     [SerializeField] private float attackRange = 3.5f;
     
-    [Header("Info Settings")]
+    [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
     
+    [Header("InfoPanel")]
+    [SerializeField] private string displayName;
+    [SerializeField] private float displayDamage;
+    [SerializeField] private float displaySearchRange;
+    [SerializeField] private float displayAttackRange;
+
+    public Sprite GetIcon() => icon;
+    public string GetDisplayName() => displayName;
+    public string GetDescription() 
+        => $"Damage : {displayDamage} \nSearchRange : {displaySearchRange} \nAttackRange : {displayAttackRange}";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
-    public string GetDisplayName() => "SwordMan";
-    public Sprite GetIcon() => icon;
-    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     
     private Animator animator;
     private NavMeshAgent navMeshAgent;

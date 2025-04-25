@@ -203,9 +203,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   searchRange: 10
-  attackSpeed: 1
   attackRange: 3.5
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 42a4c234b3dee9d4da4a0aebfbe47314, type: 3}
+  displayName: Swordman
+  displayDamage: 2
+  displaySearchRange: 10
+  displayAttackRange: 3.5
 --- !u!114 &-4956902913087508520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccb7f44fcc01924c99e54e6b69699e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
+  maxHP: 25
   deathTime: 1
 --- !u!1 &2594044788228809324
 GameObject:

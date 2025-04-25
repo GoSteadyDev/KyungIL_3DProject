@@ -7,6 +7,20 @@ using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+using System;
+
+public static class NotificationService
+{
+    // 메시지를 받을 구독자(UIManager 등)
+    public static event Action<string> OnNotify;
+
+    // 어디서든 이 메서드 한 줄만 호출하면 구독자들에게 메시지가 전달됩니다
+    public static void Notify(string message)
+    {
+        OnNotify?.Invoke(message);
+    }
+}
+
 public class UIManager : MonoBehaviour
 { 
     public static UIManager Instance;
@@ -28,6 +42,10 @@ public class UIManager : MonoBehaviour
     
     [Header("WaveUI Settings")]
     [SerializeField] private TextMeshProUGUI WaveDescriptionText;
+    
+    [Header("Wave Hint Settings")]
+    [SerializeField] private int waveStartGoldThreshold = 4;
+    private bool waveStartHintShown = false;
 
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
@@ -49,6 +67,8 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        NotificationService.OnNotify += ShowWarning;
+        
         HPViewerSpawner.Initialize(followUIControlCanvas.transform);
         
         towerPanelDict = new Dictionary<int, GameObject>();
@@ -61,7 +81,35 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ResourceManager.Instance.OnGoldChanged += UpdateGoldText;
-        UpdateGoldText(); // 초기값
+        ResourceManager.Instance.OnGoldChanged += EvaluateWaveStartHint;
+        UpdateGoldText();        // 초기 골드 표시
+        EvaluateWaveStartHint(); // 게임 시작 시에도 한 번 체크
+    }
+    
+    // 돈 부족하면 웨이브 시작하도록 알림 메시지
+    private void EvaluateWaveStartHint()
+    {
+        bool waveNotRunning   = !WaveManager.Instance.IsWaveRunning;
+        bool noSpendableGold  = ResourceManager.Instance.Gold <= waveStartGoldThreshold;
+        
+        if (waveNotRunning && noSpendableGold && !waveStartHintShown)
+        {
+            ShowWarning("Start Wave When You Are Ready!");
+            waveStartHintShown = true;
+        }
+        
+        // 조건이 풀리면, 다음에 또 알릴 수 있도록 리셋
+        else if ((!waveNotRunning || !noSpendableGold) && waveStartHintShown)
+        { 
+            waveStartHintShown = false;
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        NotificationService.OnNotify -= ShowWarning;
+        if (ResourceManager.Instance != null)
+            ResourceManager.Instance.OnGoldChanged -= EvaluateWaveStartHint;
     }
 
     private void UpdateGoldText()
@@ -178,6 +226,7 @@ public class UIManager : MonoBehaviour
             iconImage.sprite = target.GetIcon();
         }
     }
+    
     public void HideInfoPanel()
     {
         attackRangeViewer.gameObject.SetActive(false);

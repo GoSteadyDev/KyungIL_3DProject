@@ -1275,8 +1275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95c8ddce81878f458ef1bb33f43ce43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 20
-  enemyGold: 5
+  maxHP: 30
+  enemyGold: 3
   deathTime: 1
 --- !u!1 &3951231208088991225
 GameObject:

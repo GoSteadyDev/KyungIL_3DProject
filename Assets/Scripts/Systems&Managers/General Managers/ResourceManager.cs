@@ -33,7 +33,7 @@ public class ResourceManager : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.ShowWarning("You don't have enough gold!");
+            NotificationService.Notify("You don't have enough gold!");
             return false;
         }
     }

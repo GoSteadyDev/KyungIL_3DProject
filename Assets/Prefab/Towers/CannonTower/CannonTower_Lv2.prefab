@@ -14930,9 +14930,9 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: b5427efa55168a941b2ca7092bd3f0ad, type: 3}
   displayName: Cannon Tower
   displayLevel: Lv.2
-  displayAttackSpeed: 0
-  displayDamage: 0
-  displayRange: 0
+  displayAttackSpeed: 2
+  displayDamage: 10
+  displayRange: 15
 --- !u!1 &8400163816201891466
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971085, g: 0.49977827, b: 0.5756336, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497106, g: 0.4997778, b: 0.575633, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3924,8 +3924,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 125, y: 125}
+  m_AnchoredPosition: {x: 25, y: -25}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &157301037
 MonoBehaviour:
@@ -6349,7 +6349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5701963c8291e004f87728b3e50afcc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningDuration: 1
+  warningDuration: 2
   warningText: {fileID: 1389959739}
   followUIControlCanvas: {fileID: 1592003352}
   attackRangeViewer: {fileID: 37588251}
@@ -27705,7 +27705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.027099695, g: 0.026032396, b: 0.14150941, a: 0.7529412}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -28536,7 +28536,7 @@ GameObject:
   - component: {fileID: 1189193204}
   - component: {fileID: 1189193203}
   m_Layer: 0
-  m_Name: BarrackPanel
+  m_Name: BarrackInfoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30108,7 +30108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5a47715625daa4b9d4db45a820a5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5b868daaba7d1434b9da06a6e813b188, type: 3}
   displayName: "\uBC30\uB7ED"
   description: "\uC720\uB2DB\uC744 \uC0DD\uC131\uD560 \uC218 \uC788\uB294 \uAC74\uBB3C\uC785\uB2C8\uB2E4."
   unitSpawner: {fileID: 0}
@@ -33491,7 +33491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -125}
+  m_AnchoredPosition: {x: 80, y: -135}
   m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368580592
@@ -33514,7 +33514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: You Can Create Unit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -39054,7 +39054,7 @@ GameObject:
   - component: {fileID: 1563623441}
   - component: {fileID: 1563623440}
   m_Layer: 0
-  m_Name: BarrackPanel
+  m_Name: BarrackOpenPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50151,8 +50151,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -90, y: 0}
-  m_SizeDelta: {x: 125, y: 125}
+  m_AnchoredPosition: {x: -90, y: -25}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1963059428
 MonoBehaviour:
@@ -50445,8 +50445,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 0}
-  m_SizeDelta: {x: 100, y: 150}
+  m_AnchoredPosition: {x: 125, y: -25}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1971855869
 MonoBehaviour:
@@ -50468,7 +50468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 5b868daaba7d1434b9da06a6e813b188, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -57377,7 +57377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &404397788759260865
 Transform:
   m_ObjectHideFlags: 0
@@ -57483,7 +57483,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   displayName: 
   displayLevel: 
-  displayAttackSpeed: 0
   displayDamage: 0
   displayRange: 0
 --- !u!1 &975819781245800939

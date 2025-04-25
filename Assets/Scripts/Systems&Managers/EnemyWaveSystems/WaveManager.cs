@@ -6,13 +6,21 @@ using UnityEngine.PlayerLoop;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance { get; private set; }
+    
     [SerializeField] private List<WaveData> waveDatas;
     [SerializeField] private EnemySpawner spawner;
 
     private int currentWaveIndex = 0;
     private bool isWaveRunning = false;
+    public bool IsWaveRunning => isWaveRunning;
     private int killedEnemyCount = 0;
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         if (KillEventSystem.Instance != null)
@@ -36,7 +44,9 @@ public class WaveManager : MonoBehaviour
         // 웨이브가 이미 진행 중이거나 마지막 웨이브를 넘었거나 적이 남아있으면 리턴
         if (isWaveRunning || spawner.HasAliveEnemies() || currentWaveIndex >= waveDatas.Count)
             return;
-
+        
+        NotificationService.Notify("Wave started! They are coming—prepare for battle.");
+        
         UIManager.Instance.ShowWaveInfo(
             currentWaveIndex + 1,
             killedEnemyCount,

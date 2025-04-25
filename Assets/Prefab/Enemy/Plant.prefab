@@ -1633,10 +1633,10 @@ GameObject:
   - component: {fileID: 5338427084925554964}
   - component: {fileID: 7545504566490720903}
   - component: {fileID: -8779953726843176235}
+  - component: {fileID: 2217294859636856112}
   - component: {fileID: 940562302270978986}
   - component: {fileID: 7762179207884641151}
   - component: {fileID: 4750318979704669965}
-  - component: {fileID: 2217294859636856112}
   m_Layer: 6
   m_Name: Plant
   m_TagString: Enemy
@@ -1703,6 +1703,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &2217294859636856112
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060024694017685613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!114 &940562302270978986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,8 +1754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95c8ddce81878f458ef1bb33f43ce43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 20
-  enemyGold: 10
+  maxHP: 40
+  enemyGold: 5
   deathTime: 1
 --- !u!114 &4750318979704669965
 MonoBehaviour:
@@ -1752,29 +1775,6 @@ MonoBehaviour:
   isRanged: 1
   projectilePrefab: {fileID: 8554284460346181029, guid: 87f375e1b1e06ce4d9968ddb985adca5, type: 3}
   firePoint: {fileID: 5778867009513269216}
---- !u!136 &2217294859636856112
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9060024694017685613}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Height: 4
-  m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0}
 --- !u!1 &9194011688266809929
 GameObject:
   m_ObjectHideFlags: 0

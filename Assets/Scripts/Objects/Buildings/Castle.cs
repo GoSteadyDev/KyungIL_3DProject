@@ -39,6 +39,7 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
 
     public void TakeDamage(float damage)
     {
+        NotificationService.Notify("Your Base is under attack!");
         currentHP -= damage;
 
         if (currentHP >= maxHP * 0.6f)

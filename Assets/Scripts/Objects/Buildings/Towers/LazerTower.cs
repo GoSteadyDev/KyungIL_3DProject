@@ -24,14 +24,13 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [Header("InfoPanel")]
     [SerializeField] private string displayName;
     [SerializeField] private string displayLevel;
-    [SerializeField] private float displayAttackSpeed;
     [SerializeField] private float displayDamage;
     [SerializeField] private float displayRange;
 
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
-        => $"Tower Level : {displayLevel} \nDamagePerSecond : {displayDamage} \nAttackSpeed : {displayAttackSpeed} \nAttackRange : {displayRange}";
+        => $"Tower Level : {displayLevel} \nDamagePerSecond : {displayDamage} \nAttackRange : {displayRange}";
     
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;

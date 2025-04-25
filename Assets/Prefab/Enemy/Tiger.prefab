@@ -1502,6 +1502,9 @@ MonoBehaviour:
   damage: 3
   searchRange: 5
   attackInterval: 2.5
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
 --- !u!114 &4633734556239972037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1514,8 +1517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95c8ddce81878f458ef1bb33f43ce43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 25
-  enemyGold: 12
+  maxHP: 50
+  enemyGold: 7
   deathTime: 1
 --- !u!1 &8608319815109878209
 GameObject:
