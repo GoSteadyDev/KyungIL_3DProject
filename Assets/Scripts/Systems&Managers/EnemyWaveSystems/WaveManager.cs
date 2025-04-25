@@ -71,6 +71,8 @@ public class WaveManager : MonoBehaviour
 
         yield return new WaitUntil(() => spawner.HasAliveEnemies() == false);
 
+        NotificationService.Notify("All enemies have been destroyed. You can start next wave.");
+        
         isWaveRunning = false;
 
         // ✅ 웨이브 종료 후에 증가

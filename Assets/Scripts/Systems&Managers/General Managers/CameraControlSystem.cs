@@ -34,6 +34,29 @@ public class CameraControlSystem : MonoBehaviour
         HandleZoom();
     }
 
+    /// <summary>
+    /// 클릭 지점이 카메라 시야 정중앙에 오도록 카메라 위치를 재설정
+    /// </summary>
+    public void MoveCameraTo(Vector3 target)
+    {
+        // 1) 카메라가 내려다보는 방향(월드)
+        Vector3 fwd = transform.forward; 
+        
+        // 2) fwd.y는 음수(아래로 볼 때), 높이 차를 보정하는 거리
+        float height = fixedY;                  // 카메라 Y 고정 높이
+        float offsetDist = height / -fwd.y;     // 예: 20m 높이, fwd.y=-0.866 -> 약 23m 뒤로
+
+        // 3) 카메라가 있어야 할 위치 = 클릭 지점 - 전방 * 거리
+        Vector3 desiredPos = target - fwd * offsetDist;
+
+        // 4) 맵 바깥으로 벗어나지 않도록 Clamp
+        float clampedX = Mathf.Clamp(desiredPos.x, minX, maxX);
+        float clampedZ = Mathf.Clamp(desiredPos.z, minZ, maxZ);
+        float clampedY = fixedY; // 항상 고정
+
+        transform.position = new Vector3(clampedX, clampedY, clampedZ);
+    }
+
     private void HandleMovement()
     {
         Vector3 pos = transform.position;
