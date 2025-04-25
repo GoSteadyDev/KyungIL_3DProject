@@ -39,6 +39,7 @@ public class UnitHP : MonoBehaviour, IDamageable
     private void Die()
     {
         unitController.enabled = false;
+        MinimapBlipManager.Instance.UnregisterTarget(transform);
         StartCoroutine(DeathTerm());
     }
 

@@ -65,24 +65,11 @@ public class GameManager : MonoBehaviour
     {
         if (IsGameOver) return;
 
-        if (Time.timeScale == 1f)
-            PauseGame();
-        else
-            ResumeGame();
-    }
+        bool nowPaused = Time.timeScale == 1f;
+        Time.timeScale = nowPaused ? 0f : 1f;
 
-    private void PauseGame()
-    {
-        Time.timeScale = 0f;
-        UIManager.Instance.ShowPauseUI(true);
-        Debug.Log("Game Paused");
-    }
-
-    private void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        UIManager.Instance.ShowPauseUI(false);
-        Debug.Log("Game Resumed");
+        // 이벤트 대신 직접 UIManager에게 알려 주기
+        UIManager.Instance.ShowPauseUI(nowPaused);
     }
 }
 

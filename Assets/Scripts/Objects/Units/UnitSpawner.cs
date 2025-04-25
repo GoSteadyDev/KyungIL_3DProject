@@ -21,6 +21,7 @@ public class UnitSpawner : MonoBehaviour
         
         spawnEffect.Play();
         GameObject unit = Instantiate(SwordManPrefab, spawnPoint.position, Quaternion.identity);
+        MinimapBlipManager.Instance.RegisterTarget(unit.transform, Color.cyan);
 
         var controller = unit.GetComponent<UnitController>();
         
@@ -39,7 +40,8 @@ public class UnitSpawner : MonoBehaviour
         
         spawnEffect.Play();
         GameObject unit = Instantiate(SpearManPrefab, spawnPoint.position, Quaternion.identity);
-
+        MinimapBlipManager.Instance.RegisterTarget(unit.transform, Color.cyan);
+        
         var controller = unit.GetComponent<UnitController>();
         
         if (controller != null)

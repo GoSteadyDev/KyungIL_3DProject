@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 4691698614964339150}
   - component: {fileID: 5086409451939826947}
   - component: {fileID: 3906618323653432723}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ArcherTower_Lv3_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}

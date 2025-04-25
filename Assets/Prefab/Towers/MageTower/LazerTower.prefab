@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3574770588584547069}
   - component: {fileID: 8953466071625129600}
   - component: {fileID: 963322779239807363}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LazerTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}

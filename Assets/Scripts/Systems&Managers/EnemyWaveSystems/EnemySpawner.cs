@@ -27,8 +27,9 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyDic.Add(data.EnemyName, data.EnemyPrefab);
         }
-
+        
         GameObject enemy = Instantiate(data.EnemyPrefab, spawnPoint.position, Quaternion.identity);
+        MinimapBlipManager.Instance.RegisterTarget(enemy.transform, Color.red);
         spawnedEnemies.Add(enemy);
 
         var controller = enemy.GetComponent<EnemyController>();

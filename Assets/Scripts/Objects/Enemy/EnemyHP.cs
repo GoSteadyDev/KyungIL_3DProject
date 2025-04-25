@@ -45,6 +45,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
         isDead = true;
         // 골드 지급 등 내부 처리
         ResourceManager.Instance.AddGold(enemyGold);
+        MinimapBlipManager.Instance.UnregisterTarget(transform);
 
         // 💥 KillEvent 발생
         KillEventSystem.Instance.Broadcast(new KillEvent
