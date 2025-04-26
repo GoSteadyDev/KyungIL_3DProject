@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   rotationSpeed: 5
-  turnDistance: 0.1
+  turnDistance: 0.5
   navMeshAgent: {fileID: 3733203057124735219}
 --- !u!114 &1784604638886116562
 MonoBehaviour:
