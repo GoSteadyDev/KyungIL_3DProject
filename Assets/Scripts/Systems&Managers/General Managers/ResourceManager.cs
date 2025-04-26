@@ -34,6 +34,7 @@ public class ResourceManager : MonoBehaviour
         if (gold >= amount)
         {
             gold -= amount;
+            NotificationService.Notify($" -{amount} gold Spent. {gold} Left.");
             OnGoldChanged?.Invoke();
             return true;
         }

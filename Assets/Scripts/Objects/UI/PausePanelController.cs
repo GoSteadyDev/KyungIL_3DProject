@@ -22,11 +22,14 @@ public class PausePanelController : MonoBehaviour
 
     [Header("Sliders")]
     [SerializeField] private Slider cameraSpeedSlider;
-    
     [Header("Other Systems")]
     [Tooltip("Hierarchy에서 Main Camera에 붙어 있는 스크립트")]
     [SerializeField] private CameraControlSystem cameraControl;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource bgmSource;       // BGM용 AudioSource
+    [SerializeField] private Slider     bgmVolumeSlider;  // 0~1
+    
     private void Awake()
     {
         // 버튼 콜백 설정
@@ -46,6 +49,15 @@ public class PausePanelController : MonoBehaviour
 
         // 시작할 땐 Settings 서브패널 닫아두기
         settingsPanel.SetActive(false);
+        
+        // ▶ BGM 볼륨 초기화 & 바인딩
+        if (bgmSource != null && bgmVolumeSlider != null)
+        {
+            bgmVolumeSlider.minValue = 0f;
+            bgmVolumeSlider.maxValue = 1f;
+            bgmVolumeSlider.value = bgmSource.volume;
+            bgmVolumeSlider.onValueChanged.AddListener(v => bgmSource.volume = v);
+        }
     }
 
     // Resume
