@@ -86,14 +86,18 @@ public class ObjectSelector : MonoBehaviour
             rangeViewer.Clear();
         }
     }
-
+    
     private void HandleInfoPanel(RaycastHit hit)
     {
         IHasInfoPanel infoTarget = hit.collider.GetComponent<IHasInfoPanel>();
 
         if (infoTarget != null)
         {
-            UIManager.Instance.ShowInfoPanel(infoTarget);
+            if (infoTarget is ITower)
+                UIManager.Instance.ShowTowerInfoPanel(infoTarget);
+            else
+                UIManager.Instance.ShowUnitInfoPanel(infoTarget);
+
             HandleTowerPanel(infoTarget);
         }
         else
@@ -102,7 +106,7 @@ public class ObjectSelector : MonoBehaviour
             UIManager.Instance.HideAllTowerPanels();
         }
     }
-
+    
     private void HandleTowerPanel(IHasInfoPanel infoTarget)
     {
         if (infoTarget is ITower tower)

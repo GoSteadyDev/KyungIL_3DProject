@@ -47,20 +47,23 @@ public class UIManager : MonoBehaviour
 
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
+    [SerializeField] private GameObject towerInfoPanelRoot;
     [SerializeField] private GameObject towerCreatePanel; // Lv0 (빌딩 포인트 클릭 시)
     [SerializeField] private List<GameObject> towerLevelPanels; // Lv1~Lv3
-    private Dictionary<int, GameObject> towerPanelDict;
-
-    [Header("InfoPanel Settings")]
-    [SerializeField] private GameObject infoPanelRoot;
+    [SerializeField] private TextMeshProUGUI towerNameText;
+    [SerializeField] private TextMeshProUGUI towerDescText;
+    [SerializeField] private Image towerIconImage;
     
-    [SerializeField] private GameObject barracksPanelRoot;
-    [SerializeField] private GameObject upgradePanelRoot;
-    [SerializeField] private GameObject storePanelRoot;
+    private Dictionary<int, GameObject> towerPanelDict;
+    private GameObject lastOpenedTowerPanel;
 
+    [Header("ObjectInfoUI Settings")]
+    [SerializeField] private GameObject objectInfoPanelRoot;
+    [SerializeField] private GameObject barracksPanelRoot;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private Image iconImage;
+
 
     private void Awake()
     {
@@ -182,6 +185,8 @@ public class UIManager : MonoBehaviour
         panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         panel.transform.SetParent(towerBuildCanvas.transform);
         panel.SetActive(true);
+        
+        lastOpenedTowerPanel = panel;
     }
     
     public void HideAllTowerPanels()
@@ -194,35 +199,35 @@ public class UIManager : MonoBehaviour
         HideInfoPanel();
     }
     
-    public void ShowInfoPanel(IHasInfoPanel target)
+    public void ShowTowerInfoPanel(IHasInfoPanel target)
     {
-        HideAllBuildingPanels(); // 우선 모든 패널 비활성화
+        HideAllBuildingPanels(); // 모든 Info 패널 숨김
+
+        if (target == null || lastOpenedTowerPanel == null) return;
+
+        towerInfoPanelRoot.SetActive(true);
+        towerNameText.text = target.GetDisplayName();
+        towerDescText.text = target.GetDescription();
+        towerIconImage.sprite = target.GetIcon();
+
+        // 🔥 타워 패널 기준으로 위치
+        Vector3 basePos = lastOpenedTowerPanel.transform.position;
+        Vector3 offset = new Vector3(20f, -7.5f, -5f);
+        towerInfoPanelRoot.transform.position = basePos + offset;
+
+        towerInfoPanelRoot.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+    }
     
+    public void ShowUnitInfoPanel(IHasInfoPanel target)
+    {
+        HideAllBuildingPanels(); // 모든 Info 패널 숨김
+
         if (target == null) return;
-    
-        // ➤ Barrack
-        if (target is BarrackController)
-        {
-            barracksPanelRoot.SetActive(true);
-        }
-        // ➤ Upgrade Center
-        else if (target is UpgradeCenterController)
-        {
-            upgradePanelRoot.SetActive(true);
-        }
-        // ➤ Store
-        else if (target is StoreController)
-        {
-            storePanelRoot.SetActive(true);
-        }
-        // ➤ 기본 Info Panel
-        else
-        {
-            infoPanelRoot.SetActive(true);
-            nameText.text = target.GetDisplayName();
-            descText.text = target.GetDescription();
-            iconImage.sprite = target.GetIcon();
-        }
+
+        objectInfoPanelRoot.SetActive(true);
+        nameText.text = target.GetDisplayName();
+        descText.text = target.GetDescription();
+        iconImage.sprite = target.GetIcon();
     }
     
     public void HideInfoPanel()
@@ -238,9 +243,8 @@ public class UIManager : MonoBehaviour
 
     private void HideAllBuildingPanels()
     {
-        infoPanelRoot.SetActive(false);
+        towerInfoPanelRoot.SetActive(false);
+        objectInfoPanelRoot.SetActive(false);
         barracksPanelRoot.SetActive(false);
-        upgradePanelRoot.SetActive(false);
-        storePanelRoot.SetActive(false);
     }
 }
