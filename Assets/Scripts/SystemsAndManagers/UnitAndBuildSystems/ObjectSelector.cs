@@ -93,10 +93,14 @@ public class ObjectSelector : MonoBehaviour
 
         if (infoTarget != null)
         {
-            if (infoTarget is ITower)
-                UIManager.Instance.ShowTowerInfoPanel(infoTarget);
+            if (infoTarget is ITower tower)
+            {
+                UIManager.Instance.ShowTowerInfoPanel(infoTarget, tower.GetTransform());
+            }
             else
+            {
                 UIManager.Instance.ShowUnitInfoPanel(infoTarget);
+            }
 
             HandleTowerPanel(infoTarget);
         }

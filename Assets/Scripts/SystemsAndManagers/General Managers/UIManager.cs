@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
     
     private Dictionary<int, GameObject> towerPanelDict;
     private GameObject lastOpenedTowerPanel;
+    private Transform currentSelectedTowerTransform; // 현재 선택된 타워 Transform 저장
 
     [Header("ObjectInfoUI Settings")]
     [SerializeField] private GameObject objectInfoPanelRoot;
@@ -181,7 +182,7 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        panel.transform.position = worldPos + new Vector3(0f, 15f, 0f);
+        panel.transform.position = worldPos + new Vector3(0f, 20f, -2.5f);
         panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         panel.transform.SetParent(towerBuildCanvas.transform);
         panel.SetActive(true);
@@ -199,23 +200,26 @@ public class UIManager : MonoBehaviour
         HideInfoPanel();
     }
     
-    public void ShowTowerInfoPanel(IHasInfoPanel target)
+    public void ShowTowerInfoPanel(IHasInfoPanel target, Transform towerTransform)
     {
-        HideAllBuildingPanels(); // 모든 Info 패널 숨김
+        HideAllBuildingPanels();
 
-        if (target == null || lastOpenedTowerPanel == null) return;
+        if (target == null || towerTransform == null) return;
 
         towerInfoPanelRoot.SetActive(true);
         towerNameText.text = target.GetDisplayName();
         towerDescText.text = target.GetDescription();
         towerIconImage.sprite = target.GetIcon();
 
-        // 🔥 타워 패널 기준으로 위치
-        Vector3 basePos = lastOpenedTowerPanel.transform.position;
-        Vector3 offset = new Vector3(20f, -7.5f, -5f);
-        towerInfoPanelRoot.transform.position = basePos + offset;
+        Vector3 towerPanelPos = lastOpenedTowerPanel.transform.position;
+        Vector3 offset = new Vector3(20f, 0f, -7.5f); // x+ 방향으로 오른쪽 4만큼 이동
+        towerInfoPanelRoot.transform.position = towerPanelPos + offset;
 
+        // InfoPanel도 카메라를 바라보게
         towerInfoPanelRoot.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+
+        // 현재 선택한 타워 Transform도 저장
+        currentSelectedTowerTransform = towerTransform;
     }
     
     public void ShowUnitInfoPanel(IHasInfoPanel target)
