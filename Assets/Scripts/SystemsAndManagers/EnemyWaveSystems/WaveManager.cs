@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance { get; private set; }
     
+    [SerializeField] private Button WaveStartButton;
     [SerializeField] private List<WaveData> waveDatas;
     [SerializeField] private EnemySpawner spawner;
 
@@ -56,6 +58,7 @@ public class WaveManager : MonoBehaviour
             return;
         
         NotificationService.Notify("Wave started! They are coming—prepare for battle.");
+        WaveStartButton.gameObject.SetActive(false);
         
         UIManager.Instance.ShowWaveInfo(
             currentWaveIndex + 1,
@@ -82,6 +85,7 @@ public class WaveManager : MonoBehaviour
         yield return new WaitUntil(() => spawner.HasAliveEnemies() == false);
 
         NotificationService.Notify("All enemies have been destroyed. You can start next wave.");
+        WaveStartButton.gameObject.SetActive(true);
         
         isWaveRunning = false;
 

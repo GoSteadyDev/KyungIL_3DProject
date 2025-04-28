@@ -154,7 +154,7 @@ public class UIManager : MonoBehaviour
     
     public void ShowWaveInfo(int waveNumber, int killedEnemies, int totalEnemies)
     {
-        WaveDescriptionText.text = $"Wave {waveNumber}\n Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
+        WaveDescriptionText.text = $"Wave {waveNumber} Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
     }
     
     public void ShowTowerPanelByLevel(int level, Vector3 worldPos)

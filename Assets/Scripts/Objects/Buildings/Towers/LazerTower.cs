@@ -30,7 +30,7 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
-        => $"Tower Level : {displayLevel} \nDamagePerSecond : {displayDamage} \nAttackRange : {displayRange}";
+        => $"Tower Level : {displayLevel} \nDPS : {displayDamage} \nAttackRange : {displayRange}";
     
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;

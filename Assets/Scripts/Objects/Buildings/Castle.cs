@@ -16,13 +16,12 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
     public string GetDisplayName() => "Castle"; 
     public Sprite GetIcon() => icon; 
     
-    private float maxHP = 100f;
-    public float MaxHP => maxHP;
-
     private float currentHP;
+    private float maxHP = 100f;
+
+    public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
-
-
+    
     private MeshFilter meshFilter;
     
     private void Awake()

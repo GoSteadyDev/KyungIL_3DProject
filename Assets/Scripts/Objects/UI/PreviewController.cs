@@ -27,6 +27,7 @@ public class PreviewController : MonoBehaviour
 
         tileDetector.enabled = true; // ✅ TileDetector 켜기
         
+        // 여기에서 타일을 리셋해주기 때문에 굳이 BuildingPoint에서 Init 해주는 메서드는 필요 없는듯함.
         foreach (var tile in tileDetector.Tiles)
         {
             if (!tile.IsUsed)

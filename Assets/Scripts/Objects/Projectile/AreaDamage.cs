@@ -12,6 +12,7 @@ public class AreaDamage : MonoBehaviour
     [SerializeField] private float duration = 1f;
     [SerializeField] private float areaRange = 3f;
     [SerializeField] private LayerMask enemyLayer;
+    // => 인스펙터에서 안쓰는 애, 굳이 필요 없을 것 같다
     
     private void Start()
     {

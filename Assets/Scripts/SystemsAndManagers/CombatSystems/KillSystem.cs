@@ -6,7 +6,6 @@ using UnityEngine;
 public class KillEventSystem : MonoBehaviour
 {
     public static KillEventSystem Instance;
-
     public event Action<KillEvent> OnKill;
 
     private void Awake()

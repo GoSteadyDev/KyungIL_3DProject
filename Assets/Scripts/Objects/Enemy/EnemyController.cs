@@ -7,18 +7,23 @@ using UnityEngine.Serialization;
 
 public class EnemyController : MonoBehaviour
 {
-    private Transform castleTarget;
-    private Transform[] wayPoints;
-    private int wayPointIndex = 0;
-
+    [Header("Movement")]
     [SerializeField] private float moveSpeed = 20.0f;
     [SerializeField] private float rotationSpeed = 1.0f;
     [SerializeField] private float turnDistance = 0.5f;
-
+    
     private Animator animator;
     public NavMeshAgent navMeshAgent;
     
+    private int wayPointIndex = 0;
     private bool isChasingCastle = false;
+    private bool isSlowed = false;
+    
+    private Coroutine slowCoroutine;
+    private GameObject activeSlowEffect;
+    
+    private Transform[] wayPoints;
+    private Transform castleTarget;
     
     private void Awake()
     {
@@ -105,9 +110,6 @@ public class EnemyController : MonoBehaviour
         return transform.position;
     }
     
-   private bool isSlowed = false;
-   private Coroutine slowCoroutine;
-   private GameObject activeSlowEffect;
 
    public void ApplySlow(float slowRate, float duration, GameObject effectPrefab)
    {

@@ -26,7 +26,6 @@ public class ResourceManager : MonoBehaviour
     public void AddGold(int amount)
     {
         gold += amount;
-        NotificationService.Notify($" {amount} gold added! You have {gold} gold.");
         OnGoldChanged?.Invoke();
     }
 
@@ -35,7 +34,6 @@ public class ResourceManager : MonoBehaviour
         if (gold >= amount)
         {
             gold -= amount;
-            NotificationService.Notify($" -{amount} gold Spent. {gold} Left.");
             OnGoldChanged?.Invoke();
             return true;
         }

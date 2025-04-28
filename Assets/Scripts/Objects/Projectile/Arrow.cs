@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [Header("Settings")] [SerializeField] private float speed;
+    [Header("Settings")]
+    [SerializeField] private float speed;
+    
     private float damage;
     private Transform target;
     private bool hasHit = false;
@@ -56,5 +58,3 @@ public class Arrow : MonoBehaviour
         }
     }
 }
-
-

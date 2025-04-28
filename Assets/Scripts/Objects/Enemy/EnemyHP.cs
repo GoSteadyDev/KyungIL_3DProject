@@ -8,23 +8,18 @@ public class EnemyHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHP = 10f;
     [SerializeField] private int enemyGold;
-    
-    public float MaxHP => maxHP;
+    [SerializeField] private float deathTime = 1f;
     
     private float currentHP;
-    public float CurrentHP => currentHP;
-
-    private EnemyController enemyController;
-
-    [SerializeField] private float deathTime = 1f;
     private bool isDead = false;
+    
+    public float MaxHP => maxHP;
+    public float CurrentHP => currentHP;
     
     private void Awake()
     {
-        enemyController = GetComponent<EnemyController>();
-        currentHP = Mathf.Clamp( currentHP, 0, maxHP);
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         currentHP = maxHP;
-        
     }
 
     public void TakeDamage(float amount)
@@ -35,7 +30,6 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
         if (currentHP <= 0f)
         {
-            Debug.Log($"적 HP : {currentHP}");
             Die();
         }
     }
@@ -57,8 +51,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
         StartCoroutine(DeathTerm());
     }
-
-
+    
     private IEnumerator DeathTerm()
     {
         yield return new WaitForSeconds(deathTime);

@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [Header("Attack Settings")]
     [SerializeField] private float damage;
     [SerializeField] private float searchRange = 5f;
     [SerializeField] private float attackInterval = 2.5f;
     
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private bool isRanged = false;
+    
     private EnemyController enemyController;
     private Transform attackTarget;
+    private float attackTimer;
     
     private void Awake()
     {
         enemyController = GetComponent<EnemyController>();
     }
-
-    private float attackTimer;
 
     private void Update()
     {
@@ -44,8 +48,7 @@ public class EnemyAttack : MonoBehaviour
             enemyController.enabled = true;
         }
     }
-
-
+    
     public void OnHit(Collider other)
     {
         CombatEvent combatEvent = new CombatEvent
@@ -83,10 +86,6 @@ public class EnemyAttack : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRange);
     }
-    
-    [SerializeField] private bool isRanged = false;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform firePoint;
     
     private void FireProjectile()
     {
