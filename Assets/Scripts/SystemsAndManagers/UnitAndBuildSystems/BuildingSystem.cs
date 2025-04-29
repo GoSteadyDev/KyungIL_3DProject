@@ -34,9 +34,7 @@ public class BuildingSystem : MonoBehaviour
         }
 
         // 2) Instantiate
-        var go = Instantiate(template.towerPrefab,
-            (Vector3)ts.pos,
-            Quaternion.Euler(ts.rot));
+        var go = Instantiate(template.towerPrefab, (Vector3)ts.pos,Quaternion.Euler(ts.rot));
         // 3) ITower 컴포넌트로 등록
         if (go.TryGetComponent<ITower>(out var towerComp))
             allTowers.Add(towerComp);

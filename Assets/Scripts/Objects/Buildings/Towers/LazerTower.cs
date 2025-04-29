@@ -13,13 +13,10 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     
     [Header("Projectile Settings")]
     [SerializeField] private Transform firePoint; 
-    [SerializeField] private GameObject Lazer;
+    [SerializeField] private GameObject Lazer;  // 이펙트 오브젝트
     
     [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
-
-    private Transform targetTransform;
-    private Animator animator;
     
     [Header("InfoPanel")]
     [SerializeField] private string displayName;
@@ -27,11 +24,13 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [SerializeField] private float displayDamage;
     [SerializeField] private float displayRange;
 
+    private Transform targetTransform;
+    private Animator animator;
+    
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
         => $"Tower Level : {displayLevel} \nDPS : {displayDamage} \nAttackRange : {displayRange}";
-    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;
@@ -50,6 +49,7 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
         {
             animator.SetTrigger("IsAttack");
             
+            // 사실상 다른 Tower 스크립트에서 Fire 역할
             Lazer.SetActive(true);
             Lazer.GetComponent<Lazer>().Initialize(firePoint, targetTransform, damagePerSec);
         }

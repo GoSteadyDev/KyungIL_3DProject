@@ -19,22 +19,21 @@ public class SlowTowerLv3 : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     
     [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
-
-    private Animator animator;
-    private List<EnemyController> detectedEnemies = new();
-    private bool isFiring = false;
-
     [Header("InfoPanel")]
     [SerializeField] private string displayName;
     [SerializeField] private string displayLevel;
     [SerializeField] private float displayDamage;
     [SerializeField] private float displayRange;
-
+    
+    private Animator animator;
+    private List<EnemyController> detectedEnemies = new();
+    
+    private bool isFiring = false;
+    
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
         => $"Tower Level : {displayLevel} \nDamage: {displayDamage} \nSlow: {slowRate * 100}% / {slowDuration} \nAttackRange : {displayRange}";
-    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;

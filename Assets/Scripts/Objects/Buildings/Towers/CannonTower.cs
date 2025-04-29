@@ -21,10 +21,6 @@ public class CannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private Sprite icon;
     
-    private Transform targetTransform;
-    
-    private float currentCooldown;
-    
     [Header("InfoPanel")]
     [SerializeField] private string displayName;
     [SerializeField] private string displayLevel;
@@ -32,11 +28,13 @@ public class CannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [SerializeField] private float displayDamage;
     [SerializeField] private float displayRange;
     
+    private Transform targetTransform;
+    private float currentCooldown;
+
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
         => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed} \nAttackRange : {displayRange}";
-    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;
@@ -70,6 +68,7 @@ public class CannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
         if (targetTransform == null) return;
 
         EnemyController enemy = targetTransform.GetComponent<EnemyController>();
+        
         if (enemy == null) return;
 
         Vector3 enemyPos = enemy.GetCurrentPosition();

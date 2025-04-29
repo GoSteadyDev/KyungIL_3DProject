@@ -20,15 +20,16 @@ public class PausePanelController : MonoBehaviour
     [SerializeField] private Button closeSettingsButton;
     [SerializeField] private Button quitButton;
 
-    [Header("Sliders")]
-    [SerializeField] private Slider cameraSpeedSlider;
     [Header("Other Systems")]
     [Tooltip("Hierarchy에서 Main Camera에 붙어 있는 스크립트")]
     [SerializeField] private CameraControlSystem cameraControl;
+    
+    [Header("Sliders")]
+    [SerializeField] private Slider cameraSpeedSlider;
+    [SerializeField] private Slider bgmVolumeSlider;  // 0~1
 
     [Header("Audio Settings")]
     [SerializeField] private AudioSource bgmSource;       // BGM용 AudioSource
-    [SerializeField] private Slider     bgmVolumeSlider;  // 0~1
     
     private void Awake()
     {
@@ -42,10 +43,7 @@ public class PausePanelController : MonoBehaviour
 
         // 슬라이더 초기화 & 바인딩
         cameraSpeedSlider.value = cameraControl.moveSpeed;
-        cameraSpeedSlider.onValueChanged.AddListener(val =>
-        {
-            cameraControl.SetPanSpeed(val);
-        });
+        cameraSpeedSlider.onValueChanged.AddListener(val => { cameraControl.SetPanSpeed(val); });
 
         // 시작할 땐 Settings 서브패널 닫아두기
         settingsPanel.SetActive(false);
@@ -81,7 +79,18 @@ public class PausePanelController : MonoBehaviour
         NotificationService.Notify("Game Saved!");
         GameManager.Instance.TogglePause(); // 저장 후 Resume 혹은 그냥 토글
     }
-
+    
+    // PausePanelController 내에…
+    private void DoSave()
+    {
+        var saveData = new GameSaveData {
+            gold   = ResourceManager.Instance.Gold,
+            waveIndex   = WaveManager.Instance.CurrentWaveIndex,
+            towers = BuildingSystem.Instance.GetAllTowerData()
+        };
+        SaveSystem.Save(saveData);
+    }
+    
     // Load (불러온 뒤 자동 Resume)
     private void OnLoad()
     {
@@ -104,18 +113,6 @@ public class PausePanelController : MonoBehaviour
         else NotificationService.Notify("No save data.");
     }
 
-    // PausePanelController 내에…
-    private void DoSave()
-    {
-        var saveData = new GameSaveData {
-            gold   = ResourceManager.Instance.Gold,
-            waveIndex   = WaveManager.Instance.CurrentWaveIndex,
-            towers = BuildingSystem.Instance.GetAllTowerData(),
-            // units = … (추후)
-        };
-        SaveSystem.Save(saveData);
-    }
-
     private void DoLoad()
     {
         GameSaveData data = SaveSystem.Load();
@@ -133,18 +130,6 @@ public class PausePanelController : MonoBehaviour
         {
             BuildingSystem.Instance.SpawnTowerFromSave(ts);
         }
-        
-        // 3) 타워 재생성
-        // foreach (var ts in data.towers)
-        // {
-        //     // 3-1) Template 찾기
-        //     var template = BuildingSystem.Instance
-        //         .GetTemplateByPath(ts.type, ts.level - 1, ts.pathCode);
-        //     // 3-2) Instantiate
-        //     var go = Instantiate(template.towerPrefab, (Vector3)ts.pos, Quaternion.Euler(ts.rot));
-        //     var towerComp = go.GetComponent<ITower>();
-        //     BuildingSystem.Instance.Register(towerComp);
-        // }
     }
     
     // Settings 열기: Pause 닫고 Settings 열기

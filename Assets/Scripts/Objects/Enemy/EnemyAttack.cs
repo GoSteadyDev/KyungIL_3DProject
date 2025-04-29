@@ -39,7 +39,7 @@ public class EnemyAttack : MonoBehaviour
             {
                 if (isRanged) FireProjectile(); // 원거리 공격
 
-                enemyController.PlayAttackAnimation(); // 근접 공격 애니메이션
+                enemyController.PlayAttackAnimation(); // 공격 애니메이션
                 attackTimer = attackInterval;
             }
         }
@@ -81,16 +81,16 @@ public class EnemyAttack : MonoBehaviour
         transform.rotation = targetRotation;
     }
     
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, searchRange);
-    }
-    
     private void FireProjectile()
     {
         GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         EnemyProjectile projectile = proj.GetComponent<EnemyProjectile>();
         projectile.Initialize(attackTarget, damage);
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, searchRange);
     }
 }

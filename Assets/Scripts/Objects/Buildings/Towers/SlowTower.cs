@@ -14,34 +14,32 @@ public class SlowTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [SerializeField] private float attackRange = 7.5f;
     
     [Header("Projectile Settings")]
-    [SerializeField] private GameObject slowEffectPrefab;
+    [SerializeField] private GameObject slowEffectPrefab;   // 얘도 LazerTower처럼 이펙트 오브젝트를 쓴다
     
     [Header("Visual Settings")]
     [SerializeField] private Sprite icon;
-    
-    private int damagePerSec => Mathf.CeilToInt(damage / slowDuration);
     
     [Header("InfoPanel")]
     [SerializeField] private string displayName;
     [SerializeField] private string displayLevel;
     [SerializeField] private float displayDamage;
     [SerializeField] private float displayRange;
-
-    public Sprite GetIcon() => icon;
-    public string GetDisplayName() => displayName;
-    public string GetDescription() 
-        => $"Tower Level : {displayLevel} \nDamage: {displayDamage} \nSlow: {slowRate * 100}% / {slowDuration} \nAttackRange : {displayRange}";
     
-    public float GetAttackRange() => attackRange;
-    public Transform GetTransform() => transform;
-    public TowerType GetTowerType() => TowerType;
-    public int GetCurrentLevel() => currentLevel;
-
     private Transform targetTransform;
     private Animator animator;
     
     private bool isFiring = false;
     private float currentCooldown;
+
+    private int damagePerSec => Mathf.CeilToInt(damage / slowDuration);
+    public Sprite GetIcon() => icon;
+    public string GetDisplayName() => displayName;
+    public string GetDescription() 
+        => $"Tower Level : {displayLevel} \nDamage: {displayDamage} \nSlow: {slowRate * 100}% / {slowDuration} \nAttackRange : {displayRange}";
+    public float GetAttackRange() => attackRange;
+    public Transform GetTransform() => transform;
+    public TowerType GetTowerType() => TowerType;
+    public int GetCurrentLevel() => currentLevel;
 
     private void Awake()
     {
@@ -79,6 +77,7 @@ public class SlowTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
         StartCoroutine(ApplySlowDamageAndReset(enemy.gameObject, damagePerSec, slowDuration));
     }
 
+    // 여기서 적 데미지 한번에 들어가서 애먹었던 기억이 있네. 디버그에 2중 코루틴 준거 추가할만할까?
     private IEnumerator ApplySlowDamageAndReset(GameObject target, float damagePerSecond, float duration)
     {
         yield return StartCoroutine(SlowDamageCoroutine(target, damagePerSecond, duration));

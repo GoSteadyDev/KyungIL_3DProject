@@ -40,8 +40,9 @@ public class Lazer : MonoBehaviour
     public void Initialize(Transform firePoint, Transform targetTransform, float dmg)
     {
         this.firePoint = firePoint;
-        damagePerSec = dmg;
         target = targetTransform;
+        
+        damagePerSec = dmg;
 
         if (!lazerEffect.isPlaying)
             lazerEffect.Play();

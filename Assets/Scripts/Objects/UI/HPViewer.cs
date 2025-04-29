@@ -27,12 +27,16 @@ public static class HPViewerSpawner
 
 public class HPViewer : MonoBehaviour
 {
+    [Header("Viewer Settings")]
     [SerializeField] private Vector3 hpViewerPosition = Vector3.up * 15f;
     [SerializeField] private Slider hpSlider;
+    [SerializeField] private Image fillImage; // Fill Area → Fill에 연결 (Inspector에서)
+    
+    [Header("Building HP?")]
     [SerializeField] private bool isStatic = false;
     
-    private IDamageable hpTarget;
-    private Transform followTarget;
+    private IDamageable hpTarget;   // hp 불러오기 위한 변수
+    private Transform followTarget; // transform 불러기 위한 변수
 
     public void Setup(IDamageable target, Transform follow)
     {
@@ -43,9 +47,6 @@ public class HPViewer : MonoBehaviour
         Vector3 screenPos = Camera.main.WorldToScreenPoint(follow.position);
         transform.position = screenPos;
     }
-    
-    [SerializeField] private Image fillImage; // Fill Area → Fill에 연결 (Inspector에서)
-    
     private void Update()
     {
         if (hpTarget == null)
@@ -74,7 +75,7 @@ public class HPViewer : MonoBehaviour
             fillImage.color = Color.red;
         }
         
-        if (!isStatic && followTarget != null)
+        if (isStatic == false && followTarget != null)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(followTarget.position + hpViewerPosition);
             transform.position = screenPos;

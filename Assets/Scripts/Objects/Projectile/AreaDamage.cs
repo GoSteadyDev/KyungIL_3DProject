@@ -7,10 +7,10 @@ using UnityEngine.Serialization;
 public class AreaDamage : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private ParticleSystem particleEffect;
     [SerializeField] private float damage = 3f;
     [SerializeField] private float duration = 1f;
     [SerializeField] private float areaRange = 3f;
+    [SerializeField] private ParticleSystem particleEffect;
     [SerializeField] private LayerMask enemyLayer;
     // => 인스펙터에서 안쓰는 애, 굳이 필요 없을 것 같다
     

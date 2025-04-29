@@ -110,7 +110,6 @@ public class EnemyController : MonoBehaviour
         return transform.position;
     }
     
-
    public void ApplySlow(float slowRate, float duration, GameObject effectPrefab)
    {
        if (isSlowed) return;

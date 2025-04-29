@@ -67,7 +67,8 @@ public class CameraControlSystem : MonoBehaviour
         Vector3 pos = transform.position;
         Vector3 dir = Vector3.zero;
         Vector3 mousePos = Input.mousePosition;
-
+        // mousePos => 가장 왼쪽 끝이 0 맨 오른쪽이 Screen.width
+        
         // 화면 가장자리 감지
         if (mousePos.x >= Screen.width - borderThickness) dir += Vector3.right;
         if (mousePos.x <= borderThickness) dir += Vector3.left;

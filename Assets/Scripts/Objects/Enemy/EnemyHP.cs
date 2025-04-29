@@ -15,7 +15,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
     
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
-    
+
     private void Awake()
     {
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);

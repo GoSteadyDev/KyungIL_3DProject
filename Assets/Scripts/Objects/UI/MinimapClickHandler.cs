@@ -39,7 +39,7 @@ public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
 
         // 3) minimapCamera Viewport 기준 Ray 생성
         Ray ray = minimapCamera.ViewportPointToRay(new Vector3(u, v, 0));
-
+        
         // 4) 지면 평면과 교차
         Plane ground = new Plane(Vector3.up, Vector3.zero);
         if (ground.Raycast(ray, out float enter))
@@ -47,29 +47,5 @@ public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
             Vector3 hitPoint = ray.GetPoint(enter);
             cameraController.MoveCameraTo(hitPoint);
         }
-        // }
-        //
-        // public void OnPointerClick(PointerEventData eventData)
-        // {
-        //     Debug.Log("Point?");
-        //     
-        //     // 1) 미니맵 카메라로부터 Ray 생성
-        //     Ray ray = minimapCamera.ScreenPointToRay(eventData.position);
-        //
-        //     // 2) y=groundY 평면 정의
-        //     Plane ground = new Plane(Vector3.up, new Vector3(0, groundY, 0));
-        //
-        //     // 3) 평면과 교차점 계산
-        //     if (ground.Raycast(ray, out float enter))
-        //     {
-        //         Vector3 hitPoint = ray.GetPoint(enter);
-        //         Debug.Log($"Minimap hit world point: {hitPoint}");
-        //         // 4) 메인 카메라 이동 호출
-        //         cameraController.MoveCameraTo(hitPoint);
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("Ground.Raycast failed!");
-        //     }
     }
 }

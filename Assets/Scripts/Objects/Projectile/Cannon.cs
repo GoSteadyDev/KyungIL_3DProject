@@ -26,7 +26,7 @@ public class Cannon : MonoBehaviour
         float distance = dirXZ.magnitude;
         float dynamicArcHeight = Mathf.Clamp(distance * 0.25f, 3f, 12f); // 비율 조정
 
-        float boostedY = dir.y + dynamicArcHeight;
+        float boostedY = dir.y + dynamicArcHeight;  // 최고 높이
 
         float Vy = (boostedY + 0.5f * gravity * timeToTarget * timeToTarget) / timeToTarget;
 

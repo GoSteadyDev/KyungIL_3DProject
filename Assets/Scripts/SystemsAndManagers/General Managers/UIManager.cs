@@ -24,8 +24,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     
     [Header("Warning Settings")]
+    [SerializeField] private TextMeshProUGUI warningText;
     [SerializeField] private float warningDuration = 2f;
-    public TextMeshProUGUI warningText;
     private Coroutine warningCoroutine;
     
     [Header("FollowUI Settings")]
@@ -40,11 +40,16 @@ public class UIManager : MonoBehaviour
     
     [Header("WaveUI Settings")]
     [SerializeField] private TextMeshProUGUI WaveDescriptionText;
-    
-    [Header("Wave Hint Settings")]
     [SerializeField] private int waveStartGoldThreshold = 4;
     private bool waveStartHintShown = false;
-
+    
+    [Header("ObjectInfoUI Settings")]
+    [SerializeField] private GameObject objectInfoPanelRoot;
+    [SerializeField] private GameObject barracksPanelRoot;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI descText;
+    [SerializeField] private Image iconImage;
+    
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
     [SerializeField] private GameObject towerInfoPanelRoot;
@@ -56,15 +61,7 @@ public class UIManager : MonoBehaviour
     
     private Dictionary<int, GameObject> towerPanelDict;
     private GameObject lastOpenedTowerPanel;
-    private Transform currentSelectedTowerTransform; // 현재 선택된 타워 Transform 저장
-
-    [Header("ObjectInfoUI Settings")]
-    [SerializeField] private GameObject objectInfoPanelRoot;
-    [SerializeField] private GameObject barracksPanelRoot;
-    [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI descText;
-    [SerializeField] private Image iconImage;
-
+    private Transform currentSelectedTowerPanel; // 현재 선택된 타워 Transform 저장
 
     private void Awake()
     {
@@ -78,6 +75,13 @@ public class UIManager : MonoBehaviour
         // Lv1~Lv3 등록
         for (int i = 0; i < towerLevelPanels.Count; i++)
             towerPanelDict[i + 1] = towerLevelPanels[i];
+    }
+    
+    private void OnDestroy()
+    {
+        NotificationService.OnNotify -= ShowWarning;
+        if (ResourceManager.Instance != null)
+            ResourceManager.Instance.OnGoldChanged -= EvaluateWaveStartHint;
     }
     
     private void Start()
@@ -94,24 +98,17 @@ public class UIManager : MonoBehaviour
         bool waveNotRunning   = !WaveManager.Instance.IsWaveRunning;
         bool noSpendableGold  = ResourceManager.Instance.Gold <= waveStartGoldThreshold;
         
-        if (waveNotRunning && noSpendableGold && !waveStartHintShown)
+        if (waveNotRunning && noSpendableGold && waveStartHintShown == false)
         {
             ShowWarning("Start Wave When You Are Ready!");
             waveStartHintShown = true;
         }
         
         // 조건이 풀리면, 다음에 또 알릴 수 있도록 리셋
-        else if ((!waveNotRunning || !noSpendableGold) && waveStartHintShown)
+        else if ((waveNotRunning == false || noSpendableGold == false) && waveStartHintShown)
         { 
             waveStartHintShown = false;
         }
-    }
-    
-    private void OnDestroy()
-    {
-        NotificationService.OnNotify -= ShowWarning;
-        if (ResourceManager.Instance != null)
-            ResourceManager.Instance.OnGoldChanged -= EvaluateWaveStartHint;
     }
 
     private void UpdateGoldText()
@@ -212,14 +209,14 @@ public class UIManager : MonoBehaviour
         towerIconImage.sprite = target.GetIcon();
 
         Vector3 towerPanelPos = lastOpenedTowerPanel.transform.position;
-        Vector3 offset = new Vector3(20f, 0f, -7.5f); // x+ 방향으로 오른쪽 4만큼 이동
+        Vector3 offset = new Vector3(20f, 0f, -6f); // x+ 방향으로 오른쪽 4만큼 이동
         towerInfoPanelRoot.transform.position = towerPanelPos + offset;
 
         // InfoPanel도 카메라를 바라보게
         towerInfoPanelRoot.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
 
         // 현재 선택한 타워 Transform도 저장
-        currentSelectedTowerTransform = towerTransform;
+        currentSelectedTowerPanel = towerTransform;
     }
     
     public void ShowUnitInfoPanel(IHasInfoPanel target)

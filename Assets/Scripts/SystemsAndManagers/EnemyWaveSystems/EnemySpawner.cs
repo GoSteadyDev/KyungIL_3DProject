@@ -17,17 +17,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private ParticleSystem spawnEffect;
     [SerializeField] private GameObject hpViewerPrefab;
     
-    private Dictionary<string, GameObject> enemyDic = new Dictionary<string, GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
-    
     
     public void Spawn(EnemyData data)
     {
-        if (!enemyDic.ContainsKey(data.EnemyName))
-        {
-            enemyDic.Add(data.EnemyName, data.EnemyPrefab);
-        }
-        
         GameObject enemy = Instantiate(data.EnemyPrefab, spawnPoint.position, Quaternion.identity);
         MinimapBlipManager.Instance.RegisterTarget(enemy.transform, Color.red);
         spawnedEnemies.Add(enemy);

@@ -44,8 +44,8 @@ public struct SerializableVector3
 public static class SaveSystem
 {
     private static string path => Path.Combine(Application.persistentDataPath, "save.json");
-
     public static GameSaveData PendingLoad { get; set; }
+    
     public static bool HasSave()
     {
         return File.Exists(path);

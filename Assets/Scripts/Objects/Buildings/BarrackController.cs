@@ -18,3 +18,6 @@ public class BarrackController : MonoBehaviour, IHasInfoPanel
     public string GetDescription() => description;
     public Sprite GetIcon() => icon;
 }
+
+// 얘도 굳이 IHasInfoPanel 없으면 딱히 의미 없는 것 같은데 꼭 있어야할까?
+// 적어도 마우스 눌렸을때, 배럭 버튼 패널도 함께 떠지게 처리하는 건 어떨지

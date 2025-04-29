@@ -12,11 +12,6 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float searchRange = 10f;
     
-    private Transform startPoint; // waypoint07
-    private Transform endPoint;   // warfGate
-    private int patrolIndex = 0;
-    private Vector3[] patrolPath;
-    
     [Header("Attack Settings")]
     [SerializeField] private float attackRange = 3.5f;
     
@@ -29,6 +24,11 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     [SerializeField] private float displaySearchRange;
     [SerializeField] private float displayAttackRange;
 
+    private Transform startPoint; // waypoint07
+    private Transform endPoint;   // warfGate
+    private Vector3[] patrolPath;
+    private int patrolIndex = 0;
+    
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
@@ -38,8 +38,9 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     
     private Animator animator;
     private NavMeshAgent navMeshAgent;
-    private float targetdistance;
+    
     private Transform target;
+    private float targetdistance;
     
     private enum UnitState
     {
@@ -102,7 +103,7 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
             return;
         }
 
-        if (navMeshAgent.remainingDistance <= 0.3f && !navMeshAgent.pathPending)
+        if (navMeshAgent.remainingDistance <= 0.3f && navMeshAgent.pathPending == false)
         {
             switch (currentState)
             {

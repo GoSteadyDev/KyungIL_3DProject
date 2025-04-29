@@ -7,6 +7,7 @@ public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     [Header("Tower Settings")]
     [SerializeField] private TowerType TowerType;
     [SerializeField] private int currentLevel = 0;
+    
     [Header("Projectile Settings")]
     [SerializeField] private Archer archerUnit;
     
@@ -24,10 +25,8 @@ public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
     public string GetDisplayName() => displayName;
     public string GetDescription() 
         => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed}\nAttackRange : {displayRange}";
-    
     public float GetAttackRange() => archerUnit.GetAttackRange();
     public Transform GetTransform() => transform;
-    
     public TowerType GetTowerType() => TowerType;
     public int GetCurrentLevel() => currentLevel;
     
@@ -37,3 +36,5 @@ public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
             archerUnit = GetComponentInChildren<Archer>();
     }
 }
+
+// 사실상 ArcherTower는 데이터를 받아주는 역할만, Archer가 본체

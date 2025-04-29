@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float speed = 20f;
+    
     private Transform target;
     private float damage;
 

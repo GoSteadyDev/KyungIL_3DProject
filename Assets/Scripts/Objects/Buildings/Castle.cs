@@ -5,24 +5,25 @@ using UnityEngine;
 
 public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
 {
+    [Header("Base Settings")]
+    [SerializeField] private float maxHP = 100f;
     [SerializeField] private GameObject hpViewerPrefab;
+    
+    [Header("Visual Settings")]
     [SerializeField] private GameObject DestroyEffect;
     [SerializeField] private Mesh[] meshes;
     [SerializeField] private Sprite icon;
     
     MeshRenderer meshRenderer;
+    private MeshFilter meshFilter;
+    
+    private float currentHP;
     
     public string GetDescription() => $"HP : {currentHP}/{maxHP}";
     public string GetDisplayName() => "Castle"; 
     public Sprite GetIcon() => icon; 
-    
-    private float currentHP;
-    private float maxHP = 100f;
-
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
-    
-    private MeshFilter meshFilter;
     
     private void Awake()
     {

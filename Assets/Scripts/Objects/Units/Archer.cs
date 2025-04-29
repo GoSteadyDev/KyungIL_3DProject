@@ -15,14 +15,21 @@ public class Archer : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     [Header("Info Settings")]
     [SerializeField] private Sprite icon;
     
-    public string GetDisplayName() => "Archer"; 
+    public string GetDisplayName() => "Archer";
     public Sprite GetIcon() => icon;
-    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
+    // 프로퍼티 바꾸기 후순위 한번해보기
+    // public Sprite GetIcon
+    // {
+    //     get => icon;
+    //     set => icon = value;
+    // }
     
+    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
 
     private Animator animator;
+    
     private float nextAttackTime;
     private Transform targetTransform;
     private float targetdistance;
@@ -38,8 +45,6 @@ public class Archer : MonoBehaviour, IHasRangeUI, IHasInfoPanel
         
         if (targetTransform != null)
         {
-            //transform.LookAt(target.position);
-            // 수평만 바라보도록
             Vector3 dir = targetTransform.position - transform.position;
             dir.y = 0;
             
@@ -53,7 +58,6 @@ public class Archer : MonoBehaviour, IHasRangeUI, IHasInfoPanel
             }
             targetdistance = Vector3.Distance(transform.position, targetTransform.position);
         }
-        
         
         if (targetdistance > attackRange)
             targetTransform = null;

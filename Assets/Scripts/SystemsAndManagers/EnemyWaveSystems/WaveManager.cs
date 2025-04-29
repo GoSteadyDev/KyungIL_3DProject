@@ -17,17 +17,16 @@ public class WaveManager : MonoBehaviour
     private bool isWaveRunning = false;
     private int killedEnemyCount = 0;
     
-    public bool IsWaveRunning => isWaveRunning;
-    // 읽기 전용으로 뒀던 프로퍼티를 지우고,
-    // 외부에서 값을 지정할 수 있게 메서드로 바꿔 주세요.
+    public int CurrentWaveIndex => currentWaveIndex;
     public void SetWaveIndex(int index)
     {
         currentWaveIndex = Mathf.Clamp(index, 0, waveDatas.Count);
         // UI 업데이트가 필요하면 여기서 ShowWaveInfo 호출해도 됩니다.
     }
-
-    public int CurrentWaveIndex => currentWaveIndex;
-
+    public bool IsWaveRunning => isWaveRunning;
+    // 읽기 전용으로 뒀던 프로퍼티를 지우고,
+    // 외부에서 값을 지정할 수 있게 메서드로 바꿔 주세요.
+    
     private void Awake()
     {
         Instance = this;
@@ -82,6 +81,7 @@ public class WaveManager : MonoBehaviour
             }
         }
 
+        // 아 이런 식으로 코루틴에 조건을 줄 수도 있구나 WaitUntil
         yield return new WaitUntil(() => spawner.HasAliveEnemies() == false);
 
         NotificationService.Notify("All enemies have been destroyed. You can start next wave.");

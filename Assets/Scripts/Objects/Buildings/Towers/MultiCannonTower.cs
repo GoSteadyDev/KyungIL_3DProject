@@ -21,23 +21,22 @@ public class MultiCannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITowe
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private Sprite icon;
     
-    private Transform targetTransform;
-    private Animator animator;
-    
-    private float currentCooldown;
-    
     [Header("InfoPanel")]
     [SerializeField] private string displayName;
     [SerializeField] private string displayLevel;
     [SerializeField] private float displayAttackSpeed;
     [SerializeField] private float displayDamage;
     [SerializeField] private float displayRange;
-
+    
+    private Transform targetTransform;
+    private Animator animator;
+    
+    private float currentCooldown;
+    
     public Sprite GetIcon() => icon;
     public string GetDisplayName() => displayName;
     public string GetDescription() 
         => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed} \nAttackRange : {displayRange}";
-    
     public float GetAttackRange() => attackRange;
     public Transform GetTransform() => transform;
     public TowerType GetTowerType() => TowerType;
@@ -104,7 +103,7 @@ public class MultiCannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITowe
         Vector3 toEnemy = enemyPos - shooterPos;
         float distance = toEnemy.magnitude;
         float timeToTarget = distance / projectileSpeed;
-        float overshootFactor = 0.85f;
+        float overshootFactor = 0.5f;
 
         return enemyPos + enemyVelocity * (timeToTarget * overshootFactor);
     }
