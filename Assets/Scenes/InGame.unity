@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497106, g: 0.4997778, b: 0.575633, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971085, g: 0.49977827, b: 0.5756336, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7071,8 +7071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5701963c8291e004f87728b3e50afcc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningDuration: 2
   warningText: {fileID: 1389959739}
+  warningDuration: 2
   followUIControlCanvas: {fileID: 1323670092}
   attackRangeViewer: {fileID: 37588251}
   GameoverText: {fileID: 2119188535}
@@ -7081,6 +7081,11 @@ MonoBehaviour:
   pausePanel: {fileID: 1158852827}
   WaveDescriptionText: {fileID: 1694286808}
   waveStartGoldThreshold: 4
+  objectInfoPanelRoot: {fileID: 1011037074}
+  barracksPanelRoot: {fileID: 1189193201}
+  nameText: {fileID: 994302974}
+  descText: {fileID: 1142132351}
+  iconImage: {fileID: 1745874346}
   towerBuildCanvas: {fileID: 957434331}
   towerInfoPanelRoot: {fileID: 131073042}
   towerCreatePanel: {fileID: 1225272154}
@@ -7091,11 +7096,6 @@ MonoBehaviour:
   towerNameText: {fileID: 185582943}
   towerDescText: {fileID: 1212313874}
   towerIconImage: {fileID: 44626718}
-  objectInfoPanelRoot: {fileID: 1011037074}
-  barracksPanelRoot: {fileID: 1189193201}
-  nameText: {fileID: 994302974}
-  descText: {fileID: 1142132351}
-  iconImage: {fileID: 1745874346}
 --- !u!4 &281712420
 Transform:
   m_ObjectHideFlags: 0
@@ -30717,7 +30717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: -75}
+  m_AnchoredPosition: {x: -150, y: -75}
   m_SizeDelta: {x: 350, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189193203

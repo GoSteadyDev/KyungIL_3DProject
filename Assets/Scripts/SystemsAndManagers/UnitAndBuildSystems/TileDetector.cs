@@ -21,15 +21,6 @@ public class TileDetector : MonoBehaviour
         mainCamera = Camera.main;
     }
     
-    // Inspector에서 수동 연결하거나 Start에서 자동 할당
-    private void Start()
-    {
-        if (allTiles.Count == 0)
-        {
-            allTiles.AddRange(FindObjectsOfType<BuildingPointTile>());
-        }
-    }
-    
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -81,5 +72,4 @@ public class TileDetector : MonoBehaviour
             previousTile = null;
         }
     }
-
 }

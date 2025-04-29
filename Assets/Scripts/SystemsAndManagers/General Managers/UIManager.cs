@@ -216,7 +216,7 @@ public class UIManager : MonoBehaviour
         towerInfoPanelRoot.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
 
         // 현재 선택한 타워 Transform도 저장
-        currentSelectedTowerPanel = towerTransform;
+        // currentSelectedTowerPanel = towerTransform;
     }
     
     public void ShowUnitInfoPanel(IHasInfoPanel target)

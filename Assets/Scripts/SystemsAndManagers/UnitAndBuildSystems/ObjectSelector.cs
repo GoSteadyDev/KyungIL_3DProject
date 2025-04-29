@@ -43,6 +43,7 @@ public class ObjectSelector : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
         if (mainCamera == null)
             mainCamera = Camera.main;
     }
@@ -95,14 +96,13 @@ public class ObjectSelector : MonoBehaviour
         {
             if (infoTarget is ITower tower)
             {
+                HandleTowerPanel(infoTarget);
                 UIManager.Instance.ShowTowerInfoPanel(infoTarget, tower.GetTransform());
             }
             else
             {
                 UIManager.Instance.ShowUnitInfoPanel(infoTarget);
             }
-
-            HandleTowerPanel(infoTarget);
         }
         else
         {

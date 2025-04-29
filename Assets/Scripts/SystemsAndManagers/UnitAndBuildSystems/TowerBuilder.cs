@@ -11,9 +11,7 @@ public class TowerBuilder : MonoBehaviour
        
        [SerializeField] private TileDetector tileDetector;
        [SerializeField] private GameObject buildPointPrefab;
-       [SerializeField] private GameObject towerPrefab;
-       [SerializeField] private int buildMoney;
-
+       
        private void Awake()
        {
               Instance = this;
@@ -39,9 +37,6 @@ public class TowerBuilder : MonoBehaviour
               
               GameObject buildPointGO = Instantiate(buildPointPrefab, tile.transform.position, Quaternion.identity);
               tile.PickedByPlayer();
-
-              BuildingPoint point = buildPointGO.GetComponent<BuildingPoint>();
-              point.Init(tile); // ✅ 생성된 BuildPoint에게 타일 정보 넘김
        }
 
        public bool BuildTower(TowerTemplate template, Vector3 position)
@@ -78,14 +73,7 @@ public class TowerBuilder : MonoBehaviour
               var newGO = Instantiate(newTowerPrefab, position, rotation);
               var newTowerComp = newGO.GetComponent<ITower>();
               BuildingSystem.Instance.Register(newTowerComp);
-
-              // 기존 타워 제거
-              // if (oldTower is MonoBehaviour mb)
-              // {
-              //        Destroy(mb.gameObject);
-              // }
-
-              // 타일 상태는 그대로 유지되도록 처리 필요 시 여기에 추가
+              
               return true;
        }
 }

@@ -29,7 +29,6 @@ public class BuildingSystem : MonoBehaviour
                                  ?? GetTemplate(ts.type, ts.level);
         if (template == null)
         {
-            Debug.LogError($"저장 복원 실패: Template 없음 {ts.type} Lv{ts.level} / path {ts.pathCode}");
             return;
         }
 
@@ -117,7 +116,7 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
-        if (!ResourceManager.Instance.TrySpendGold(nextTemplate.cost))
+        if (ResourceManager.Instance.TrySpendGold(nextTemplate.cost) == false)
         {
             return;
         }
@@ -132,7 +131,7 @@ public class BuildingSystem : MonoBehaviour
     // 선택 (분기형) 업그레이드 메서드
     public void UpgradeWithTemplate(ITower tower, TowerTemplate selectedTemplate)
     {
-        if (!ResourceManager.Instance.TrySpendGold(selectedTemplate.cost))
+        if (ResourceManager.Instance.TrySpendGold(selectedTemplate.cost) == false)
         {
             return;
         }

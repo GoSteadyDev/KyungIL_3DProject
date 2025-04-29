@@ -57,6 +57,13 @@ public class FollowUI : MonoBehaviour
         text.text = content;
         text.color = color;
         isFloating = false;
+        
+        // 💥 생성 직후 target 위치를 즉시 따라가게 한번 위치 설정해주기
+        if (target != null)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position + offset);
+            rectTransform.anchoredPosition = screenPos; // 또는 원하는 초기 위치 로직
+        }
     }
 
     // 🟡 골드 텍스트 전용
