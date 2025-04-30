@@ -3,80 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : MonoBehaviour, IHasRangeUI, IHasInfoPanel
+public class Archer : MonoBehaviour
 {
-    [Header("Attack Settings")] 
-    [SerializeField] private float damage = 2f;
-    [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private float attackRange = 5f;
-    [SerializeField] private GameObject arrowPrefab;
+    [Header("Attack Settings")]
     [SerializeField] private Transform firePoint;
+    public Transform FirePoint => firePoint;
     
-    [Header("Info Settings")]
-    [SerializeField] private Sprite icon;
+    private float statDamage, statAttackSpeed, statAttackRange;
+    private Transform targetTransform;
     
-    public string GetDisplayName() => "Archer";
-    public Sprite GetIcon() => icon;
-    // 프로퍼티 바꾸기 후순위 한번해보기
-    // public Sprite GetIcon
-    // {
-    //     get => icon;
-    //     set => icon = value;
-    // }
-    
-    public string GetDescription() => "Damage : \n\nAttackRange : \n\nAttackSpeed : ";
-    public float GetAttackRange() => attackRange;
-    public Transform GetTransform() => transform;
-
+    private AttackData attackData;
     private Animator animator;
     
-    private float nextAttackTime;
-    private Transform targetTransform;
-    private float targetdistance;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void SetAttackData(AttackData data)
     {
-        FindTarget();
-        
-        if (targetTransform != null)
-        {
-            Vector3 dir = targetTransform.position - transform.position;
-            dir.y = 0;
-            
-            if (dir != Vector3.zero)
-                transform.forward = dir.normalized;
-            
-            if (Time.time >= nextAttackTime)
-            {
-                nextAttackTime = Time.time + attackSpeed;
-                FireArrow();
-            }
-            targetdistance = Vector3.Distance(transform.position, targetTransform.position);
-        }
-        
-        if (targetdistance > attackRange)
-            targetTransform = null;
+        attackData = data;
+        statAttackSpeed = data.projectileSpeed;
     }
 
-    private void FindTarget()
+    public void SetStats(float dmg, float speed, float range)
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
+        statDamage      = dmg;
+        statAttackSpeed = speed;
+        statAttackRange = range;
+    }
+
+    public Transform FindTarget()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, statAttackRange, LayerMask.GetMask("Enemy"));
         targetTransform = hits.Length > 0 ? hits[0].transform : null;
+
+        return targetTransform;
     }
 
     // 애니메이션 이벤트에서 호출
-    public void FireArrow()
+    public void Attack(Transform target)
     {
-        if (targetTransform == null) return;
+        if (target == null) return;
 
-        GameObject arrowObj = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
+        GameObject arrowObj = Instantiate(attackData.projectilePrefab, firePoint.position, 
+            Quaternion.LookRotation((target.position - firePoint.position).normalized));
         Arrow arrow = arrowObj.GetComponent<Arrow>();
-        arrow.SetTargetAndDamage(targetTransform, damage);
+        arrow.Initialize(target, statDamage, statAttackSpeed);
         
         StartAttackAnim();
     }
@@ -89,7 +62,7 @@ public class Archer : MonoBehaviour, IHasRangeUI, IHasInfoPanel
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, statAttackRange);
     }
 }
 

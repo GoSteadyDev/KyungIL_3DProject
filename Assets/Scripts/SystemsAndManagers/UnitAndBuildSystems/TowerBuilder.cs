@@ -39,15 +39,15 @@ public class TowerBuilder : MonoBehaviour
               tile.PickedByPlayer();
        }
 
-       public bool BuildTower(TowerTemplate template, Vector3 position)
+       public bool BuildTower(TowerData data, Vector3 position)
        {
-              if (!ResourceManager.Instance.TrySpendGold(template.cost))
-              {
-                     return false;
-              }
+              // if (!ResourceManager.Instance.TrySpendGold(data.cost))
+              // {
+              //        return false;
+              // }
               
               // BuildTower 내부
-              var towerGO = Instantiate(template.towerPrefab, position, Quaternion.identity);
+              var towerGO = Instantiate(data.towerPrefab, position, Quaternion.identity);
               // ITower 구현체를 GetComponent로 가져오고 등록
               var towerComp = towerGO.GetComponent<ITower>();
               BuildingSystem.Instance.Register(towerComp);

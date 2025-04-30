@@ -7,7 +7,7 @@ public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem Instance;
 
-    [SerializeField] private List<TowerTemplate> allTowerTemplates;
+    [SerializeField] private List<TowerData> allTowerTemplates;
     
     private List<ITower> allTowers = new List<ITower>();
     private BuildingPoint currentBuildPoint;
@@ -25,15 +25,15 @@ public class BuildingSystem : MonoBehaviour
     {
         // 1) 어느 Template인지 찾아 온다 (type, level, pathCode)
         //    분기 업그레이드가 필요 없다면 pathCode 무시하고 GetTemplate(type, level) 만 써도 됩니다.
-        TowerTemplate template = GetTemplateByPath(ts.type, ts.level - 1, ts.pathCode)
+        TowerData data = GetTemplateByPath(ts.type, ts.level - 1, ts.pathCode)
                                  ?? GetTemplate(ts.type, ts.level);
-        if (template == null)
+        if (data == null)
         {
             return;
         }
 
         // 2) Instantiate
-        var go = Instantiate(template.towerPrefab, (Vector3)ts.pos,Quaternion.Euler(ts.rot));
+        var go = Instantiate(data.towerPrefab, (Vector3)ts.pos,Quaternion.Euler(ts.rot));
         // 3) ITower 컴포넌트로 등록
         if (go.TryGetComponent<ITower>(out var towerComp))
             allTowers.Add(towerComp);
@@ -64,17 +64,17 @@ public class BuildingSystem : MonoBehaviour
         allTowers.Clear();
     }
     
-    public TowerTemplate GetTemplate(TowerType type, int level)
+    public TowerData GetTemplate(TowerType type, int level)
     {
         return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == level);
     }
     
-    public TowerTemplate GetNextTemplate(TowerType type, int currentLevel)
+    public TowerData GetNextTemplate(TowerType type, int currentLevel)
     {
         return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == currentLevel + 1);
     }
     
-    public TowerTemplate GetTemplateByPath(TowerType type, int currentLevel, string pathCode)
+    public TowerData GetTemplateByPath(TowerType type, int currentLevel, string pathCode)
     {
         return allTowerTemplates.FirstOrDefault(t =>
             t.towerType == type &&
@@ -88,11 +88,11 @@ public class BuildingSystem : MonoBehaviour
         UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
     }
     
-    public void OnTowerSelected(TowerTemplate template)
+    public void OnTowerSelected(TowerData data)
     {
         if (currentBuildPoint != null)
         {
-            bool success = TowerBuilder.Instance.BuildTower(template, currentBuildPoint.transform.position);
+            bool success = TowerBuilder.Instance.BuildTower(data, currentBuildPoint.transform.position);
 
             if (success)
             {
@@ -116,10 +116,10 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
-        if (ResourceManager.Instance.TrySpendGold(nextTemplate.cost) == false)
-        {
-            return;
-        }
+        // if (ResourceManager.Instance.TrySpendGold(nextTemplate.cost) == false)
+        // {
+        //     return;
+        // }
 
         var pos = tower.GetTransform().position;
         var rot = tower.GetTransform().rotation;
@@ -129,17 +129,17 @@ public class BuildingSystem : MonoBehaviour
     }
     
     // 선택 (분기형) 업그레이드 메서드
-    public void UpgradeWithTemplate(ITower tower, TowerTemplate selectedTemplate)
+    public void UpgradeWithTemplate(ITower tower, TowerData selectedData)
     {
-        if (ResourceManager.Instance.TrySpendGold(selectedTemplate.cost) == false)
-        {
-            return;
-        }
+        // if (ResourceManager.Instance.TrySpendGold(selectedData.cost) == false)
+        // {
+        //     return;
+        // }
 
         var pos = tower.GetTransform().position;
         var rot = tower.GetTransform().rotation;
 
-        TowerBuilder.Instance.UpgradeTower(tower, selectedTemplate.towerPrefab, pos, rot);
+        TowerBuilder.Instance.UpgradeTower(tower, selectedData.towerPrefab, pos, rot);
         UIManager.Instance.HideAllTowerPanels();
     }
     

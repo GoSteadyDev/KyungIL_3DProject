@@ -51,7 +51,7 @@ public class LazerTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
             
             // 사실상 다른 Tower 스크립트에서 Fire 역할
             Lazer.SetActive(true);
-            Lazer.GetComponent<Lazer>().Initialize(firePoint, targetTransform, damagePerSec);
+            // Lazer.GetComponent<Lazer>().Initialize(firePoint, targetTransform, damagePerSec);
         }
         else
         {

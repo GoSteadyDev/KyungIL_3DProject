@@ -4,104 +4,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class CannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
+public class CannonTower : BaseTower
 {
-    [Header("Tower Settings")] 
-    [SerializeField] private TowerType TowerType;
-    [SerializeField] private int currentLevel = 0;
-    [SerializeField] private float attackSpeed = 2f;
-    [SerializeField] private float attackRange = 10f;
-    
-    [Header("Projectile Settings")]
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject cannonPrefab;
-    [SerializeField] private float cannonSpeed = 30f;
-    
-    [Header("Visual Settings")]
-    [SerializeField] private ParticleSystem fireEffect;
-    [SerializeField] private Sprite icon;
-    
-    [Header("InfoPanel")]
-    [SerializeField] private string displayName;
-    [SerializeField] private string displayLevel;
-    [SerializeField] private float displayAttackSpeed;
-    [SerializeField] private float displayDamage;
-    [SerializeField] private float displayRange;
-    
-    private Transform targetTransform;
-    private float currentCooldown;
+    [Header("Fire Points")]
+    [SerializeField] private Transform[] firePoints;  // 발사구 위치 배열
+    [Header("Enemy Mask")]
+    [SerializeField] private LayerMask enemyLayerMask;
 
-    public Sprite GetIcon() => icon;
-    public string GetDisplayName() => displayName;
-    public string GetDescription() 
-        => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed} \nAttackRange : {displayRange}";
-    public float GetAttackRange() => attackRange;
-    public Transform GetTransform() => transform;
-    public TowerType GetTowerType() => TowerType;
-    public int GetCurrentLevel() => currentLevel;
-    
-    void Update()
+    protected override void RefreshStats() { /* 캐논은 SO 데이터만 사용하므로 빈 구현 */ }
+
+    protected override Transform FindTarget()
     {
-        FindTarget();
+        // 최소 사거리 내 가장 가까운 적 반환
+        Collider[] hits = Physics.OverlapSphere(transform.position, data.attackRange, enemyLayerMask);
+        if (hits.Length == 0) return null;
 
-        if (targetTransform != null)
+        Transform nearest = hits[0].transform;
+        float minDist = (nearest.position - transform.position).sqrMagnitude;
+        foreach (var c in hits)
         {
-            currentCooldown -= Time.deltaTime;
-
-            if (currentCooldown <= 0f)
+            float d = (c.transform.position - transform.position).sqrMagnitude;
+            if (d < minDist)
             {
-                Fire();
-                currentCooldown = attackSpeed;
+                minDist = d;
+                nearest = c.transform;
             }
+        }
+        return nearest;
+    }
+
+    protected override void Attack(Transform target)
+    {
+        // 타워 데이터의 burstCount로 싱글샷/멀티샷 구분
+        if (data.attackData.burstCount > 1)
+            StartCoroutine(FireBurst(target));
+        else
+            FireVolley(target);
+    }
+
+    private IEnumerator FireBurst(Transform target)
+    {
+        for (int i = 0; i < data.attackData.burstCount; i++)
+        {
+            FireVolley(target);
+            yield return new WaitForSeconds(data.attackData.burstInterval);
         }
     }
 
-    private void FindTarget()
+    private void FireVolley(Transform target)
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
-        targetTransform = hits.Length > 0 ? hits[0].transform : null;
-    }
+        if (target == null) return;
 
-    private void Fire()
-    {
-        fireEffect.Play();
-        if (targetTransform == null) return;
+        // 적의 예측 위치 계산
+        Vector3 enemyPos = target.position;
+        Vector3 shooterPos = firePoints.Length > 0 ? firePoints[0].position : transform.position;
+        var controller = target.GetComponent<EnemyController>();
+        Vector3 enemyVel = controller != null ? controller.GetVelocity() : Vector3.zero;
+        float speed = data.attackData.projectileSpeed;
+        float flightTime = Vector3.Distance(enemyPos, shooterPos) / speed;
+        float factor = data.attackData.overshootFactor;
+        Vector3 aimPoint = enemyPos + enemyVel * (flightTime * factor);
 
-        EnemyController enemy = targetTransform.GetComponent<EnemyController>();
-        
-        if (enemy == null) return;
-
-        Vector3 enemyPos = enemy.GetCurrentPosition();
-        Vector3 enemyVelocity = enemy.GetVelocity();
-
-        float projectileSpeed = cannonSpeed;
-
-        // ✅ 1. 미래 위치 예측
-        Vector3 predictedPosition = PredictFuturePosition(enemyPos, enemyVelocity, firePoint.position, projectileSpeed);
-
-        // ✅ 2. 예측 시간 재계산 (더 정확하게)
-        float distance = Vector3.Distance(firePoint.position, predictedPosition);
-        float timeToTarget = distance / projectileSpeed;
-
-        // ✅ 3. 포탄 생성 및 목표 위치 전달
-        GameObject ball = Instantiate(cannonPrefab, firePoint.position, Quaternion.identity);
-        ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
-    }
-    
-    private Vector3 PredictFuturePosition(Vector3 enemyPos, Vector3 enemyVelocity, Vector3 shooterPos, float projectileSpeed)
-    {
-        Vector3 toEnemy = enemyPos - shooterPos;
-        float distance = toEnemy.magnitude;
-        float timeToTarget = distance / projectileSpeed;    // 타겟에 이동하는 시간
-        float overshootFactor = 0.5f; // 1보다 작게 하면 조준을 짧게 함
-
-        return enemyPos + enemyVelocity * (timeToTarget * overshootFactor);     // 적 위치 + 적 속도 * 타겟에 이동하는 시간
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        // 모든 발사구에서 동시에 발사
+        foreach (var fp in firePoints)
+        {
+            var go = Instantiate(data.attackData.projectilePrefab, fp.position, Quaternion.LookRotation((aimPoint - fp.position).normalized));
+            var cannon = go.GetComponent<Cannon>();
+            cannon.Initialize(data.attackData, data.damage, aimPoint, enemyLayerMask);
+        }
     }
 }
-

@@ -92,7 +92,7 @@ public class MultiCannonTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITowe
         for (int i = 0; i < firePoints.Length; i++)
         {
             GameObject ball = Instantiate(cannonPrefab, firePoints[i].position, Quaternion.identity);
-            ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
+            // ball.GetComponent<Cannon>().SetTarget(predictedPosition, timeToTarget);
 
             yield return new WaitForSeconds(0.2f); // 연사 간격
         }

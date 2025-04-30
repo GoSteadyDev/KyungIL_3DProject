@@ -16,20 +16,6 @@ public interface IHasInfoPanel
     string GetDescription(); // 나중에 확장 가능
 }
 
-public enum TowerType
-{
-    Archer,
-    Cannon,
-    Mage
-}
-
-public interface ITower
-{
-    Transform GetTransform();
-    TowerType GetTowerType();
-    int GetCurrentLevel();
-}
-
 public class ObjectSelector : MonoBehaviour
 {
     public static ObjectSelector Instance;

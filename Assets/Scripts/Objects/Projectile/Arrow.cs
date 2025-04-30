@@ -7,15 +7,19 @@ public class Arrow : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float speed;
+    [SerializeField] private LayerMask enemyLayerMask;
     
     private float damage;
     private Transform target;
     private bool hasHit = false;
 
-    public void SetTargetAndDamage(Transform newTarget, float newDamage)
+    public float Damage => damage;
+
+     public void Initialize(Transform newTarget, float newDamage, float newSpeed)
     {
         target = newTarget;
         damage = newDamage;
+        speed  = newSpeed;
     }
 
     private void Update()
@@ -40,7 +44,8 @@ public class Arrow : MonoBehaviour
     {
         if (hasHit) return; // ✅ 이미 처리했다면 무시
 
-        if (other.CompareTag("Enemy"))
+        // 레이어 마스크 검사
+        if ((enemyLayerMask.value & (1 << other.gameObject.layer)) != 0)
         {
             hasHit = true; // ✅ 이후엔 무시되도록 플래그 설정
 

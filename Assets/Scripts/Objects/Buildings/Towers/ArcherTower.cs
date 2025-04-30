@@ -2,39 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherTower : MonoBehaviour, IHasRangeUI, IHasInfoPanel, ITower
+public class ArcherTower : BaseTower
 {
-    [Header("Tower Settings")]
-    [SerializeField] private TowerType TowerType;
-    [SerializeField] private int currentLevel = 0;
-    
-    [Header("Projectile Settings")]
-    [SerializeField] private Archer archerUnit;
-    
-    [Header("Visual Settings")]
-    [SerializeField] private Sprite icon;
+    private List<Archer> archerUnits;
 
-    [Header("InfoPanel")]
-    [SerializeField] private string displayName;
-    [SerializeField] private string displayLevel;
-    [SerializeField] private float displayAttackSpeed;
-    [SerializeField] private float displayDamage;
-    [SerializeField] private float displayRange;
-
-    public Sprite GetIcon() => icon;
-    public string GetDisplayName() => displayName;
-    public string GetDescription() 
-        => $"Tower Level : {displayLevel} \nDamage : {displayDamage} \nAttackSpeed : {displayAttackSpeed}\nAttackRange : {displayRange}";
-    public float GetAttackRange() => archerUnit.GetAttackRange();
-    public Transform GetTransform() => transform;
-    public TowerType GetTowerType() => TowerType;
-    public int GetCurrentLevel() => currentLevel;
-    
     private void Awake()
     {
-        if (archerUnit == null)
-            archerUnit = GetComponentInChildren<Archer>();
+        // 자식 Archer 컴포넌트를 항상 자동 수집
+        archerUnits = new List<Archer>(GetComponentsInChildren<Archer>());
+    }
+
+    protected override void RefreshStats()
+    {
+        // 멀티샷 타워: 전체 데미지를 유지하되, 유닛별로 분배
+        float perUnitDamage = data.damage;
+        if (archerUnits.Count > 1)
+            perUnitDamage = data.damage / archerUnits.Count;
+
+        // 모든 아처 유닛에 데이터 및 분배된 스탯 주입
+        foreach (var unit in archerUnits)
+        {
+            unit.SetAttackData(data.attackData);
+            unit.SetStats(perUnitDamage, data.attackSpeed, data.attackRange);
+        }
+    }
+
+    protected override Transform FindTarget()
+    {
+        // 여러 유닛 중 가장 먼저 타겟을 찾은 유닛의 타겟을 반환
+        // 여기서 반환하는 target과 무관하게 BaseTower의 Update를 돌리기 위한 용도임
+        foreach (var unit in archerUnits)
+        {
+            var target = unit.FindTarget();
+            if (target != null)
+                return target;
+        }
+        return null;
+    }
+
+    protected override void Attack(Transform dummy)
+    {
+        // 각 유닛이 자신만의 firePoint에서 독립적으로 타겟 검색 및 공격
+        foreach (var unit in archerUnits)
+        {
+            var target = unit.FindTarget();
+            if (target != null)
+                unit.Attack(target);
+        }
+    }
+
+    // 멀티 유닛 일 때만 유닛 수 표시
+    public override string GetDescription()
+    {
+        if (archerUnits.Count > 1)
+        {
+            float totalDPS = data.damage * data.attackSpeed;
+            return $"Damage(per shot): {data.damage}, Units: {archerUnits.Count}, AttackSpeed: {data.attackSpeed}, Total DPS: {totalDPS}";
+        }
+        // 기본 설명 (BaseTower나 SO 버전)
+        return base.GetDescription();
     }
 }
-
-// 사실상 ArcherTower는 데이터를 받아주는 역할만, Archer가 본체

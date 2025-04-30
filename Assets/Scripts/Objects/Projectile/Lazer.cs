@@ -1,90 +1,99 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystem))]
 public class Lazer : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private float damagePerSec;
-    [SerializeField] private float damageInterval = 1f;
-    [SerializeField] private Vector3 boxSize = new Vector3(4f, 4f, 80f); 
-    [SerializeField] private ParticleSystem lazerEffect;
-    
-    private Transform target;
     private Transform firePoint;
+    private Transform target;
+    private float damage;
+    private float damageInterval;
+    private Vector3 boxHalfExtents;
     private Coroutine tickRoutine;
-    
-    private void OnDisable()
-    {
-        if (tickRoutine != null)
-        {
-            StopCoroutine(tickRoutine);
-            tickRoutine = null; // 다음에 Initialize에서 다시 실행 가능
-        }
+    private LayerMask enemyLayerMask;
 
-        if (lazerEffect.isPlaying)
-            lazerEffect.Stop();
-    }
-    
-    private void Update()
+    public void Initialize(Transform firePoint, Transform target, float damage, float interval, Vector3 beamBoxHalfExtents)
     {
-        if (target == null) return;
+        this.firePoint        = firePoint;
+        this.target           = target;
+        this.damage           = damage;
+        this.damageInterval   = interval;
+        this.boxHalfExtents   = beamBoxHalfExtents;
+        // (필요하면) 적 레이어도 전달받도록 시그니처 확장
 
-        // 회전은 레이저 이펙트가 직접 수행
-        Vector3 dir = target.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(dir + Vector3.forward * 2f);
+        var ps = GetComponent<ParticleSystem>();
+        ps.Play();
+
+        tickRoutine = StartCoroutine(DamageRoutine());
     }
 
-    public void Initialize(Transform firePoint, Transform targetTransform, float dmg)
-    {
-        this.firePoint = firePoint;
-        target = targetTransform;
-        
-        damagePerSec = dmg;
-
-        if (!lazerEffect.isPlaying)
-            lazerEffect.Play();
-        
-        if (tickRoutine == null)
-            tickRoutine = StartCoroutine(DamageRoutine());
-    }
-    
     private IEnumerator DamageRoutine()
     {
-        float tempTime = 0;
-        
-        while (tempTime < damageInterval)
+        float timer = 0f;
+        while (true)
         {
-            tempTime += Time.deltaTime;
-            
-            Vector3 center = firePoint.position + transform.forward * (boxSize.z / 2f);
-            Collider[] hits = Physics.OverlapBox(center, boxSize / 2f, transform.rotation, LayerMask.GetMask("Enemy"));
-
-            foreach (var hit in hits)
+            timer += Time.deltaTime;
+            if (timer >= damageInterval)
             {
-                if (hit.TryGetComponent(out EnemyController enemy))
+                timer = 0f;
+                // OverlapBox로 타겟 주변 박스 범위 내 적 찾아 데미지
+                var center = (firePoint.position + target.position) * 0.5f;
+                var dir    = (target.position - firePoint.position).normalized;
+                var rot    = Quaternion.LookRotation(dir);
+
+                Collider[] hits = Physics.OverlapBox(center, boxHalfExtents, rot, enemyLayerMask);
+                
+                foreach (var c in hits)
                 {
                     CombatSystem.Instance.AddCombatEvent(new CombatEvent
                     {
-                        Sender = this.gameObject,
-                        Receiver = enemy.gameObject,
-                        Damage = damagePerSec,
-                        HitPosition = enemy.transform.position,
-                        Collider = hit
+                        Sender      = gameObject,
+                        Receiver    = c.gameObject,
+                        Damage      = damage,
+                        HitPosition = c.ClosestPoint(firePoint.position),
+                        Collider    = c
                     });
                 }
             }
-            yield return new WaitForSeconds(damageInterval);
+            yield return null;
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDestroy()
     {
-        Gizmos.color = Color.yellow;
-        Vector3 center = transform.position + transform.forward * (boxSize.z / 2f);
-        Gizmos.matrix = Matrix4x4.TRS(center, transform.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, boxSize);
+        if (tickRoutine != null) StopCoroutine(tickRoutine);
     }
 }
+
+
+// private IEnumerator DamageRoutine()
+// {
+//     float tempTime = 0;
+//         
+//     while (tempTime < damageInterval)
+//     {
+//         tempTime += Time.deltaTime;
+//             
+//         Vector3 center = firePoint.position + transform.forward * (boxSize.z / 2f);
+//         Collider[] hits = Physics.OverlapBox(center, boxSize / 2f, transform.rotation, LayerMask.GetMask("Enemy"));
+//
+//         foreach (var hit in hits)
+//         {
+//             if (hit.TryGetComponent(out EnemyController enemy))
+//             {
+//                 CombatSystem.Instance.AddCombatEvent(new CombatEvent
+//                 {
+//                     Sender = this.gameObject,
+//                     Receiver = enemy.gameObject,
+//                     Damage = damagePerSecond,
+//                     HitPosition = enemy.transform.position,
+//                     Collider = hit
+//                 });
+//             }
+//         }
+//         yield return new WaitForSeconds(damageInterval);
+//     }
+// }

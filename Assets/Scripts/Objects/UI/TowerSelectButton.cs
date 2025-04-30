@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TowerSelectButton : MonoBehaviour
 {
-    [SerializeField] private TowerTemplate towerTemplate;
+    [FormerlySerializedAs("towerTemplate")] [SerializeField] private TowerData towerData;
     [SerializeField] private string pathCode; // A, B 등
 
     public void OnTowerClicked()
     {
-        BuildingSystem.Instance.OnTowerSelected(towerTemplate);
+        BuildingSystem.Instance.OnTowerSelected(towerData);
     }
     
     public void OnUgradeClicked()
@@ -26,14 +27,14 @@ public class TowerSelectButton : MonoBehaviour
         TowerType type = tower.GetTowerType();
         int level = tower.GetCurrentLevel();
 
-        TowerTemplate template = BuildingSystem.Instance.GetTemplateByPath(type, level, pathCode);
-        if (template == null)
+        TowerData data = BuildingSystem.Instance.GetTemplateByPath(type, level, pathCode);
+        if (data == null)
         {
             Debug.LogWarning($"pathCode '{pathCode}' 에 해당하는 업그레이드 없음");
             return;
         }
 
-        BuildingSystem.Instance.UpgradeWithTemplate(tower, template);
+        BuildingSystem.Instance.UpgradeWithTemplate(tower, data);
     }
     
     public void OnSellClicked()
@@ -45,15 +46,15 @@ public class TowerSelectButton : MonoBehaviour
         int level = tower.GetCurrentLevel();
 
         // TowerTemplate 찾아오기
-        TowerTemplate template = BuildingSystem.Instance.GetTemplate(type, level);
-        if (template == null)
+        TowerData data = BuildingSystem.Instance.GetTemplate(type, level);
+        if (data == null)
         {
             Debug.LogWarning("타워 템플릿을 찾을 수 없습니다.");
             return;
         }
 
-        int refund = Mathf.RoundToInt(template.cost * 0.5f);
-        ResourceManager.Instance.AddGold(refund);
+        // int refund = Mathf.RoundToInt(data.cost * 0.5f);
+        // ResourceManager.Instance.AddGold(refund);
 
         GameObject towerGO = (tower as MonoBehaviour)?.gameObject;
         if (towerGO != null)
