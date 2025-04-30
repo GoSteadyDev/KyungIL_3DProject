@@ -23,7 +23,6 @@ public class Archer : MonoBehaviour
     public void SetAttackData(AttackData data)
     {
         attackData = data;
-        statAttackSpeed = data.projectileSpeed;
     }
 
     public void SetStats(float dmg, float speed, float range)
@@ -49,7 +48,7 @@ public class Archer : MonoBehaviour
         GameObject arrowObj = Instantiate(attackData.projectilePrefab, firePoint.position, 
             Quaternion.LookRotation((target.position - firePoint.position).normalized));
         Arrow arrow = arrowObj.GetComponent<Arrow>();
-        arrow.Initialize(target, statDamage, statAttackSpeed);
+        arrow.Initialize(target, statDamage, attackData.projectileSpeed);
         
         StartAttackAnim();
     }

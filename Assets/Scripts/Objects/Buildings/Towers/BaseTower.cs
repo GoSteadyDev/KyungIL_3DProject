@@ -11,6 +11,7 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
 
     private float attackTimer;
 
+    public string PathCode => data.pathCode;
     public TowerType GetTowerType() => data.towerType;
     public int GetCurrentLevel()   => data.level;
     public Transform GetTransform() => transform;

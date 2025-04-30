@@ -118,7 +118,7 @@ public class PausePanelController : MonoBehaviour
         if (data == null) return;
 
         // 1) 리셋
-        BuildingSystem.Instance.ClearAll();
+        BuildingSystem.Instance.ClearAllTowers();
         // … 유닛도 동일
 
         // 2) 값 복원

@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         // 2) 웨이브
         WaveManager.Instance.SetWaveIndex(data.waveIndex);
         // 3) 타워
-        BuildingSystem.Instance.ClearAll();
+        BuildingSystem.Instance.ClearAllTowers();
         foreach (var ts in data.towers)
             BuildingSystem.Instance.SpawnTowerFromSave(ts);
         // (유닛 복원도 여기에)

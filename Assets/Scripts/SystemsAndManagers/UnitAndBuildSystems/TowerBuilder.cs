@@ -4,76 +4,78 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.EventSystems;
-
 public class TowerBuilder : MonoBehaviour
 {
-       public static TowerBuilder Instance { get; private set; }
-       
-       [SerializeField] private TileDetector tileDetector;
-       [SerializeField] private GameObject buildPointPrefab;
-       
-       private void Awake()
-       {
-              Instance = this;
-       }
+    public static TowerBuilder Instance { get; private set; }
 
-       private void Update()
-       { 
-              if (EventSystem.current.IsPointerOverGameObject()) return;
-              
-              if (Input.GetMouseButtonDown(0))
-              {
-                     BuildingPointTile tile = tileDetector.GetTileUnderMouse();
-                     
-                     if (tile != null)
-                     {
-                            OnTileClicked(tile);
-                     }
-              }
-       }
-       public void OnTileClicked(BuildingPointTile tile)
-       {
-              if (tile.IsUsed) return; // ✅ 이미 사용된 타일은 무시
-              
-              GameObject buildPointGO = Instantiate(buildPointPrefab, tile.transform.position, Quaternion.identity);
-              tile.PickedByPlayer();
-       }
+    [Header("Dependencies")]
+    [SerializeField] private TileDetector tileDetector;
+    [SerializeField] private GameObject buildPointPrefab;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
-       public bool BuildTower(TowerData data, Vector3 position)
-       {
-              // if (!ResourceManager.Instance.TrySpendGold(data.cost))
-              // {
-              //        return false;
-              // }
-              
-              // BuildTower 내부
-              var towerGO = Instantiate(data.towerPrefab, position, Quaternion.identity);
-              // ITower 구현체를 GetComponent로 가져오고 등록
-              var towerComp = towerGO.GetComponent<ITower>();
-              BuildingSystem.Instance.Register(towerComp);
-              
-              // 위치한 타일에 설치됨 표시
-              Ray ray = new Ray(position + Vector3.up * 10, Vector3.down);
-              if (Physics.Raycast(ray, out RaycastHit hit, 20f))
-              {
-                     var tile = hit.collider.GetComponent<BuildingPointTile>();
-                     tile?.SetUsed();
-              }
+    private void Update()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (Input.GetMouseButtonDown(0))
+        {
+            var tile = tileDetector.GetTileUnderMouse();
+            if (tile != null && !tile.IsUsed)
+                OnTileClicked(tile);
+        }
+    }
 
-              return true;
-       }
+    public void OnTileClicked(BuildingPointTile tile)
+    {
+        Instantiate(buildPointPrefab, tile.transform.position, Quaternion.identity);
+        tile.PickedByPlayer();
+    }
 
-       public bool UpgradeTower(ITower oldTower, GameObject newTowerPrefab, Vector3 position, Quaternion rotation)
-       {
-              // UpgradeTower 내부
-              var oldMb = oldTower as MonoBehaviour;
-              BuildingSystem.Instance.Unregister(oldTower);
-              Destroy(oldMb.gameObject);
+    public bool BuildTower(TowerData data, Vector3 position)
+    {
+        // 데이터 기반 Entry 조회
+        var entry = BuildingSystem.Instance.GetTowerEntry(data.towerType, data.level, data.pathCode);
+        
+        var towerGO = Instantiate(entry.prefab, position, Quaternion.identity);
+        
+        var towerComp = towerGO.GetComponent<BaseTower>();
+        towerComp.Initialize(entry.data);
+        BuildingSystem.Instance.Register(towerComp);
+        
+        return true;
+    }
 
-              var newGO = Instantiate(newTowerPrefab, position, rotation);
-              var newTowerComp = newGO.GetComponent<ITower>();
-              BuildingSystem.Instance.Register(newTowerComp);
-              
-              return true;
-       }
+    public BaseTower BuildTower(TowerData data, GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        var towerGO = Instantiate(prefab, position, rotation);
+        
+        var tower = towerGO.GetComponent<BaseTower>();
+        
+        tower.Initialize(data);
+        BuildingSystem.Instance.Register(tower);
+        
+        return tower;
+    }
+
+    public BaseTower BuildTower(TowerType type, int level, string pathCode, Vector3 position)
+    {
+        var entry = BuildingSystem.Instance.GetTowerEntry(type, level, pathCode);
+        
+        return BuildTower(entry.data, entry.prefab, position, Quaternion.identity);
+    }
+
+    public BaseTower UpgradeTower(ITower oldTower, TowerData newData)
+    {
+        var oldMb = oldTower as MonoBehaviour;
+        BuildingSystem.Instance.Unregister(oldTower);
+        
+        Destroy(oldMb.gameObject);
+        
+        var entry = BuildingSystem.Instance.GetTowerEntry(newData.towerType, newData.level, newData.pathCode);
+        var tower = BuildTower(entry.data, entry.prefab, oldMb.transform.position, oldMb.transform.rotation);
+        
+        return tower;
+    }
 }

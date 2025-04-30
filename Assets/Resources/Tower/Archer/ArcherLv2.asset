@@ -14,5 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   level: 2
-  towerPrefab: {fileID: 8659031892472826964, guid: 8d9fe00369d1dc74fbd9161f2d036754, type: 3}
-  cost: 50
+  buildCost: 40
+  upgradeCost: 60
+  sellPrice: 20
+  pathCode: 
+  displayName: ArcherTower.Lv2
+  description: 
+  icon: {fileID: 0}
+  damage: 7
+  attackSpeed: 1
+  attackRange: 22.5
+  attackData:
+    attackType: 0
+    projectilePrefab: {fileID: 6144767720853113890, guid: e86e584b73c7cd54fbb2e465ff8e462f, type: 3}
+    projectileSpeed: 80
+    areaEffectPrefab: {fileID: 0}
+    areaRadius: 0
+    burstCount: 0
+    burstInterval: 0
+    overshootFactor: 0
+    beamEffectPrefab: {fileID: 0}
+    beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    slowEffectPrefab: {fileID: 0}
+    slowRate: 0
+    slowDuration: 0
+  nextUpgrades:
+  - {fileID: 11400000, guid: 230d6e0ea17f42b4da57318d1123618a, type: 2}
+  - {fileID: 11400000, guid: 7f1b92619241c3146974a9582f8ec866, type: 2}

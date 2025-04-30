@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497106, g: 0.4997778, b: 0.575633, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971085, g: 0.49977827, b: 0.5756336, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 11400000, guid: 81421387e0cb9764185b7d53efc61b06, type: 2}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!114 &112006156
 MonoBehaviour:
@@ -8621,7 +8621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!1 &344037929
 GameObject:
@@ -12035,7 +12035,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 476623682}
         m_TargetAssemblyTypeName: TowerSelectButton, Assembly-CSharp
-        m_MethodName: OnUgradeClicked
+        m_MethodName: OnUpgradeClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12095,7 +12095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!1001 &476638766
 PrefabInstance:
@@ -12839,7 +12839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!1 &488019130 stripped
 GameObject:
@@ -24503,7 +24503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!114 &958234027
 MonoBehaviour:
@@ -28097,7 +28097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 11400000, guid: d43159b1aca5cdd45afeeec4924f772c, type: 2}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!114 &1090356560
 MonoBehaviour:
@@ -30345,7 +30345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: A
 --- !u!114 &1176601299
 MonoBehaviour:
@@ -31400,7 +31400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: 
 --- !u!4 &1210456088 stripped
 Transform:
@@ -31989,7 +31989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1225272155
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33194,7 +33194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 11400000, guid: 14c6c8286c93ddf47aaf18c02ae02541, type: 2}
+  towerData: {fileID: 11400000, guid: 14c6c8286c93ddf47aaf18c02ae02541, type: 2}
   pathCode: 
 --- !u!1001 &1258507836
 PrefabInstance:
@@ -34697,7 +34697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerTemplate: {fileID: 0}
+  towerData: {fileID: 0}
   pathCode: B
 --- !u!114 &1294823339
 MonoBehaviour:
@@ -37313,19 +37313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3ad27610cd56641b6f1f81bc71e4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allTowerTemplates:
-  - {fileID: 11400000, guid: 14c6c8286c93ddf47aaf18c02ae02541, type: 2}
-  - {fileID: 11400000, guid: c4dcc1f2fbf4f694284e0df7d0b2e75e, type: 2}
-  - {fileID: 11400000, guid: 230d6e0ea17f42b4da57318d1123618a, type: 2}
-  - {fileID: 11400000, guid: 7f1b92619241c3146974a9582f8ec866, type: 2}
-  - {fileID: 11400000, guid: 81421387e0cb9764185b7d53efc61b06, type: 2}
-  - {fileID: 11400000, guid: 8aee11a11fc57e448b677fa15e702e1f, type: 2}
-  - {fileID: 11400000, guid: 8442c2aed6f78a940a4570f5db3a337b, type: 2}
-  - {fileID: 11400000, guid: 1815b9fb50d3ef9499cef2850a5aef6b, type: 2}
-  - {fileID: 11400000, guid: d43159b1aca5cdd45afeeec4924f772c, type: 2}
-  - {fileID: 11400000, guid: b671df87e1972a4438ef6adf22a70cf9, type: 2}
-  - {fileID: 11400000, guid: 372f2523f1746464a848730c108bfa0a, type: 2}
-  - {fileID: 11400000, guid: c4084fe76afb37941af49c911c624f0f, type: 2}
+  towerDatabase: {fileID: 11400000, guid: 33248bc564876fd4481894f8053f583e, type: 2}
 --- !u!4 &1398823183
 Transform:
   m_ObjectHideFlags: 0
@@ -134691,10 +134679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02107f4a6c0cdbb46994e34104185ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerSec: 10
-  damageInterval: 0.5
-  boxSize: {x: 5, y: 5, z: 80}
-  lazerEffect: {fileID: 7578999374853105808}
 --- !u!33 &7931300826282695749
 MeshFilter:
   m_ObjectHideFlags: 0

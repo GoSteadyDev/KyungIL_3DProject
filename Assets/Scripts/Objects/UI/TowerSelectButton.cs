@@ -1,73 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+
 public class TowerSelectButton : MonoBehaviour
 {
-    [FormerlySerializedAs("towerTemplate")] [SerializeField] private TowerData towerData;
-    [SerializeField] private string pathCode; // A, B 등
+    [SerializeField] private TowerData towerData; // For building new tower
+    [SerializeField] private string pathCode;      // For branch upgrade (e.g., "A", "B")
 
     public void OnTowerClicked()
     {
+        // Build new tower at the selected point
         BuildingSystem.Instance.OnTowerSelected(towerData);
     }
-    
-    public void OnUgradeClicked()
+
+    public void OnUpgradeClicked()
     {
+        // Sequential upgrade to next level
         ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
-        BuildingSystem.Instance.UpgradeNextTower(tower); // Lv2
-    }
-    
-    public void OnUpgradeByPath()
-    {
-        var tower = ObjectSelector.Instance.CurrentSelectedTower;
         if (tower == null) return;
 
-        TowerType type = tower.GetTowerType();
-        int level = tower.GetCurrentLevel();
-
-        TowerData data = BuildingSystem.Instance.GetTemplateByPath(type, level, pathCode);
-        if (data == null)
+        var type = tower.GetTowerType();
+        var level = tower.GetCurrentLevel();
+        // Get upgrade options and find next level
+        var options = BuildingSystem.Instance
+            .GetUpgradeOptions(type, level + 1)
+            .Where(e => e.data.level == level + 1)
+            .ToList();
+        
+        if (options.Count == 0)
         {
-            Debug.LogWarning($"pathCode '{pathCode}' 에 해당하는 업그레이드 없음");
+            Debug.LogWarning("No further sequential upgrade available.");
             return;
         }
-
-        BuildingSystem.Instance.UpgradeWithTemplate(tower, data);
+        
+        var nextData = options[0].data;
+        BuildingSystem.Instance.UpgradeTower(tower, nextData);
     }
-    
+
+    public void OnUpgradeByPath()
+    {
+        // Branch upgrade based on pathCode
+        ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
+        if (tower == null) return;
+
+        var type = tower.GetTowerType();
+        var level = tower.GetCurrentLevel();
+        // Retrieve entry for next level and pathCode
+        
+        var entry = BuildingSystem.Instance.GetTowerEntry(type, level + 1, pathCode);
+        
+        if (entry.prefab == null)
+        {
+            Debug.LogWarning($"No upgrade found for pathCode '{pathCode}'.");
+            return;
+        }
+        
+        BuildingSystem.Instance.UpgradeTower(tower, entry.data);
+    }
+
     public void OnSellClicked()
     {
         ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
         if (tower == null) return;
 
-        TowerType type = tower.GetTowerType();
-        int level = tower.GetCurrentLevel();
-
-        // TowerTemplate 찾아오기
-        TowerData data = BuildingSystem.Instance.GetTemplate(type, level);
-        if (data == null)
-        {
-            Debug.LogWarning("타워 템플릿을 찾을 수 없습니다.");
-            return;
-        }
-
-        // int refund = Mathf.RoundToInt(data.cost * 0.5f);
-        // ResourceManager.Instance.AddGold(refund);
-
-        GameObject towerGO = (tower as MonoBehaviour)?.gameObject;
+        var towerGO = (tower as MonoBehaviour)?.gameObject;
         if (towerGO != null)
         {
             BuildingSystem.Instance.Unregister(tower);
-            GameObject.Destroy(towerGO);
+            Destroy(towerGO);
         }
 
         UIManager.Instance.HideAllTowerPanels();
     }
-    
+
     public void OnCloseButtonClicked()
     {
-        BuildingSystem.Instance.CancelBuild(); // 💥 빌딩 포인트까지 제거
+        BuildingSystem.Instance.CancelBuild();
     }
 }

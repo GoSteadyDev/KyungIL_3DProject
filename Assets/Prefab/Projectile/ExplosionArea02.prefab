@@ -4695,13 +4695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819aaeee9e2181340a839dd7091746a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleEffect: {fileID: 7832420565568574273}
-  damage: 10
-  duration: 1
-  areaRange: 7.5
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1889294667190370906
 GameObject:
   m_ObjectHideFlags: 0

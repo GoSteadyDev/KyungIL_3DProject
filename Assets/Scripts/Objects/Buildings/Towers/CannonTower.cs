@@ -57,7 +57,7 @@ public class CannonTower : BaseTower
 
         // 적의 예측 위치 계산
         Vector3 enemyPos = target.position;
-        Vector3 shooterPos = firePoints.Length > 0 ? firePoints[0].position : transform.position;
+        Vector3 shooterPos = n firePoints[0].position : transform.position;
         var controller = target.GetComponent<EnemyController>();
         Vector3 enemyVel = controller != null ? controller.GetVelocity() : Vector3.zero;
         float speed = data.attackData.projectileSpeed;
