@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 0}
+  towerData: {fileID: 11400000, guid: 81421387e0cb9764185b7d53efc61b06, type: 2}
   pathCode: 
 --- !u!114 &112006156
 MonoBehaviour:
@@ -28097,7 +28097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5487efbdeb12408dd399ceef33f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData: {fileID: 0}
+  towerData: {fileID: 11400000, guid: d43159b1aca5cdd45afeeec4924f772c, type: 2}
   pathCode: 
 --- !u!114 &1090356560
 MonoBehaviour:

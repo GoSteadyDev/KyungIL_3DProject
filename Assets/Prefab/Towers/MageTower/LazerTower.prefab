@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5864946667358403776}
   - component: {fileID: 3574770588584547069}
   - component: {fileID: 8953466071625129600}
-  - component: {fileID: 963322779239807363}
+  - component: {fileID: 2970796767445084170}
   m_Layer: 9
   m_Name: LazerTower
   m_TagString: Untagged
@@ -163,7 +163,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &963322779239807363
+--- !u!114 &2970796767445084170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,20 +172,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 258841353982987706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a230660433ce249846e839c55bae4e, type: 3}
+  m_Script: {fileID: 11500000, guid: a61cc26fe3b487e4980e66b7859a1b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerType: 2
-  currentLevel: 4
-  damagePerSec: 10
-  attackRange: 25
   firePoint: {fileID: 563568612348716948}
-  Lazer: {fileID: 4098928400075945897}
-  icon: {fileID: 21300000, guid: 3404bfae15040ba42bd49d1ff5df9bf4, type: 3}
-  displayName: LazerTower
-  displayLevel: Lv.3B
-  displayDamage: 10
-  displayRange: 25
+  effectPoint: {fileID: 563568612348716948}
+  lazerChild: {fileID: 7859047036572739472}
+  attackEffect: {fileID: 0}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &975819782028599945
 GameObject:
   m_ObjectHideFlags: 0
@@ -9987,10 +9983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02107f4a6c0cdbb46994e34104185ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerSec: 10
-  damageInterval: 0.5
-  boxSize: {x: 5, y: 5, z: 80}
-  lazerEffect: {fileID: 7578999374037867506}
 --- !u!198 &7578999374037867506
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -33991,7 +33983,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 5.9e-44, z: 1.5641e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

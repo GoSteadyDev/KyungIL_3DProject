@@ -14919,20 +14919,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34ae0ecae89ef34299b0e12870c9835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerType: 1
-  currentLevel: 2
-  attackSpeed: 2
-  attackRange: 15
   firePoint: {fileID: 2829503470646709962}
-  cannonPrefab: {fileID: 8964780451257961045, guid: 1fb5dce466b9014468cd67056b03144b, type: 3}
-  cannonSpeed: 30
-  fireEffect: {fileID: 1848732814100434878}
-  icon: {fileID: 21300000, guid: b5427efa55168a941b2ca7092bd3f0ad, type: 3}
-  displayName: Cannon Tower
-  displayLevel: Lv.2
-  displayAttackSpeed: 2
-  displayDamage: 10
-  displayRange: 15
+  firePoints:
+  - {fileID: 2829503470646709962}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &8400163816201891466
 GameObject:
   m_ObjectHideFlags: 0

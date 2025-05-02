@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   level: 3
-  buildCost: 60
-  upgradeCost: 0
+  buildCost: 0
+  upgradeCost: 60
   sellPrice: 30
   pathCode: B
   displayName: ArcherTower.Lv3B
   description: 
   icon: {fileID: 0}
-  damage: 15
+  damage: 16
   attackSpeed: 1
-  attackRange: 20
+  attackRange: 22.5
   attackData:
     attackType: 0
     projectilePrefab: {fileID: 6144767720853113890, guid: e86e584b73c7cd54fbb2e465ff8e462f, type: 3}

@@ -4921,7 +4921,7 @@ GameObject:
   - component: {fileID: 200591463588184280}
   - component: {fileID: 2637036316723779158}
   - component: {fileID: 3533559967368813672}
-  - component: {fileID: 8566498250407176937}
+  - component: {fileID: 6176208778804828097}
   m_Layer: 9
   m_Name: SlowTower_Lv3
   m_TagString: Untagged
@@ -4988,7 +4988,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8566498250407176937
+--- !u!114 &6176208778804828097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4997,23 +4997,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5548327178313028241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 090bc993b1211a4418ec6550e2e455f0, type: 3}
+  m_Script: {fileID: 11500000, guid: a61cc26fe3b487e4980e66b7859a1b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerType: 2
-  currentLevel: 3
-  damage: 5
-  slowRate: 0.4
-  slowDuration: 3
-  attackRange: 20
-  attackInterval: 2
-  slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
-  attackEffectPrefab: {fileID: 7099211349604058653}
-  icon: {fileID: 21300000, guid: a4d94fb31c5be9d4dabc5b33f3f357a5, type: 3}
-  displayName: SlowTower
-  displayLevel: Lv.3A
-  displayDamage: 5
-  displayRange: 20
+  firePoint: {fileID: 0}
+  effectPoint: {fileID: 0}
+  lazerChild: {fileID: 0}
+  attackEffect: {fileID: 7099211349604058653}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &5728315911284393949
 GameObject:
   m_ObjectHideFlags: 0

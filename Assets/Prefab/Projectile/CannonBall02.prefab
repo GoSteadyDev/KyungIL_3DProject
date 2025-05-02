@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6732859472916340638}
   - component: {fileID: 2484400555131476653}
   - component: {fileID: 8847552817006007041}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CannonBall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,6 +178,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e57c1a9726ee8c43ba78b7663170c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaDamagePrefab: {fileID: 989936401953748105, guid: bba09ee4a38ba5c4fb1db12fd36f0c4b, type: 3}
-  arcHeight: 7.5
-  rb: {fileID: 0}

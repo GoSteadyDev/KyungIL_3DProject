@@ -14,5 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 1
   level: 1
-  towerPrefab: {fileID: 5007066557237126988, guid: 88c5528d5b8abab44b8c9abb05ef0162, type: 3}
-  cost: 30
+  buildCost: 30
+  upgradeCost: 0
+  sellPrice: 15
+  pathCode: 
+  displayName: CannonTowerLv.1
+  description: 
+  icon: {fileID: 0}
+  damage: 8
+  attackSpeed: 0.5
+  attackRange: 16
+  attackData:
+    attackType: 1
+    projectilePrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
+    projectileSpeed: 20
+    areaEffectPrefab: {fileID: 1960722388887308908, guid: 7268bbcf92b84fe4a8d10ec38fc39d4c, type: 3}
+    areaRadius: 3.5
+    burstCount: 0
+    burstInterval: 0
+    overshootFactor: 0.6
+    beamEffectPrefab: {fileID: 0}
+    beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    slowEffectPrefab: {fileID: 0}
+    slowRate: 0
+    slowDuration: 0
+  nextUpgrades:
+  - {fileID: 11400000, guid: 8aee11a11fc57e448b677fa15e702e1f, type: 2}

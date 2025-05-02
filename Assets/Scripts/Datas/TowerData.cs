@@ -38,10 +38,11 @@ public struct AttackData
     public float overshootFactor;
     
     // Beam 전용
-    public GameObject beamEffectPrefab;   // 레이저 이펙트
     // ◀— Beam 전용 (Raycast 대신 OverlapBox)
     [Tooltip("레이저 충돌 박스 크기(절반 크기)")]
     public Vector3 beamBoxHalfExtents;
+    [Tooltip("레이저 데미지 처리 간격")]
+    public float beamInterval;
 
     // Direct 전용 (SlowTower)
     public GameObject slowEffectPrefab;

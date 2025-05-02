@@ -12,6 +12,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
     
     private float currentHP;
     private bool isDead = false;
+    public bool  IsDead => isDead;
     
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;

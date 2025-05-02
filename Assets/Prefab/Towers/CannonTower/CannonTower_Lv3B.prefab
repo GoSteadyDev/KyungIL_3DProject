@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 1820340700656765334}
   - component: {fileID: 3871103700098304871}
   - component: {fileID: 3379194014926662398}
-  - component: {fileID: 2725471223304148488}
+  - component: {fileID: -6222004878302137202}
   m_Layer: 9
   m_Name: CannonTower_Lv3B
   m_TagString: Untagged
@@ -198,7 +198,7 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2725471223304148488
+--- !u!114 &-6222004878302137202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,26 +207,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2535757855108152780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f297276c62178040a291b47b478cf53, type: 3}
+  m_Script: {fileID: 11500000, guid: d34ae0ecae89ef34299b0e12870c9835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerType: 1
-  currentLevel: 4
-  attackSpeed: 1.5
-  attackRange: 15
+  firePoint: {fileID: 0}
   firePoints:
   - {fileID: 5009598169434139152}
   - {fileID: 454903137117984782}
   - {fileID: 4769288133755714218}
-  cannonPrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
-  cannonSpeed: 30
-  fireEffect: {fileID: 6553082300615395604}
-  icon: {fileID: 21300000, guid: 775cf2060e41e9b4b94dc9edc41a6db7, type: 3}
-  displayName: Cannon Tower
-  displayLevel: Lv3.B
-  displayAttackSpeed: 1.5
-  displayDamage: 15
-  displayRange: 15
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &3106837895981641174
 GameObject:
   m_ObjectHideFlags: 0

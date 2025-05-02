@@ -13,7 +13,29 @@ MonoBehaviour:
   m_Name: SlowTowerLv3
   m_EditorClassIdentifier: 
   towerType: 2
-  level: 4
-  cost: 150
+  level: 3
+  buildCost: 0
+  upgradeCost: 150
+  sellPrice: 60
   pathCode: A
-  towerPrefab: {fileID: 5548327178313028241, guid: ed4974877fbedab428af76f46ab430e9, type: 3}
+  displayName: SlowTowerLv.3
+  description: 
+  icon: {fileID: 0}
+  damage: 8
+  attackSpeed: 0.75
+  attackRange: 22.5
+  attackData:
+    attackType: 3
+    projectilePrefab: {fileID: 0}
+    projectileSpeed: 0
+    areaEffectPrefab: {fileID: 0}
+    areaRadius: 20
+    burstCount: 0
+    burstInterval: 0
+    overshootFactor: 0
+    beamEffectPrefab: {fileID: 0}
+    beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
+    slowRate: 0.5
+    slowDuration: 2
+  nextUpgrades: []

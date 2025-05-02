@@ -11,6 +11,13 @@ public class CannonTower : BaseTower
     [Header("Enemy Mask")]
     [SerializeField] private LayerMask enemyLayerMask;
 
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     protected override void RefreshStats() { /* 캐논은 SO 데이터만 사용하므로 빈 구현 */ }
 
     protected override Transform FindTarget()
@@ -35,42 +42,58 @@ public class CannonTower : BaseTower
 
     protected override void Attack(Transform target)
     {
-        // 타워 데이터의 burstCount로 싱글샷/멀티샷 구분
         if (data.attackData.burstCount > 1)
-            StartCoroutine(FireBurst(target));
+            StartCoroutine(FireSequentialBurst(target));
         else
-            FireVolley(target);
+            FireFromPoint(firePoints[0], target);
     }
 
-    private IEnumerator FireBurst(Transform target)
+    private IEnumerator FireSequentialBurst(Transform target)
     {
+        animator.SetTrigger("IsAttack");
+        
+        if (target == null) yield break;
+    
+        // burstCount 만큼 순차 발사
         for (int i = 0; i < data.attackData.burstCount; i++)
         {
-            FireVolley(target);
+            // 포구 인덱스 순환 (포구 3개면 0→1→2→0→…)
+            Transform fp = firePoints[i % firePoints.Length];
+            FireFromPoint(fp, target);
             yield return new WaitForSeconds(data.attackData.burstInterval);
         }
     }
 
-    private void FireVolley(Transform target)
+    private void FireFromPoint(Transform fp, Transform target)
     {
         if (target == null) return;
 
-        // 적의 예측 위치 계산
-        Vector3 enemyPos = target.position;
-        Vector3 shooterPos = n firePoints[0].position : transform.position;
-        var controller = target.GetComponent<EnemyController>();
-        Vector3 enemyVel = controller != null ? controller.GetVelocity() : Vector3.zero;
-        float speed = data.attackData.projectileSpeed;
-        float flightTime = Vector3.Distance(enemyPos, shooterPos) / speed;
-        float factor = data.attackData.overshootFactor;
-        Vector3 aimPoint = enemyPos + enemyVel * (flightTime * factor);
+        // 예측 위치 계산 (이전 로직 그대로)
+        Vector3 enemyPos   = target.position;
+        Vector3 shooterPos = fp.position;
+        var controller     = target.GetComponent<EnemyController>();
+        Vector3 enemyVel   = controller != null ? controller.GetVelocity() : Vector3.zero;
+        float speed        = data.attackData.projectileSpeed;
+        float flightTime   = Vector3.Distance(enemyPos, shooterPos) / speed;
+        float factor       = data.attackData.overshootFactor;
+        Vector3 aimPoint   = enemyPos + enemyVel * (flightTime * factor);
 
-        // 모든 발사구에서 동시에 발사
-        foreach (var fp in firePoints)
-        {
-            var go = Instantiate(data.attackData.projectilePrefab, fp.position, Quaternion.LookRotation((aimPoint - fp.position).normalized));
-            var cannon = go.GetComponent<Cannon>();
-            cannon.Initialize(data.attackData, data.damage, aimPoint, enemyLayerMask);
-        }
+        // Instantiate 후 Initialize
+        var go = Instantiate(
+            data.attackData.projectilePrefab,
+            shooterPos,
+            Quaternion.identity
+        );
+        var cannon = go.GetComponent<Cannon>();
+        cannon.Initialize(
+            shooterPos,
+            aimPoint,
+            speed,
+            flightTime,
+            data.damage,
+            data.attackData.areaEffectPrefab,
+            data.attackData.areaRadius,
+            enemyLayerMask
+        );
     }
 }

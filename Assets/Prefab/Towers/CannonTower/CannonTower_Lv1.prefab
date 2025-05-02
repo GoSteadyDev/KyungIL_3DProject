@@ -5141,7 +5141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 8799969745142157544}
-  firePoints: []
+  firePoints:
+  - {fileID: 8799969745142157544}
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64

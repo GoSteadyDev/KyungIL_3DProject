@@ -34,8 +34,17 @@ public class Archer : MonoBehaviour
 
     public Transform FindTarget()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, statAttackRange, LayerMask.GetMask("Enemy"));
+        Collider[] hits = Physics.OverlapSphere(transform.position,statAttackRange,LayerMask.GetMask("Enemy"));
         targetTransform = hits.Length > 0 ? hits[0].transform : null;
+
+        if (targetTransform != null)
+        {
+            // 수평 회전만 할 거면 Y 축 고정
+            Vector3 dir = targetTransform.position - transform.position;
+            dir.y = 0;
+            if (dir != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(dir);
+        }
 
         return targetTransform;
     }

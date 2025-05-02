@@ -15,7 +15,7 @@ MonoBehaviour:
   towerType: 0
   level: 1
   buildCost: 20
-  upgradeCost: 40
+  upgradeCost: 0
   sellPrice: 10
   pathCode: 
   displayName: ArcherTower.Lv1

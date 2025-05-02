@@ -13,7 +13,29 @@ MonoBehaviour:
   m_Name: CannonLv3B
   m_EditorClassIdentifier: 
   towerType: 1
-  level: 4
-  cost: 130
+  level: 3
+  buildCost: 0
+  upgradeCost: 120
+  sellPrice: 60
   pathCode: B
-  towerPrefab: {fileID: 2535757855108152780, guid: 3f9a8c4a406f8c74896049b0cc9f4b1a, type: 3}
+  displayName: CannonTowerLv.3B
+  description: 
+  icon: {fileID: 0}
+  damage: 20
+  attackSpeed: 1
+  attackRange: 20
+  attackData:
+    attackType: 1
+    projectilePrefab: {fileID: 3670126710999533925, guid: 159bf9da0841fad43b0420e8e7d5590b, type: 3}
+    projectileSpeed: 20
+    areaEffectPrefab: {fileID: 1960722388887308908, guid: 7268bbcf92b84fe4a8d10ec38fc39d4c, type: 3}
+    areaRadius: 1
+    burstCount: 3
+    burstInterval: 0.2
+    overshootFactor: 1
+    beamEffectPrefab: {fileID: 0}
+    beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    slowEffectPrefab: {fileID: 0}
+    slowRate: 0
+    slowDuration: 0
+  nextUpgrades: []

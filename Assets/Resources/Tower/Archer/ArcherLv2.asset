@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   level: 2
-  buildCost: 40
+  buildCost: 0
   upgradeCost: 60
   sellPrice: 20
   pathCode: 
@@ -23,7 +23,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   damage: 7
   attackSpeed: 1
-  attackRange: 22.5
+  attackRange: 25
   attackData:
     attackType: 0
     projectilePrefab: {fileID: 6144767720853113890, guid: e86e584b73c7cd54fbb2e465ff8e462f, type: 3}
