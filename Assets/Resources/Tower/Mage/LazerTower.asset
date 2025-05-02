@@ -20,7 +20,7 @@ MonoBehaviour:
   pathCode: B
   displayName: LazerTower
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 3404bfae15040ba42bd49d1ff5df9bf4, type: 3}
   damage: 20
   attackSpeed: 0.2
   attackRange: 25

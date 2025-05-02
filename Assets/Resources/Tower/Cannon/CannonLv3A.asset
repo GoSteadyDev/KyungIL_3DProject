@@ -20,7 +20,7 @@ MonoBehaviour:
   pathCode: A
   displayName: CannonTowerLv.3A
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 671df89bb0a6fcb4e973b889e0a370cc, type: 3}
   damage: 16
   attackSpeed: 1.2
   attackRange: 22
@@ -33,8 +33,8 @@ MonoBehaviour:
     burstCount: 0
     burstInterval: 0
     overshootFactor: 0
-    beamEffectPrefab: {fileID: 0}
     beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    beamInterval: 0
     slowEffectPrefab: {fileID: 0}
     slowRate: 0
     slowDuration: 0

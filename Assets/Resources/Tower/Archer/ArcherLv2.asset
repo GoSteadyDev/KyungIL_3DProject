@@ -20,10 +20,10 @@ MonoBehaviour:
   pathCode: 
   displayName: ArcherTower.Lv2
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 569ed34faff5dc74787b7ba0020cb144, type: 3}
   damage: 7
   attackSpeed: 1
-  attackRange: 25
+  attackRange: 35
   attackData:
     attackType: 0
     projectilePrefab: {fileID: 6144767720853113890, guid: e86e584b73c7cd54fbb2e465ff8e462f, type: 3}
@@ -33,8 +33,8 @@ MonoBehaviour:
     burstCount: 0
     burstInterval: 0
     overshootFactor: 0
-    beamEffectPrefab: {fileID: 0}
     beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    beamInterval: 0
     slowEffectPrefab: {fileID: 0}
     slowRate: 0
     slowDuration: 0

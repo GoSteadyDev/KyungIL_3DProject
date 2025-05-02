@@ -20,7 +20,7 @@ MonoBehaviour:
   pathCode: 
   displayName: CannonTowerLv.2
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b5427efa55168a941b2ca7092bd3f0ad, type: 3}
   damage: 12
   attackSpeed: 0.75
   attackRange: 18
@@ -29,12 +29,12 @@ MonoBehaviour:
     projectilePrefab: {fileID: 8964780451257961045, guid: 1fb5dce466b9014468cd67056b03144b, type: 3}
     projectileSpeed: 30
     areaEffectPrefab: {fileID: 989936401953748105, guid: bba09ee4a38ba5c4fb1db12fd36f0c4b, type: 3}
-    areaRadius: 7
+    areaRadius: 8
     burstCount: 0
     burstInterval: 0
     overshootFactor: 0.6
-    beamEffectPrefab: {fileID: 0}
     beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    beamInterval: 0
     slowEffectPrefab: {fileID: 0}
     slowRate: 0
     slowDuration: 0

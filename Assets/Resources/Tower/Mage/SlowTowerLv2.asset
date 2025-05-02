@@ -20,7 +20,7 @@ MonoBehaviour:
   pathCode: 
   displayName: SlowTowerLv.2
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2df7fa89e637d0548a281a6497ef70c5, type: 3}
   damage: 6
   attackSpeed: 2
   attackRange: 18
@@ -34,6 +34,7 @@ MonoBehaviour:
     burstInterval: 0
     overshootFactor: 0
     beamBoxHalfExtents: {x: 0, y: 0, z: 0}
+    beamInterval: 0
     slowEffectPrefab: {fileID: 5618466217392145011, guid: 868a5b8b1779121468e674f86a151ca7, type: 3}
     slowRate: 0.5
     slowDuration: 2
