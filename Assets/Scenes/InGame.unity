@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 14554359}
   - component: {fileID: 14554361}
   - component: {fileID: 14554360}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2716,7 +2716,7 @@ GameObject:
   - component: {fileID: 112006157}
   - component: {fileID: 112006156}
   - component: {fileID: 112006155}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CannonTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3141,7 +3141,7 @@ GameObject:
   - component: {fileID: 123555821}
   - component: {fileID: 123555820}
   - component: {fileID: 123555819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ClosePanelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3395,7 +3395,7 @@ GameObject:
   - component: {fileID: 131073045}
   - component: {fileID: 131073044}
   - component: {fileID: 131073046}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: TowerInfoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3473,6 +3473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d478e549a2d2d40ba351405c7bd684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCamera: {fileID: 1809978916}
+  parentCanvas: {fileID: 957434331}
 --- !u!1 &136447638 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821374989505724, guid: 1a51fe95cc8cc3a4ca8f62728430ca9f, type: 3}
@@ -4976,7 +4978,7 @@ GameObject:
   - component: {fileID: 185582942}
   - component: {fileID: 185582944}
   - component: {fileID: 185582943}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5565,7 +5567,7 @@ GameObject:
   - component: {fileID: 214994745}
   - component: {fileID: 214994747}
   - component: {fileID: 214994746}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8425,7 +8427,7 @@ GameObject:
   - component: {fileID: 341200947}
   - component: {fileID: 341200946}
   - component: {fileID: 341200949}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8710,7 +8712,7 @@ GameObject:
   - component: {fileID: 349150143}
   - component: {fileID: 349150145}
   - component: {fileID: 349150144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11899,7 +11901,7 @@ GameObject:
   - component: {fileID: 476623680}
   - component: {fileID: 476623679}
   - component: {fileID: 476623682}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12229,7 +12231,7 @@ GameObject:
   - component: {fileID: 482301190}
   - component: {fileID: 482301192}
   - component: {fileID: 482301191}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12562,7 +12564,7 @@ GameObject:
   - component: {fileID: 485995726}
   - component: {fileID: 485995728}
   - component: {fileID: 485995727}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12643,7 +12645,7 @@ GameObject:
   - component: {fileID: 486763524}
   - component: {fileID: 486763523}
   - component: {fileID: 486763526}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13160,7 +13162,7 @@ GameObject:
   - component: {fileID: 511986702}
   - component: {fileID: 511986704}
   - component: {fileID: 511986703}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13815,7 +13817,7 @@ GameObject:
   - component: {fileID: 551706203}
   - component: {fileID: 551706205}
   - component: {fileID: 551706204}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14699,7 +14701,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2047
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -15384,7 +15386,7 @@ GameObject:
   - component: {fileID: 605396036}
   - component: {fileID: 605396035}
   - component: {fileID: 605396034}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ClosePanelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15752,7 +15754,7 @@ GameObject:
   - component: {fileID: 615312065}
   - component: {fileID: 615312064}
   - component: {fileID: 615312066}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerLv3Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15830,6 +15832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d478e549a2d2d40ba351405c7bd684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCamera: {fileID: 1809978916}
+  parentCanvas: {fileID: 957434331}
 --- !u!1001 &617972001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16091,7 +16095,7 @@ GameObject:
   - component: {fileID: 629453689}
   - component: {fileID: 629453688}
   - component: {fileID: 629453687}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ClosePanelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24307,7 +24311,7 @@ GameObject:
   - component: {fileID: 957434331}
   - component: {fileID: 957434330}
   - component: {fileID: 957434329}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: TowerPanelCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24363,8 +24367,8 @@ Canvas:
   m_GameObject: {fileID: 957434328}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 586535334}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1809978916}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -24414,7 +24418,7 @@ GameObject:
   - component: {fileID: 958234028}
   - component: {fileID: 958234027}
   - component: {fileID: 958234026}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ClosePanelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28008,7 +28012,7 @@ GameObject:
   - component: {fileID: 1090356561}
   - component: {fileID: 1090356560}
   - component: {fileID: 1090356559}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MageTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30256,7 +30260,7 @@ GameObject:
   - component: {fileID: 1176601300}
   - component: {fileID: 1176601299}
   - component: {fileID: 1176601298}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UpgradeAButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31217,7 +31221,7 @@ GameObject:
   - component: {fileID: 1209544335}
   - component: {fileID: 1209544334}
   - component: {fileID: 1209544337}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31368,7 +31372,7 @@ GameObject:
   - component: {fileID: 1212313873}
   - component: {fileID: 1212313875}
   - component: {fileID: 1212313874}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31934,7 +31938,7 @@ GameObject:
   - component: {fileID: 1225272157}
   - component: {fileID: 1225272156}
   - component: {fileID: 1225272158}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerCreatePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32014,6 +32018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d478e549a2d2d40ba351405c7bd684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCamera: {fileID: 1809978916}
+  parentCanvas: {fileID: 957434331}
 --- !u!1 &1225583375 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1240222732930312, guid: fc0e85a1478e4314baa490f67446a1ed, type: 3}
@@ -32502,7 +32508,7 @@ GameObject:
   - component: {fileID: 1242460941}
   - component: {fileID: 1242460943}
   - component: {fileID: 1242460942}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33024,7 +33030,7 @@ GameObject:
   - component: {fileID: 1256208959}
   - component: {fileID: 1256208958}
   - component: {fileID: 1256208961}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AcherTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34621,7 +34627,7 @@ GameObject:
   - component: {fileID: 1294823340}
   - component: {fileID: 1294823339}
   - component: {fileID: 1294823338}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UpgradeBButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35546,7 +35552,7 @@ GameObject:
   - component: {fileID: 1338288619}
   - component: {fileID: 1338288621}
   - component: {fileID: 1338288620}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36290,7 +36296,7 @@ GameObject:
   - component: {fileID: 1367356382}
   - component: {fileID: 1367356381}
   - component: {fileID: 1367356383}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerLv1Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36369,6 +36375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d478e549a2d2d40ba351405c7bd684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCamera: {fileID: 1809978916}
+  parentCanvas: {fileID: 957434331}
 --- !u!1 &1368580590
 GameObject:
   m_ObjectHideFlags: 0
@@ -39197,7 +39205,7 @@ GameObject:
   - component: {fileID: 1473470174}
   - component: {fileID: 1473470176}
   - component: {fileID: 1473470175}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39276,7 +39284,7 @@ GameObject:
   - component: {fileID: 1474261770}
   - component: {fileID: 1474261772}
   - component: {fileID: 1474261771}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49358,7 +49366,7 @@ GameObject:
   - component: {fileID: 1796029636}
   - component: {fileID: 1796029638}
   - component: {fileID: 1796029637}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49602,6 +49610,103 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 294ef2ad272717941abe3c6f03586ad4, type: 3}
+--- !u!1 &1809978914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1809978917}
+  - component: {fileID: 1809978916}
+  - component: {fileID: 1809978918}
+  m_Layer: 0
+  m_Name: UICamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &1809978916
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809978914}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 90
+  m_Depth: 10
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1809978917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809978914}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 361.46393, y: 398.4796, z: -247.38275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1809978918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809978914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306ae2298e5cb1f41a9a2adca66b82e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 0}
 --- !u!1 &1810290371 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1240222732930312, guid: fc0e85a1478e4314baa490f67446a1ed, type: 3}
@@ -53373,7 +53478,7 @@ GameObject:
   - component: {fileID: 1954743491}
   - component: {fileID: 1954743490}
   - component: {fileID: 1954743492}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerLv2Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53453,6 +53558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d478e549a2d2d40ba351405c7bd684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCamera: {fileID: 1809978916}
+  parentCanvas: {fileID: 957434331}
 --- !u!1 &1955231263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1240222732930312, guid: fc0e85a1478e4314baa490f67446a1ed, type: 3}
@@ -55076,7 +55183,7 @@ GameObject:
   - component: {fileID: 2014503874}
   - component: {fileID: 2014503876}
   - component: {fileID: 2014503875}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139658,9 +139765,9 @@ SceneRoots:
   - {fileID: 1340485185}
   - {fileID: 1063235851}
   - {fileID: 586535335}
+  - {fileID: 869402537}
   - {fileID: 945040980}
   - {fileID: 1140836316}
-  - {fileID: 869402537}
   - {fileID: 140841606}
   - {fileID: 2030158840}
   - {fileID: 331474643}
@@ -139690,3 +139797,4 @@ SceneRoots:
   - {fileID: 281712420}
   - {fileID: 844934185}
   - {fileID: 1043119511}
+  - {fileID: 1809978917}

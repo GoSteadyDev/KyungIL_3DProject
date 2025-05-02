@@ -116,7 +116,7 @@ public class PausePanelController : MonoBehaviour
     {
         GameSaveData data = SaveSystem.Load();
         if (data == null) return;
-
+        
         // 1) 리셋
         BuildingSystem.Instance.ClearAllTowers();
         // … 유닛도 동일

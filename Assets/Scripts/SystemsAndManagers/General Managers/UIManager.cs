@@ -60,7 +60,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image towerIconImage;
     
     private Dictionary<int, GameObject> towerPanelDict;
-    Camera cam;
     
     private void Awake()
     {
@@ -82,7 +81,6 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < towerLevelPanels.Count; i++)
             towerPanelDict[i + 1] = towerLevelPanels[i];
         
-        cam = Camera.main;
     }
     
     private void OnDestroy()
@@ -173,9 +171,6 @@ public class UIManager : MonoBehaviour
     {
         // 레벨별로 원하는 Y 오프셋을 정해 둡니다.
         // level 0 → 건설용, level 1~3 → 업그레이드용
-        float yOffset = (level == 0) ? 16f : 18f;
-        Vector3 worldOffset = Vector3.up * yOffset;
-
         // panel 선택
         GameObject panelGO;
         if (level == 0)
@@ -184,24 +179,24 @@ public class UIManager : MonoBehaviour
         }
         else if (!towerPanelDict.TryGetValue(level, out panelGO))
         {
-            Debug.LogWarning($"Level {level} 패널이 없습니다!");
             return;
         }
+        Vector3 fixedWorldOffset = new Vector3(0f, 60f, 0f); // 타워 위쪽으로 2 유닛
 
-        // 코루틴으로 패널 초기화 + 활성화
-        StartCoroutine(ShowPanelWithDelay(panelGO, target, worldOffset));
+        StartCoroutine(ShowPanelWithDelay(panelGO, target, fixedWorldOffset));
     }
     
-    public IEnumerator ShowPanelWithDelay(GameObject panelGO, Transform target, Vector3 worldOffset)
+    // 🔧 파라미터: Vector3 → float
+    public IEnumerator ShowPanelWithDelay(GameObject panelGO, Transform target, Vector3 fixedWorldOffset)
     {
         yield return new WaitForEndOfFrame();
 
         var panel = panelGO.GetComponent<FollowUIPanel>();
         if (panel == null) yield break;
 
-        panel.Initialize(target, worldOffset);
+        panel.Initialize(target, fixedWorldOffset);
     }
-    
+
     public void ShowTowerInfoPanel(IHasInfoPanel targetData, Transform towerTransform)
     {
         // 기존 패널들 숨기기
@@ -222,14 +217,10 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        // // 3) 원하는 오프셋 계산 (타워 오른쪽 + 살짝 위)
-        Vector3 worldOffset = Vector3.right * 30f   // 오른쪽으로 2유닛
-                              + Vector3.down * 20f;     // 위로 1유닛
-        
-        // 4) 초기화 (Activate + 위치 갱신 + 따라다니기 시작)
-        follow.Initialize(towerTransform, worldOffset);
-    }
+        Vector3 fixedWorldOffset = new Vector3(75f, -40f, 0f); // 오른쪽 2, 위로 1
 
+        follow.Initialize(towerTransform, fixedWorldOffset);
+    }
     
     public void ShowUnitInfoPanel(IHasInfoPanel target)
     {

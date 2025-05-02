@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class FollowUIPanel : MonoBehaviour
 {
+    [SerializeField] private Camera uiCamera; // UICamera를 Inspector에서 연결
+    [SerializeField] private Canvas parentCanvas;
+    
     RectTransform rt;
     Camera cam;
     Vector2 screenCenter;
@@ -15,18 +18,18 @@ public class FollowUIPanel : MonoBehaviour
     void Awake()
     {
         rt = GetComponent<RectTransform>();
-        cam = Camera.main;
         screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
     }
 
-    public void Initialize(Transform target, Vector3 worldOffset)
+    public void Initialize(Transform target, Vector3 fixedWorldOffset)
     {
         this.target = target;
-        this.worldOffset = worldOffset;
-        gameObject.SetActive(true);
-        UpdatePosition(); // 최초 위치 갱신
-    }
+        this.worldOffset = fixedWorldOffset;
 
+        gameObject.SetActive(true);
+        UpdatePosition();
+    }
+    
     void LateUpdate()
     {
         if (target != null)
@@ -35,20 +38,22 @@ public class FollowUIPanel : MonoBehaviour
 
     void UpdatePosition()
     {
-        // 정확히 타워 위치 + 오프셋을 화면 픽셀 좌표로 변환
-        Vector3 worldPos = target.position + worldOffset;
-        Vector3 screenPos = cam.WorldToViewportPoint(worldPos);
-        screenPos.z = 0;
+        Vector3 screenPos = uiCamera.WorldToScreenPoint(target.position + worldOffset);
+        Vector2 localPoint;
+        RectTransform canvasRect = parentCanvas.GetComponent<RectTransform>();
 
-        // Viewport(0~1) 기준 위치를 실제 픽셀로 환산
-        Vector2 anchored = new Vector2(
-            screenPos.x * Screen.width - screenCenter.x,
-            screenPos.y * Screen.height - screenCenter.y
+        bool success = RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPos,
+            uiCamera,
+            out localPoint
         );
 
-        rt.anchoredPosition = anchored;
+        if (success)
+        {
+            rt.anchoredPosition = localPoint;
+        }
     }
-
     public void Close()
     {
         target = null;
