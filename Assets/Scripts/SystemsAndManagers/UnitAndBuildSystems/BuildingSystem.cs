@@ -43,7 +43,7 @@ public class BuildingSystem : MonoBehaviour
     public void OpenBuildUI(BuildingPoint point)
     {
         currentBuildPoint = point;
-        UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
+        UIManager.Instance.ShowTowerPanelByLevel(0, point.transform);
     }
 
     /// <summary>

@@ -60,12 +60,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image towerIconImage;
     
     private Dictionary<int, GameObject> towerPanelDict;
-    private GameObject lastOpenedTowerPanel;
-    private Transform currentSelectedTowerPanel; // 현재 선택된 타워 Transform 저장
-
+    Camera cam;
+    
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            // 이미 다른 UIManager 가 있다면 이놈은 지워버린다!
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        
         NotificationService.OnNotify += ShowWarning;
         
         HPViewerSpawner.Initialize(followUIControlCanvas.transform);
@@ -75,6 +81,8 @@ public class UIManager : MonoBehaviour
         // Lv1~Lv3 등록
         for (int i = 0; i < towerLevelPanels.Count; i++)
             towerPanelDict[i + 1] = towerLevelPanels[i];
+        
+        cam = Camera.main;
     }
     
     private void OnDestroy()
@@ -158,66 +166,70 @@ public class UIManager : MonoBehaviour
         WaveDescriptionText.text = $"Wave {waveNumber} Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
     }
     
-    public void ShowTowerPanelByLevel(int level, Vector3 worldPos)
+    /// <summary>
+    /// level에 맞는 패널을 target 위에 띄웁니다.
+    /// </summary>
+    public void ShowTowerPanelByLevel(int level, Transform target)
     {
+        // 레벨별로 원하는 Y 오프셋을 정해 둡니다.
+        // level 0 → 건설용, level 1~3 → 업그레이드용
+        float yOffset = (level == 0) ? 16f : 18f;
+        Vector3 worldOffset = Vector3.up * yOffset;
+
+        // panel 선택
+        GameObject panelGO;
         if (level == 0)
         {
-            ShowTowerCreatePanel(worldPos);
+            panelGO = towerCreatePanel;
         }
-        else if (towerPanelDict.TryGetValue(level, out var panel))
+        else if (!towerPanelDict.TryGetValue(level, out panelGO))
         {
-            StartCoroutine(ShowPanelWithDelay(panel, worldPos));
+            Debug.LogWarning($"Level {level} 패널이 없습니다!");
+            return;
         }
-    }
 
-    private void ShowTowerCreatePanel(Vector3 worldPos)
-    {
-        StartCoroutine(ShowPanelWithDelay(towerCreatePanel, worldPos));
+        // 코루틴으로 패널 초기화 + 활성화
+        StartCoroutine(ShowPanelWithDelay(panelGO, target, worldOffset));
     }
-
-    private IEnumerator ShowPanelWithDelay(GameObject panel, Vector3 worldPos)
+    
+    public IEnumerator ShowPanelWithDelay(GameObject panelGO, Transform target, Vector3 worldOffset)
     {
         yield return new WaitForEndOfFrame();
 
-        panel.transform.position = worldPos + new Vector3(0f, 20f, -2.5f);
-        panel.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        panel.transform.SetParent(towerBuildCanvas.transform);
-        panel.SetActive(true);
-        
-        lastOpenedTowerPanel = panel;
-    }
-    
-    public void HideAllTowerPanels()
-    {
-        towerCreatePanel.SetActive(false);
+        var panel = panelGO.GetComponent<FollowUIPanel>();
+        if (panel == null) yield break;
 
-        foreach (var panel in towerPanelDict.Values)
-            panel.SetActive(false);
-        
-        HideInfoPanel();
+        panel.Initialize(target, worldOffset);
     }
     
-    public void ShowTowerInfoPanel(IHasInfoPanel target, Transform towerTransform)
+    public void ShowTowerInfoPanel(IHasInfoPanel targetData, Transform towerTransform)
     {
+        // 기존 패널들 숨기기
         HideAllBuildingPanels();
 
-        if (target == null || towerTransform == null) return;
+        if (targetData == null || towerTransform == null) 
+            return;
 
-        towerInfoPanelRoot.SetActive(true);
-        towerNameText.text = target.GetDisplayName();
-        towerDescText.text = target.GetDescription();
-        towerIconImage.sprite = target.GetIcon();
+        // 1) 패널 내용 세팅
+        towerNameText.text  = targetData.GetDisplayName();
+        towerDescText.text  = targetData.GetDescription();
 
-        Vector3 towerPanelPos = lastOpenedTowerPanel.transform.position;
-        Vector3 offset = new Vector3(20f, 0f, -6f); // x+ 방향으로 오른쪽 4만큼 이동
-        towerInfoPanelRoot.transform.position = towerPanelPos + offset;
+        // 2) FollowUIPanel 가져오기
+        var follow = towerInfoPanelRoot.GetComponent<FollowUIPanel>();
+        if (follow == null)
+        {
+            Debug.LogError("towerInfoPanelRoot에 FollowUIPanel이 없습니다!");
+            return;
+        }
 
-        // InfoPanel도 카메라를 바라보게
-        towerInfoPanelRoot.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-
-        // 현재 선택한 타워 Transform도 저장
-        // currentSelectedTowerPanel = towerTransform;
+        // // 3) 원하는 오프셋 계산 (타워 오른쪽 + 살짝 위)
+        Vector3 worldOffset = Vector3.right * 30f   // 오른쪽으로 2유닛
+                              + Vector3.down * 20f;     // 위로 1유닛
+        
+        // 4) 초기화 (Activate + 위치 갱신 + 따라다니기 시작)
+        follow.Initialize(towerTransform, worldOffset);
     }
+
     
     public void ShowUnitInfoPanel(IHasInfoPanel target)
     {
@@ -230,18 +242,44 @@ public class UIManager : MonoBehaviour
         descText.text = target.GetDescription();
         iconImage.sprite = target.GetIcon();
     }
+
+    public void ShowBarrackPanel()
+    {
+        barracksPanelRoot.SetActive(true);
+    }
+    
+    public void HideAllTowerPanels()
+    {
+        // Lv0 타워 건설 패널 닫기
+        if (towerCreatePanel != null)
+        {
+            var createPanel = towerCreatePanel.GetComponent<FollowUIPanel>();
+            if (createPanel != null)
+                createPanel.Close();
+        }
+        // Lv1~Lv3 업그레이드 패널 닫기
+        if (towerPanelDict != null)
+        {
+            foreach (var kv in towerPanelDict)
+            {
+                GameObject panelGO = kv.Value;
+                if (panelGO != null)
+                {
+                    var panel = panelGO.GetComponent<FollowUIPanel>();
+                    if (panel != null)
+                        panel.Close();
+                }
+            }
+        }
+        // 정보 패널 닫기
+        HideInfoPanel();
+    }
     
     public void HideInfoPanel()
     {
         attackRangeViewer.gameObject.SetActive(false);
         HideAllBuildingPanels();
     }
-
-    public void ShowBarrackPanel()
-    {
-        barracksPanelRoot.SetActive(true);
-    }
-
     private void HideAllBuildingPanels()
     {
         towerInfoPanelRoot.SetActive(false);

@@ -47,18 +47,24 @@ public class ObjectSelector : MonoBehaviour
     private void HandleMouseClick()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out var hit)) return;
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            HandleSelection(hit);
-        }
-    }
+        // 0) 이전 모든 UI 닫기
+        UIManager.Instance.HideAllTowerPanels();
 
-    private void HandleSelection(RaycastHit hit)
-    {
+        // 1) 범위(Range) 표시
         HandleRangeUI(hit);
+
+        // 2) Panel/Info 표시
         HandleInfoPanel(hit);
     }
+
+
+    // private void HandleSelection(RaycastHit hit)
+    // {
+    //     HandleRangeUI(hit);
+    //     HandleInfoPanel(hit);
+    // }
 
     private void HandleRangeUI(RaycastHit hit)
     {
@@ -102,15 +108,10 @@ public class ObjectSelector : MonoBehaviour
         if (infoTarget is ITower tower)
         {
             currentSelectedTower = tower;
-            Vector3 pos = tower.GetTransform().position;
             int level = tower.GetCurrentLevel();
 
-            if (level == 1)
-                UIManager.Instance.ShowTowerPanelByLevel(1, pos);
-            else if (level == 2)
-                UIManager.Instance.ShowTowerPanelByLevel(2, pos);
-            else
-                UIManager.Instance.ShowTowerPanelByLevel(3, pos);
+            // ShowTowerPanelByLevel 의 두 번째 인자는 now Transform
+            UIManager.Instance.ShowTowerPanelByLevel(level, tower.GetTransform());
         }
     }
 }
