@@ -184,8 +184,8 @@ public class UIManager : MonoBehaviour
         {
             return;
         }
+        
         Vector3 fixedWorldOffset = new Vector3(0f, 60f, 0f); // 타워 위쪽으로 2 유닛
-
         StartCoroutine(ShowPanelWithDelay(panelGO, target, fixedWorldOffset));
     }
     
@@ -241,7 +241,6 @@ public class UIManager : MonoBehaviour
     {
         barracksPanelRoot.SetActive(true);
     }
-    
     public void HideAllTowerPanels()
     {
         // Lv0 타워 건설 패널 닫기
@@ -249,7 +248,9 @@ public class UIManager : MonoBehaviour
         {
             var createPanel = towerCreatePanel.GetComponent<FollowUIPanel>();
             if (createPanel != null)
+            {
                 createPanel.Close();
+            }
         }
         // Lv1~Lv3 업그레이드 패널 닫기
         if (towerPanelDict != null)
@@ -261,12 +262,16 @@ public class UIManager : MonoBehaviour
                 {
                     var panel = panelGO.GetComponent<FollowUIPanel>();
                     if (panel != null)
+                    {
                         panel.Close();
+                    }
                 }
             }
         }
+        
         // 정보 패널 닫기
         HideInfoPanel();
+        HideTowerGuidePanel();
     }
     
     public void HideInfoPanel()
@@ -299,7 +304,6 @@ public class UIManager : MonoBehaviour
 
         if (data == null)
         {
-            Debug.LogWarning($"TowerData not found for: {type} Lv{level} ({path})");
             towerGuidePanel.SetActive(false);
             return;
         }
@@ -308,16 +312,15 @@ public class UIManager : MonoBehaviour
         var sb = new StringBuilder();
 
         sb.AppendLine($"<b>{data.displayName}</b>");
-        sb.AppendLine($"Sell Price: {data.sellPrice}");
 
         if (data.nextUpgrades == null || data.nextUpgrades.Count == 0)
         {
-            sb.AppendLine("This tower cannot be upgraded further.");
+            sb.AppendLine("\n\nThis tower cannot be upgraded further.\n\n");
         }
         else if (data.nextUpgrades.Count == 1)
         {
             var next = data.nextUpgrades[0];
-            sb.AppendLine($"\nUpgrade → {next.displayName}");
+            sb.AppendLine($"Upgrade → {next.displayName}");
             sb.AppendLine($"Cost: {next.upgradeCost}");
             sb.AppendLine(next.description);
         }
@@ -326,21 +329,28 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < data.nextUpgrades.Count; i++)
             {
                 var next = data.nextUpgrades[i];
-                sb.AppendLine($"\nUpgrade {(char)('A' + i)} → {next.displayName}");
+                sb.AppendLine($"Upgrade {(char)('A' + i)} → {next.displayName}");
                 sb.AppendLine($"Cost: {next.upgradeCost}");
                 sb.AppendLine(next.description);
             }
         }
 
+        sb.AppendLine($"Sell Price: {data.sellPrice}");
         guideText.text = sb.ToString();
     }
-
-
+    
     public void UpdateTowerGuidePanelForCreation(List<TowerData> baseTowers)
     {
+        StartCoroutine(UpdateTowerGuidePanelForCreationRoutine(baseTowers));
+    }
+
+    private IEnumerator UpdateTowerGuidePanelForCreationRoutine(List<TowerData> baseTowers)
+    {
+        yield return new WaitForEndOfFrame();  // ✅ UI 닫기 이후 다음 프레임
+
         towerGuidePanel.SetActive(true);
+
         var sb = new StringBuilder();
-    
         foreach (var data in baseTowers)
         {
             sb.AppendLine($"<b>{data.displayName}</b>");
@@ -349,5 +359,10 @@ public class UIManager : MonoBehaviour
         }
 
         guideText.text = sb.ToString();
+    }
+    
+    public void HideTowerGuidePanel()
+    {
+        towerGuidePanel.SetActive(false);
     }
 }

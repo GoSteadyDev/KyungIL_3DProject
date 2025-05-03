@@ -36,7 +36,6 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
 
     public void Initialize(TowerData newData)
     {
-        Debug.Log("데이터 주입 ?"+newData.name);
         data = newData;
         RefreshStats();
         RefreshVisuals();

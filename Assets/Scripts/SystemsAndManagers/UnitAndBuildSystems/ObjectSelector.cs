@@ -92,6 +92,7 @@ public class ObjectSelector : MonoBehaviour
         else
         {
             UIManager.Instance.HideAllTowerPanels();
+            UIManager.Instance.HideTowerGuidePanel();
         }
     }
     
