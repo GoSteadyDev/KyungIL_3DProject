@@ -57,7 +57,7 @@ public class ArcherTower : BaseTower
         if (archerUnits.Count > 1)
         {
             float totalDPS = data.damage * data.attackSpeed;
-            return $"Damage(per shot): {data.damage / archerUnits.Count} \nUnits: {archerUnits.Count}, " +
+            return $"\nDamage(per shot): {data.damage / archerUnits.Count} \nUnits: {archerUnits.Count}, " +
                    $"\nAttackSpeed: {data.attackSpeed}, \nTotal DPS: {totalDPS}";
         }
         // 기본 설명 (BaseTower나 SO 버전)

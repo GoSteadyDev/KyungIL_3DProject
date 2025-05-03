@@ -97,12 +97,13 @@ public class ObjectSelector : MonoBehaviour
     
     private void HandleTowerPanel(IHasInfoPanel infoTarget)
     {
-        if (infoTarget is ITower tower)
+        var tower = infoTarget as ITower;
+        if (tower != null)
         {
             currentSelectedTower = tower;
-            int level = tower.GetCurrentLevel();
-            
-            UIManager.Instance.ShowTowerPanelByLevel(level, tower.GetTransform());
+
+            UIManager.Instance.UpdateTowerGuidePanel(tower);
+            UIManager.Instance.ShowTowerPanelByLevel(tower.GetCurrentLevel(), tower.GetTransform());
         }
     }
 }

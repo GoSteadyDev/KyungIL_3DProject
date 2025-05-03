@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -54,6 +55,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
     [SerializeField] private GameObject towerInfoPanelRoot;
     [SerializeField] private GameObject towerGuidePanel;    // 업그레이드 분기 패널
+    [SerializeField] private TextMeshProUGUI guideText;
     [SerializeField] private GameObject towerCreatePanel; // Lv0 (빌딩 포인트 클릭 시)
     [SerializeField] private List<GameObject> towerLevelPanels; // Lv1~Lv3
     [SerializeField] private TextMeshProUGUI towerNameText;
@@ -277,5 +279,75 @@ public class UIManager : MonoBehaviour
         towerInfoPanelRoot.SetActive(false);
         objectInfoPanelRoot.SetActive(false);
         barracksPanelRoot.SetActive(false);
+    }
+    
+    public void UpdateTowerGuidePanel(ITower tower)
+    {
+        if (tower == null)
+        {
+            towerGuidePanel.SetActive(false);
+            return;
+        }
+
+        var type = tower.GetTowerType();
+        var level = tower.GetCurrentLevel();
+        var path = (tower as BaseTower)?.PathCode ?? ""; // fallback 처리
+
+        // 📌 TowerDatabase에서 직접 조회 (Initialize 여부와 무관)
+        var entry = BuildingSystem.Instance.GetTowerEntry(type, level, path);
+        var data = entry.data;
+
+        if (data == null)
+        {
+            Debug.LogWarning($"TowerData not found for: {type} Lv{level} ({path})");
+            towerGuidePanel.SetActive(false);
+            return;
+        }
+
+        towerGuidePanel.SetActive(true);
+        var sb = new StringBuilder();
+
+        sb.AppendLine($"<b>{data.displayName}</b>");
+        sb.AppendLine($"Sell Price: {data.sellPrice}");
+
+        if (data.nextUpgrades == null || data.nextUpgrades.Count == 0)
+        {
+            sb.AppendLine("This tower cannot be upgraded further.");
+        }
+        else if (data.nextUpgrades.Count == 1)
+        {
+            var next = data.nextUpgrades[0];
+            sb.AppendLine($"\nUpgrade → {next.displayName}");
+            sb.AppendLine($"Cost: {next.upgradeCost}");
+            sb.AppendLine(next.description);
+        }
+        else
+        {
+            for (int i = 0; i < data.nextUpgrades.Count; i++)
+            {
+                var next = data.nextUpgrades[i];
+                sb.AppendLine($"\nUpgrade {(char)('A' + i)} → {next.displayName}");
+                sb.AppendLine($"Cost: {next.upgradeCost}");
+                sb.AppendLine(next.description);
+            }
+        }
+
+        guideText.text = sb.ToString();
+    }
+
+
+    public void UpdateTowerGuidePanelForCreation(List<TowerData> baseTowers)
+    {
+        towerGuidePanel.SetActive(true);
+        var sb = new StringBuilder();
+    
+        foreach (var data in baseTowers)
+        {
+            sb.AppendLine($"<b>{data.displayName}</b>");
+            sb.AppendLine($"Cost: {data.buildCost}");
+            sb.AppendLine($"{data.description}\n");
+        }
+
+        guideText.text = sb.ToString();
     }
 }

@@ -27,10 +27,10 @@ public class CannonTower : BaseTower
         if (isMultiBurst)
         {
             float totalDPS = data.damage;
-            return $"{data.description}\n- Burst Count: {data.attackData.burstCount}" +
+            return $"\n- Total DPS: {totalDPS:F1}" +
                    $"\n- Explosion Radius: {data.attackData.areaRadius}" +
                    $"\n- Attack Speed: {data.attackSpeed:F2}" +
-                   $"\n- Total DPS: {totalDPS:F1}";
+                   $"\n- Burst Count: {data.attackData.burstCount}";
         }
 
         // 기본 설명 + 폭발 반경

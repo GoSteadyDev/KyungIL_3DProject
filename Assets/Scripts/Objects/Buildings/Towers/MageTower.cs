@@ -28,8 +28,7 @@ public class MageTower : BaseTower
         {
             float dps = data.damage;
             float tick = atk.beamInterval;
-            return $"{data.description}\n" +
-                   $"- DPS: {dps:F1}\n" +
+            return $"\n- DPS: {dps:F1}\n" +
                    $"- Tick Interval: {tick:F2}s\n" +
                    $"- Range: {data.attackRange}";
         }
@@ -37,8 +36,7 @@ public class MageTower : BaseTower
         // 🔷 AoE Slow (Lv3A)
         if (atk.areaRadius > 0f)
         {
-            return $"{data.description}\n" +
-                   $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
+            return $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
                    $"- Slow Duration: {atk.slowDuration:F1}s\n" +
                    $"- Area Radius: {atk.areaRadius:F1}\n" +
                    $"- Damage: {data.damage}\n" +
@@ -47,7 +45,7 @@ public class MageTower : BaseTower
         }
 
         // 🔷 기본 단일 슬로우
-        return $"{data.description}\n" +
+        return $"\n" +
                $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
                $"- Slow Duration: {atk.slowDuration:F1}s\n" +
                $"- Damage: {data.damage}\n" +

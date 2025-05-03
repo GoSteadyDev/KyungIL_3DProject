@@ -44,8 +44,14 @@ public class BuildingSystem : MonoBehaviour
     {
         currentBuildPoint = point;
         UIManager.Instance.ShowTowerPanelByLevel(0, point.transform);
+        
+        var baseTowers = towerDatabase.entries
+            .Where(e => e.data.level == 1 && string.IsNullOrEmpty(e.data.pathCode))
+            .Select(e => e.data)
+            .ToList();
+        UIManager.Instance.UpdateTowerGuidePanelForCreation(baseTowers);
     }
-
+    
     /// <summary>
     /// UI에서 타워 선택 시 호출
     /// </summary>

@@ -11,6 +11,7 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
 
     private float attackTimer;
 
+    public TowerData Data;
     public string PathCode => data.pathCode;
     public TowerType GetTowerType() => data.towerType;
     public int GetCurrentLevel()   => data.level;
@@ -25,11 +26,9 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
     public virtual string GetDisplayName() => data.displayName;
     public virtual string GetDescription()
     {
-        string desc = data.description + "\n";
-        desc += $"- Damage: {data.damage}\n";
-        desc += $"- Range: {data.attackRange}\n";
-        desc += $"- Speed: {data.attackSpeed:F2}";
-        return desc;
+        return $"\n- Damage: {data.damage}" +
+               $"\n- Range: {data.attackRange}" +
+               $"\n- AttackSpeed: {data.attackSpeed:F2}";
     }
     
     protected abstract Transform FindTarget();
@@ -37,6 +36,7 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
 
     public void Initialize(TowerData newData)
     {
+        Debug.Log("데이터 주입 ?"+newData.name);
         data = newData;
         RefreshStats();
         RefreshVisuals();
