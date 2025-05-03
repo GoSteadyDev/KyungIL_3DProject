@@ -20,6 +20,26 @@ public class CannonTower : BaseTower
 
     protected override void RefreshStats() { /* 캐논은 SO 데이터만 사용하므로 빈 구현 */ }
 
+    public override string GetDescription()
+    {
+        bool isMultiBurst = data.attackData.burstCount > 1;
+
+        if (isMultiBurst)
+        {
+            float totalDPS = data.damage;
+            return $"{data.description}\n- Burst Count: {data.attackData.burstCount}" +
+                   $"\n- Explosion Radius: {data.attackData.areaRadius}" +
+                   $"\n- Attack Speed: {data.attackSpeed:F2}" +
+                   $"\n- Total DPS: {totalDPS:F1}";
+        }
+
+        // 기본 설명 + 폭발 반경
+        string desc = base.GetDescription();
+        desc += $"\n- Explosion Radius: {data.attackData.areaRadius}";
+        return desc;
+    }
+
+    
     protected override Transform FindTarget()
     {
         // 최소 사거리 내 가장 가까운 적 반환
@@ -85,11 +105,7 @@ public class CannonTower : BaseTower
             Quaternion.identity
         );
         var cannon = go.GetComponent<Cannon>();
-        cannon.Initialize(
-            shooterPos,
-            aimPoint,
-            speed,
-            flightTime,
+        cannon.Initialize( shooterPos, aimPoint, speed, flightTime,
             data.damage,
             data.attackData.areaEffectPrefab,
             data.attackData.areaRadius,

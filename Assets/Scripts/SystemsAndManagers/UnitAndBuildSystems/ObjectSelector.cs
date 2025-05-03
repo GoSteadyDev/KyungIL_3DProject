@@ -59,13 +59,6 @@ public class ObjectSelector : MonoBehaviour
         HandleInfoPanel(hit);
     }
 
-
-    // private void HandleSelection(RaycastHit hit)
-    // {
-    //     HandleRangeUI(hit);
-    //     HandleInfoPanel(hit);
-    // }
-
     private void HandleRangeUI(RaycastHit hit)
     {
         IHasRangeUI hasRangeUI = hit.collider.GetComponent<IHasRangeUI>();
@@ -98,7 +91,6 @@ public class ObjectSelector : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.HideInfoPanel();
             UIManager.Instance.HideAllTowerPanels();
         }
     }
@@ -109,8 +101,7 @@ public class ObjectSelector : MonoBehaviour
         {
             currentSelectedTower = tower;
             int level = tower.GetCurrentLevel();
-
-            // ShowTowerPanelByLevel 의 두 번째 인자는 now Transform
+            
             UIManager.Instance.ShowTowerPanelByLevel(level, tower.GetTransform());
         }
     }

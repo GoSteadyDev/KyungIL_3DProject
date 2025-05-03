@@ -29,7 +29,7 @@ public struct AttackData
     public float     areaRadius;
     
     // ◀— Burst(멀티샷) 전용
-    [Tooltip("한 번에 연속 발사할 횟수")]
+    [Tooltip("연속 발사할 횟수")]
     public int   burstCount;            
     [Tooltip("버스트 간 발사 간격(초)")]
     public float burstInterval;        

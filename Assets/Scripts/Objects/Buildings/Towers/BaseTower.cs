@@ -23,7 +23,14 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
     // ─── IHasInfoPanel 구현 ────────────────────────────────
     public virtual Sprite GetIcon()        => data.icon;
     public virtual string GetDisplayName() => data.displayName;
-    public virtual string GetDescription() => data.description;
+    public virtual string GetDescription()
+    {
+        string desc = data.description + "\n";
+        desc += $"- Damage: {data.damage}\n";
+        desc += $"- Range: {data.attackRange}\n";
+        desc += $"- Speed: {data.attackSpeed:F2}";
+        return desc;
+    }
     
     protected abstract Transform FindTarget();
     protected abstract void Attack(Transform target);

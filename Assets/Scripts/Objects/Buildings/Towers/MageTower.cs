@@ -18,7 +18,43 @@ public class MageTower : BaseTower
 
     private Animator animator;
     private bool isFiring;
+    
+    public override string GetDescription()
+    {
+        var atk = data.attackData;
 
+        // 🔷 Beam (LazerTower, Lv3B)
+        if (atk.attackType == AttackType.Beam)
+        {
+            float dps = data.damage;
+            float tick = atk.beamInterval;
+            return $"{data.description}\n" +
+                   $"- DPS: {dps:F1}\n" +
+                   $"- Tick Interval: {tick:F2}s\n" +
+                   $"- Range: {data.attackRange}";
+        }
+
+        // 🔷 AoE Slow (Lv3A)
+        if (atk.areaRadius > 0f)
+        {
+            return $"{data.description}\n" +
+                   $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
+                   $"- Slow Duration: {atk.slowDuration:F1}s\n" +
+                   $"- Area Radius: {atk.areaRadius:F1}\n" +
+                   $"- Damage: {data.damage}\n" +
+                   $"- Range: {data.attackRange}\n" +
+                   $"- Attack Speed: {data.attackSpeed:F2}";
+        }
+
+        // 🔷 기본 단일 슬로우
+        return $"{data.description}\n" +
+               $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
+               $"- Slow Duration: {atk.slowDuration:F1}s\n" +
+               $"- Damage: {data.damage}\n" +
+               $"- Range: {data.attackRange}\n" +
+               $"- Attack Speed: {data.attackSpeed:F2}";
+    }
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();

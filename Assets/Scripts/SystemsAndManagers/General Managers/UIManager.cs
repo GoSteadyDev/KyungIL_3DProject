@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
     [SerializeField] private GameObject towerInfoPanelRoot;
+    [SerializeField] private GameObject towerGuidePanel;    // 업그레이드 분기 패널
     [SerializeField] private GameObject towerCreatePanel; // Lv0 (빌딩 포인트 클릭 시)
     [SerializeField] private List<GameObject> towerLevelPanels; // Lv1~Lv3
     [SerializeField] private TextMeshProUGUI towerNameText;
@@ -217,7 +218,7 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        Vector3 fixedWorldOffset = new Vector3(75f, -40f, 0f); // 오른쪽 2, 위로 1
+        Vector3 fixedWorldOffset = new Vector3(75f, -25f, 0f); // 오른쪽 2, 위로 1
 
         follow.Initialize(towerTransform, fixedWorldOffset);
     }
