@@ -12,9 +12,9 @@ public class WaveData : ScriptableObject
         public EnemyData enemyData;
         public int enemyCount;
     }
-
-    public float spawnInterval = 1f;
+    
     public List<EnemySpawnInfo> enemyList;
+    public float spawnInterval = 1f;
     
     public int GetTotalEnemyCount
     {

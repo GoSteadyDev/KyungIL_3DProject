@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface IHasRangeUI
+public interface IClickable 
+{
+    Transform GetTransform();
+}
+
+public interface IHasRangeUI : IClickable
 {
     float GetAttackRange();
-    Transform GetTransform();
 }
 
 public interface IHasInfoPanel

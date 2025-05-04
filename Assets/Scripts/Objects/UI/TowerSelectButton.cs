@@ -24,11 +24,9 @@ public class TowerSelectButton : MonoBehaviour
 
         var type = tower.GetTowerType();
         var level = tower.GetCurrentLevel();
+        
         // Get upgrade options and find next level
-        var options = BuildingSystem.Instance
-            .GetUpgradeOptions(type, level + 1)
-            .Where(e => e.data.level == level + 1)
-            .ToList();
+        var options = BuildingSystem.Instance.GetUpgradeOptions(type, level + 1);
         
         if (options.Count == 0)
         {

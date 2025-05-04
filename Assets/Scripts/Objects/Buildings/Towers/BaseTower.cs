@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPanel
 {     
     protected TowerData data { get; private set; }
-    public TowerData Data;
 
     [Header("Attack Origin")]
     [SerializeField] protected Transform firePoint;
@@ -13,13 +12,13 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
     private float attackTimer;
 
     public string PathCode => data.pathCode;
+    // ─── ITower 구현 ─────────────────────────────────
     public TowerType GetTowerType() => data.towerType;
     public int GetCurrentLevel()   => data.level;
     public Transform GetTransform() => transform;
     
     // ─── IHasRangeUI 구현 ─────────────────────────────────
     public virtual float GetAttackRange() => data.attackRange;
-    Transform IHasRangeUI.GetTransform() => transform;
         
     // ─── IHasInfoPanel 구현 ────────────────────────────────
     public virtual Sprite GetIcon()        => data.icon;
@@ -55,9 +54,5 @@ public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPa
             
             attackTimer = 0f;
         }
-    }
-    public virtual void Upgrade(TowerData nextData)
-    {
-        Initialize(nextData);
     }
 }

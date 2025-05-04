@@ -32,9 +32,9 @@ public class BuildingSystem : MonoBehaviour
     /// <summary>
     /// 타입, 레벨에 가능한 업그레이드 Entry 목록 조회
     /// </summary>
-    public IEnumerable<TowerDatabase.Entry> GetUpgradeOptions(TowerType type, int level)
+    public List<TowerDatabase.Entry> GetUpgradeOptions(TowerType type, int level)
     {
-        return towerDatabase.GetEntries(type, level);
+        return towerDatabase.GetEntryByLevel(type, level);
     }
     
     /// <summary>

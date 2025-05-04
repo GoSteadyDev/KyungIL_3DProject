@@ -6,15 +6,20 @@ using UnityEngine;
 public enum AttackType { Projectile, AreaProjectile, Beam, Direct }
 public enum TowerType { Archer, Cannon, Mage }
 
-public interface ITower
+public interface ITower : IClickable
 {
-    Transform GetTransform();
     TowerType GetTowerType();
     int GetCurrentLevel();
 }
 
 [Serializable]
 public struct AttackData
+// 이걸 struct로 설계한 이유
+// class -> 공유·변경 가능한 상태를 다룰 때
+// struct -> 메서드 없이 순수 값 형태를 읽기 전용으로 다룰 때 좋음 (원본 유지)
+// (내가 공격력 증가 타워를 만들었는데, 그럼 버프 범위 밖에 있는 타워도 공격력이 증가하게 되는 원인이 될 코드를 작성할 수 있다. target.data.Damage += 10; 뭐 이런식으로 설정하면)
+// 예를 들어 TowerA, TowerB가 같은 TowerData를 공유하고 있다면:
+// SetAttackData(towerData.attackData);를 두 타워가 동일하게 받는 순간, 한쪽에서 수정하면 다른 쪽 타워에도 영향 발생 가능
 {
     public AttackType attackType;
 
@@ -37,8 +42,7 @@ public struct AttackData
     [Tooltip("투사체 비행 시간 대비 적 선도 보정 계수")]
     public float overshootFactor;
     
-    // Beam 전용
-    // ◀— Beam 전용 (Raycast 대신 OverlapBox)
+    // Beam 전용 (Raycast 대신 OverlapBox)
     [Tooltip("레이저 충돌 박스 크기(절반 크기)")]
     public Vector3 beamBoxHalfExtents;
     [Tooltip("레이저 데미지 처리 간격")]

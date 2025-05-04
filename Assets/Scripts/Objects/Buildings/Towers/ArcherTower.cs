@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ArcherTower : BaseTower
 {
-    private List<Archer> archerUnits;
+    private List<Archer> archerUnits;   // 내부 projectile 유닛
 
     private void Awake()
     {
         // 자식 Archer 컴포넌트를 항상 자동 수집
+        // archerObject 자식 Object에 스크립트를 너무 많이 달아놔서 이런 결과가..
         archerUnits = new List<Archer>(GetComponentsInChildren<Archer>());
     }
 
@@ -16,8 +17,7 @@ public class ArcherTower : BaseTower
     {
         // 멀티샷 타워: 전체 데미지를 유지하되, 유닛별로 분배
         float perUnitDamage = data.damage;
-        if (archerUnits.Count > 1)
-            perUnitDamage = data.damage / archerUnits.Count;
+        if (archerUnits.Count > 1) perUnitDamage = data.damage / archerUnits.Count;
 
         // 모든 아처 유닛에 데이터 및 분배된 스탯 주입
         foreach (var unit in archerUnits)
@@ -46,12 +46,11 @@ public class ArcherTower : BaseTower
         foreach (var unit in archerUnits)
         {
             var target = unit.FindTarget();
-            if (target != null)
                 unit.Attack(target);
         }
     }
 
-    // 멀티 유닛 일 때만 유닛 수 표시
+    // lv.3B Tower 일 때, Description 바꾸기
     public override string GetDescription()
     {
         if (archerUnits.Count > 1)
@@ -60,7 +59,7 @@ public class ArcherTower : BaseTower
             return $"\nDamage(per shot): {data.damage / archerUnits.Count} \nUnits: {archerUnits.Count}, " +
                    $"\nAttackSpeed: {data.attackSpeed}, \nTotal DPS: {totalDPS}";
         }
-        // 기본 설명 (BaseTower나 SO 버전)
+        // 기본 설명 (BaseTower)
         return base.GetDescription();
     }
 }

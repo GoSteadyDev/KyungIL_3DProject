@@ -18,7 +18,7 @@ public class CannonTower : BaseTower
         animator = GetComponent<Animator>();
     }
 
-    protected override void RefreshStats() { /* 캐논은 SO 데이터만 사용하므로 빈 구현 */ }
+    protected override void RefreshStats() { /* 캐논은 아처타워와 달리, 내부 유닛이 아닌 발사체 생성 방식이므로 빈 구현 */ }
 
     public override string GetDescription()
     {
@@ -38,7 +38,6 @@ public class CannonTower : BaseTower
         desc += $"\n- Explosion Radius: {data.attackData.areaRadius}";
         return desc;
     }
-
     
     protected override Transform FindTarget()
     {
@@ -90,26 +89,19 @@ public class CannonTower : BaseTower
 
         // 예측 위치 계산 (이전 로직 그대로)
         Vector3 enemyPos   = target.position;
-        Vector3 shooterPos = fp.position;
         var controller     = target.GetComponent<EnemyController>();
         Vector3 enemyVel   = controller != null ? controller.GetVelocity() : Vector3.zero;
+        
+        Vector3 shooterPos = fp.position;
         float speed        = data.attackData.projectileSpeed;
         float flightTime   = Vector3.Distance(enemyPos, shooterPos) / speed;
         float factor       = data.attackData.overshootFactor;
+        
         Vector3 aimPoint   = enemyPos + enemyVel * (flightTime * factor);
 
         // Instantiate 후 Initialize
-        var go = Instantiate(
-            data.attackData.projectilePrefab,
-            shooterPos,
-            Quaternion.identity
-        );
+        var go = Instantiate(data.attackData.projectilePrefab, shooterPos, Quaternion.identity);
         var cannon = go.GetComponent<Cannon>();
-        cannon.Initialize( shooterPos, aimPoint, speed, flightTime,
-            data.damage,
-            data.attackData.areaEffectPrefab,
-            data.attackData.areaRadius,
-            enemyLayerMask
-        );
+        cannon.Initialize(shooterPos, aimPoint, flightTime, data.damage, data.attackData, enemyLayerMask);
     }
 }

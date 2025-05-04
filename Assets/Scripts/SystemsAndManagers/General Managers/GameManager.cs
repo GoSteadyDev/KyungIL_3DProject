@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         Time.timeScale = 0f;
 
-        UIManager.Instance.ShowGameOver("Loose !");
+        UIManager.Instance.ShowGameOver("Game Over !");
     }
 
     public void OnGameWin()
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         Time.timeScale = 0f;
         
-        UIManager.Instance.ShowGameOver("Win !");  // true는 승리
+        UIManager.Instance.ShowGameOver("You Win !");  // true는 승리
     }
     
     public void OnExitClick()
