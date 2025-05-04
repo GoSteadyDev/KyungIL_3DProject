@@ -19,7 +19,7 @@ MonoBehaviour:
   sellPrice: 30
   pathCode: 
   displayName: SlowTowerLv.2
-  description: 
+  description: Stronger slow and damage
   icon: {fileID: 21300000, guid: 2df7fa89e637d0548a281a6497ef70c5, type: 3}
   damage: 6
   attackSpeed: 2

@@ -32,7 +32,6 @@ public class TowerSelectButton : MonoBehaviour
         
         if (options.Count == 0)
         {
-            Debug.LogWarning("No further sequential upgrade available.");
             return;
         }
         
@@ -63,8 +62,16 @@ public class TowerSelectButton : MonoBehaviour
 
     public void OnSellClicked()
     {
-        ITower tower = ObjectSelector.Instance.CurrentSelectedTower;
+        var tower = ObjectSelector.Instance.CurrentSelectedTower as BaseTower;
         if (tower == null) return;
+
+        // 데이터를 BuildingSystem에서 조회
+        var entry = BuildingSystem.Instance.GetTowerEntry(tower.GetTowerType(),tower.GetCurrentLevel(),tower.PathCode);
+
+        if (entry.data != null)
+        {
+            ResourceManager.Instance.AddGold(entry.data.sellPrice);
+        }
 
         var towerGO = (tower as MonoBehaviour)?.gameObject;
         if (towerGO != null)
@@ -75,6 +82,7 @@ public class TowerSelectButton : MonoBehaviour
 
         UIManager.Instance.HideAllTowerPanels();
     }
+
 
     public void OnCloseButtonClicked()
     {

@@ -19,7 +19,7 @@ MonoBehaviour:
   sellPrice: 10
   pathCode: 
   displayName: ArcherTower.Lv1
-  description: 
+  description: Long-range, cost - effective
   icon: {fileID: 21300000, guid: d8c006f08d012b34da7024a3e9010dab, type: 3}
   damage: 5
   attackSpeed: 1

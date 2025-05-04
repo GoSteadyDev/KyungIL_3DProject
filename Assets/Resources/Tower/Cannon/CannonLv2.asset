@@ -19,7 +19,7 @@ MonoBehaviour:
   sellPrice: 30
   pathCode: 
   displayName: CannonTowerLv.2
-  description: 
+  description: High damage, fast, splash
   icon: {fileID: 21300000, guid: b5427efa55168a941b2ca7092bd3f0ad, type: 3}
   damage: 12
   attackSpeed: 0.75

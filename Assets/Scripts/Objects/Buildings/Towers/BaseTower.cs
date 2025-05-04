@@ -5,13 +5,13 @@ using UnityEngine;
 public abstract class BaseTower : MonoBehaviour, ITower, IHasRangeUI, IHasInfoPanel
 {     
     protected TowerData data { get; private set; }
+    public TowerData Data;
 
     [Header("Attack Origin")]
     [SerializeField] protected Transform firePoint;
 
     private float attackTimer;
 
-    public TowerData Data;
     public string PathCode => data.pathCode;
     public TowerType GetTowerType() => data.towerType;
     public int GetCurrentLevel()   => data.level;

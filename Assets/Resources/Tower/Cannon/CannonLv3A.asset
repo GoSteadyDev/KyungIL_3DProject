@@ -19,7 +19,7 @@ MonoBehaviour:
   sellPrice: 50
   pathCode: A
   displayName: CannonTowerLv.3A
-  description: 
+  description: High damage, fast, splash
   icon: {fileID: 21300000, guid: 671df89bb0a6fcb4e973b889e0a370cc, type: 3}
   damage: 16
   attackSpeed: 1.2

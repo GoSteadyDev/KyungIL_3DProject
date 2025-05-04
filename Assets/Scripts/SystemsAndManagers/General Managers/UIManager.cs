@@ -311,27 +311,25 @@ public class UIManager : MonoBehaviour
         towerGuidePanel.SetActive(true);
         var sb = new StringBuilder();
 
-        sb.AppendLine($"<b>{data.displayName}</b>");
+        sb.AppendLine($"<b>{data.displayName}</b>\n");
 
         if (data.nextUpgrades == null || data.nextUpgrades.Count == 0)
         {
-            sb.AppendLine("\n\nThis tower cannot be upgraded further.\n\n");
+            sb.AppendLine("\nThis tower cannot be upgraded further.\n\n");
         }
         else if (data.nextUpgrades.Count == 1)
         {
             var next = data.nextUpgrades[0];
-            sb.AppendLine($"Upgrade → {next.displayName}");
-            sb.AppendLine($"Cost: {next.upgradeCost}");
-            sb.AppendLine(next.description);
+            sb.AppendLine($"Upgrade \n{next.description}\n");
+            sb.AppendLine($"Cost: {next.upgradeCost}\n");
         }
         else
         {
             for (int i = 0; i < data.nextUpgrades.Count; i++)
             {
                 var next = data.nextUpgrades[i];
-                sb.AppendLine($"Upgrade {(char)('A' + i)} → {next.displayName}");
-                sb.AppendLine($"Cost: {next.upgradeCost}");
-                sb.AppendLine(next.description);
+                sb.AppendLine($"Upgrade {(char)('A' + i)} \n{next.description}\n");
+                sb.AppendLine($"Cost: {next.upgradeCost}\n");
             }
         }
 
@@ -354,8 +352,8 @@ public class UIManager : MonoBehaviour
         foreach (var data in baseTowers)
         {
             sb.AppendLine($"<b>{data.displayName}</b>");
-            sb.AppendLine($"Cost: {data.buildCost}");
-            sb.AppendLine($"{data.description}\n");
+            sb.AppendLine($"{data.description}");
+            sb.AppendLine($"Cost: {data.buildCost}\n");
         }
 
         guideText.text = sb.ToString();

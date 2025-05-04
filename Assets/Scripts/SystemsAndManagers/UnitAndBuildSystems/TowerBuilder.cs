@@ -35,6 +35,9 @@ public class TowerBuilder : MonoBehaviour
 
     public bool BuildTower(TowerData data, Vector3 position)
     {
+        if (ResourceManager.Instance.TrySpendGold(data.buildCost) == false)
+            return false;
+        
         // 데이터 기반 Entry 조회
         var entry = BuildingSystem.Instance.GetTowerEntry(data.towerType, data.level, data.pathCode);
         

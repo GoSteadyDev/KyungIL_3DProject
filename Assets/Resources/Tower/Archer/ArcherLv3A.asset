@@ -19,7 +19,7 @@ MonoBehaviour:
   sellPrice: 30
   pathCode: A
   displayName: ArcherTower.Lv3A
-  description: 
+  description: Stronger, longer, faster
   icon: {fileID: 21300000, guid: 9f8a662b2d8005e48be5b631e41755c4, type: 3}
   damage: 12
   attackSpeed: 1.5

@@ -19,7 +19,7 @@ MonoBehaviour:
   sellPrice: 30
   pathCode: B
   displayName: ArcherTower.Lv3B
-  description: 
+  description: "Range \u2193, Multi-shot \u2191"
   icon: {fileID: 21300000, guid: 27ecc2464a5c9b24d8f45ac9cf50df60, type: 3}
   damage: 16
   attackSpeed: 1

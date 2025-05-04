@@ -72,6 +72,9 @@ public class BuildingSystem : MonoBehaviour
     /// </summary>
     public void UpgradeTower(ITower oldTower, TowerData newData)
     {
+        if (ResourceManager.Instance.TrySpendGold(newData.upgradeCost) == false)
+            return;
+        
         var oldMb = oldTower as MonoBehaviour;
         Unregister(oldTower);
         Destroy(oldMb.gameObject);
@@ -111,18 +114,26 @@ public class BuildingSystem : MonoBehaviour
     public List<TowerSaveData> GetAllTowerData()
     {
         var list = new List<TowerSaveData>();
-        foreach (var t in allTowers)
+        
+        foreach (var tower in allTowers.ToList())
         {
-            var type = t.GetTowerType();
-            var lvl = t.GetCurrentLevel();
-            var trs = t.GetTransform();
+            var mb = tower as MonoBehaviour;
+
+            // ① 파괴된 타워라면 리스트에서 제거하고 건너뛰기
+            if (mb == null || mb.Equals(null))
+            {
+                allTowers.Remove(tower);
+                continue;
+            }
+            
+            var type = tower.GetTowerType();
+            var lvl = tower.GetCurrentLevel();
+            var trs = tower.GetTransform();
+            
             list.Add(new TowerSaveData
             {
-                type = type,
-                level = lvl,
-                pathCode = (t as BaseTower).PathCode,
-                pos = trs.position,
-                rot = trs.rotation.eulerAngles
+                type = type, level = lvl, pathCode = (tower as BaseTower).PathCode,
+                pos = trs.position, rot = trs.rotation.eulerAngles
             });
         }
         return list;
@@ -133,154 +144,14 @@ public class BuildingSystem : MonoBehaviour
     /// </summary>
     public void ClearAllTowers()
     {
-        foreach (var t in allTowers)
-            if (t is MonoBehaviour mb)
+        // 기존: foreach (var tower in allTowers)
+        foreach (var tower in allTowers)
+        {
+            if (tower is MonoBehaviour mb && mb != null)  // ← mb != null 추가
+            {
                 Destroy(mb.gameObject);
+            }
+        }
         allTowers.Clear();
     }
-
 }
-
-// public class BuildingSystem : MonoBehaviour
-// {
-//     public static BuildingSystem Instance;
-//
-//     [SerializeField] private TowerDatabase towerDatabase;
-//     [SerializeField] private List<TowerData> allTowerTemplates;
-//     
-//     private List<ITower> allTowers = new List<ITower>();
-//     private BuildingPoint currentBuildPoint;
-//     
-//     public void Register(ITower t)   => allTowers.Add(t);
-//     public void Unregister(ITower t) => allTowers.Remove(t);
-//     
-//     private void Awake()
-//     {
-//         Instance = this;
-//     }
-//     
-//     // 저장된 데이터 한 건을 보고, 해당 타워를 다시 생성해서 리스트에 등록
-//     public void SpawnTowerFromSave(TowerSaveData ts)
-//     {
-//         // 1) 어느 Template인지 찾아 온다 (type, level, pathCode)
-//         //    분기 업그레이드가 필요 없다면 pathCode 무시하고 GetTemplate(type, level) 만 써도 됩니다.
-//         TowerData data = GetTemplateByPath(ts.type, ts.level - 1, ts.pathCode)
-//                                  ?? GetTemplate(ts.type, ts.level);
-//         if (data == null)
-//         {
-//             return;
-//         }
-//
-//         // 2) Instantiate
-//         var go = Instantiate(data.towerPrefab, (Vector3)ts.pos,Quaternion.Euler(ts.rot));
-//         // 3) ITower 컴포넌트로 등록
-//         if (go.TryGetComponent<ITower>(out var towerComp))
-//             allTowers.Add(towerComp);
-//     }
-//
-//     public List<TowerSaveData> GetAllTowerData()
-//     {
-//         var list = new List<TowerSaveData>();
-//         foreach (var t in allTowers)
-//         {
-//             var type  = t.GetTowerType();
-//             var lvl   = t.GetCurrentLevel();
-//             var trs   = t.GetTransform();
-//             list.Add(new TowerSaveData {
-//                 type     = type,
-//                 level    = lvl,
-//                 pos      = trs.position,
-//                 rot      = trs.rotation.eulerAngles
-//             });
-//         }
-//         return list;
-//     }
-//     
-//     public void ClearAll()
-//     {
-//         foreach (var t in allTowers)
-//             if (t is MonoBehaviour mb) Destroy(mb.gameObject);
-//         allTowers.Clear();
-//     }
-//     
-//     public TowerData GetTemplate(TowerType type, int level)
-//     {
-//         return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == level);
-//     }
-//     
-//     public TowerData GetNextTemplate(TowerType type, int currentLevel)
-//     {
-//         return allTowerTemplates.FirstOrDefault(t => t.towerType == type && t.level == currentLevel + 1);
-//     }
-//     
-//     public TowerData GetTemplateByPath(TowerType type, int currentLevel, string pathCode)
-//     {
-//         return allTowerTemplates.FirstOrDefault(t =>
-//             t.towerType == type &&
-//             t.level > currentLevel &&
-//             t.pathCode == pathCode);
-//     }
-//     
-//     public void OpenBuildUI(BuildingPoint point)
-//     {
-//         currentBuildPoint = point;
-//         UIManager.Instance.ShowTowerPanelByLevel(0, point.transform.position);
-//     }
-//     
-//     public void OnTowerSelected(TowerData data)
-//     {
-//         if (currentBuildPoint != null)
-//         {
-//             bool success = TowerBuilder.Instance.BuildTower(data, currentBuildPoint.transform.position);
-//
-//             if (success)
-//             {
-//                 Destroy(currentBuildPoint.gameObject);
-//                 currentBuildPoint = null;
-//             }
-//         }
-//
-//         UIManager.Instance.HideAllTowerPanels();
-//     }
-//     
-//     // 순차 업그레이드 메서드
-//     public void UpgradeNextTower(ITower tower)
-//     {
-//         var type = tower.GetTowerType();
-//         var currentLevel = tower.GetCurrentLevel();
-//         var nextTemplate = GetNextTemplate(type, currentLevel);
-//
-//         if (nextTemplate == null)
-//         {
-//             return;
-//         }
-//
-//         // if (ResourceManager.Instance.TrySpendGold(nextTemplate.cost) == false)
-//         // {
-//         //     return;
-//         // }
-//
-//         var pos = tower.GetTransform().position;
-//         var rot = tower.GetTransform().rotation;
-//
-//         TowerBuilder.Instance.UpgradeTower(tower, nextTemplate.towerPrefab, pos, rot);
-//         UIManager.Instance.HideAllTowerPanels();
-//     }
-//     
-//     // 선택 (분기형) 업그레이드 메서드
-//     public void UpgradeWithTemplate(ITower tower, TowerData selectedData)
-//     {
-//         // if (ResourceManager.Instance.TrySpendGold(selectedData.cost) == false)
-//         // {
-//         //     return;
-//         // }
-//
-//         var pos = tower.GetTransform().position;
-//         var rot = tower.GetTransform().rotation;
-//
-//         TowerBuilder.Instance.UpgradeTower(tower, selectedData.towerPrefab, pos, rot);
-//         UIManager.Instance.HideAllTowerPanels();
-//     }
-//     
-
-// }

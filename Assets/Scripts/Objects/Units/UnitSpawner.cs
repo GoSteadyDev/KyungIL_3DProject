@@ -17,9 +17,10 @@ public class UnitSpawner : MonoBehaviour
     
     public void SpawnSwordMan()
     {
-        if (!ResourceManager.Instance.TrySpendGold(5)) return;
+        if (ResourceManager.Instance.TrySpendGold(5) == false) return;
         
         spawnEffect.Play();
+        NotificationService.Notify("Swordman deployed. Holding the line.");
         GameObject unit = Instantiate(SwordManPrefab, spawnPoint.position, Quaternion.identity);
         MinimapBlipManager.Instance.RegisterTarget(unit.transform, Color.cyan);
 
@@ -36,9 +37,10 @@ public class UnitSpawner : MonoBehaviour
     
     public void SpawnSpearMan()
     {
-        if (!ResourceManager.Instance.TrySpendGold(7)) return;
+        if (ResourceManager.Instance.TrySpendGold(7) == false) return;
         
         spawnEffect.Play();
+        NotificationService.Notify("Spearman unleashed. Aim to kill.");
         GameObject unit = Instantiate(SpearManPrefab, spawnPoint.position, Quaternion.identity);
         MinimapBlipManager.Instance.RegisterTarget(unit.transform, Color.cyan);
         
