@@ -1,12 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    
+    [SerializeField] private Canvas introCanvas;
+    [SerializeField] private TextMeshProUGUI pressAnyKeyText;
+
+    private bool hasStarted = false;
+    
     public bool IsGameOver { get; private set; }
 
     private void Awake()
@@ -22,12 +29,40 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // PendingLoad가 null이 아니면 복원 시도
         var data = SaveSystem.PendingLoad;
+
+        // 💡 세이브가 있을 경우 → 인트로 생략
         if (data != null)
         {
+            introCanvas.gameObject.SetActive(false); // 인트로 UI 강제 비활성화
+            hasStarted = true;
+
             ApplyLoad(data);
             SaveSystem.PendingLoad = null;
+            return;
+        }
+
+        // 🟢 새 게임일 경우만 인트로 실행
+        StartCoroutine(BlinkPressAnyKey());
+    }
+    
+    private IEnumerator BlinkPressAnyKey()
+    {
+        while (!hasStarted)
+        {
+            float time = 0f;
+            float duration = 3f;
+
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                float alpha = Mathf.Lerp(0f, 1f, Mathf.PingPong(time * 2f, 1f)); // 부드럽게 깜빡임
+                var color = pressAnyKeyText.color;
+                color.a = alpha;
+                pressAnyKeyText.color = color;
+
+                yield return null;
+            }
         }
     }
 
@@ -46,6 +81,13 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
+        if (hasStarted == false && Input.anyKeyDown)
+        {
+            hasStarted = true;
+            introCanvas.gameObject.SetActive(false); // Canvas 전체 비활성화
+            return;
+        }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();

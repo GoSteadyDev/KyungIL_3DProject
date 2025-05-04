@@ -18,8 +18,8 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
     private MeshFilter meshFilter;
     
     private float currentHP;
-    
-    public string GetDescription() => $"HP : {currentHP}/{maxHP}";
+
+    public string GetDescription() => $"HP : {currentHP}/{maxHP}\nDefend the castle\nfrom attacking\nenemies!";
     public string GetDisplayName() => "Castle"; 
     public Sprite GetIcon() => icon; 
     public float MaxHP => maxHP;

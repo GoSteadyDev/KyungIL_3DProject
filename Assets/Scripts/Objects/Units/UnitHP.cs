@@ -25,7 +25,6 @@ public class UnitHP : MonoBehaviour, IDamageable
     
     public void TakeDamage(float amount)
     {
-        Debug.Log(amount);
         if (isDead) return;
 
         currentHP -= amount;
