@@ -13,6 +13,11 @@ public class Cannon : MonoBehaviour
      private LayerMask enemyLayerMask;
      private Rigidbody rb;
 
+     private void Awake()
+     {
+         rb = GetComponent<Rigidbody>();
+     }
+
      /// <summary>
      /// origin: 발사 위치
      /// aimPoint: 예측 목표 위치
