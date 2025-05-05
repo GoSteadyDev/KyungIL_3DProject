@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971085, g: 0.49977827, b: 0.5756336, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971043, g: 0.49977744, b: 0.5756326, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23220,7 +23220,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ddcf8116b5c22fb479a0ec52aaaa01cb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.478
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -35736,7 +35736,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 4476223489400468302, guid: 8592a13713a313a458771c983b4015bf, type: 3}
   followCanvas: {fileID: 1323670092}
-  UIduration: 1
+  floatUIduration: 1
+  UIduration: 0.5
 --- !u!114 &1323670094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43592,6 +43593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 4476223489400468302, guid: 8592a13713a313a458771c983b4015bf, type: 3}
   followCanvas: {fileID: 1592003352}
+  floatUIduration: 1
   UIduration: 1
 --- !u!1 &1593657598 stripped
 GameObject:
@@ -50134,7 +50136,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 90
-  m_Depth: 10
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2048

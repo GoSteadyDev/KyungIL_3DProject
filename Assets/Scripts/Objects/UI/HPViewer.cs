@@ -19,8 +19,8 @@ public static class HPViewerSpawner
             return;
         }
 
-        GameObject viewerGO = GameObject.Instantiate(prefab, uiRoot);
-        HPViewer viewer = viewerGO.GetComponent<HPViewer>();
+        GameObject hpViewerPrefab = GameObject.Instantiate(prefab, uiRoot);
+        HPViewer viewer = hpViewerPrefab.GetComponent<HPViewer>();
         viewer.Setup(target, followTransform);
     }
 }
@@ -33,7 +33,7 @@ public class HPViewer : MonoBehaviour
     [SerializeField] private Image fillImage; // Fill Area → Fill에 연결 (Inspector에서)
     
     [Header("Building HP?")]
-    [SerializeField] private bool isStatic = false;
+    [SerializeField] private bool isStatic = false; // 현재는 필요 없지만, 추후 풀링 적용할 때 필요
     
     private IDamageable hpTarget;   // hp 불러오기 위한 변수
     private Transform followTarget; // transform 불러기 위한 변수
@@ -42,51 +42,44 @@ public class HPViewer : MonoBehaviour
     {
         hpTarget = target;
         followTarget = follow;
-    
-        // 한 번만 계산해서 고정된 위치에 배치
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(follow.position);
-        transform.position = screenPos;
+
+        UpdatePosition(); // 최초 1회 위치 설정
     }
+
     private void Update()
     {
         if (hpTarget == null)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);  // 위치 갱신 막기
+            Destroy(gameObject);          // 다음 프레임에 파괴
             return;
         }
-        
-        float value = hpTarget.CurrentHP / hpTarget.MaxHP;
-        hpSlider.value = Mathf.Clamp01(value);
 
-        if (value <= 0.01f)
-            hpSlider.value = 0f;
-        
-        // ✅ 색상 변경 로직
-        if (value > 0.6f)
+        UpdateHPBarVisual();
+
+        if (followTarget != null)
         {
-            fillImage.color = Color.green;
-        }
-        else if (value > 0.3f)
-        {
-            fillImage.color = Color.yellow;
-        }
-        else
-        {
-            fillImage.color = Color.red;
-        }
-        
-        if (isStatic == false && followTarget != null)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(followTarget.position + hpViewerPosition);
-            transform.position = screenPos;
+            UpdatePosition();
         }
     }
-    
-    private void LateUpdate()
+
+    private void UpdateHPBarVisual()
     {
-        if (isStatic && followTarget != null)
+        float value = Mathf.Clamp01(hpTarget.CurrentHP / hpTarget.MaxHP);
+        hpSlider.value = value;
+
+        if (value <= 0.01f) hpSlider.value = 0f;
+
+        if (value > 0.6f) fillImage.color = Color.green;
+        else if (value > 0.3f) fillImage.color = Color.yellow;
+        else fillImage.color = Color.red;
+    }
+
+    private void UpdatePosition()
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(followTarget.position + hpViewerPosition);
+        if (screenPos.z > 0f)
         {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(followTarget.position + hpViewerPosition);
             transform.position = screenPos;
         }
     }

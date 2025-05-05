@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FollowUIController : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private FollowUI damageTextPrefab;
     [SerializeField] private Canvas followCanvas;
-    [SerializeField] private float UIduration = 1f;
+    
+    [Header("Duration Settings")]
+    [SerializeField] private float floatUIduration = 1f;
+    [SerializeField] private float UIduration = 0.5f;
     
     private void Start()
     {
@@ -24,12 +29,9 @@ public class FollowUIController : MonoBehaviour
     private void HandleKillEvent(KillEvent killEvent)
     {
         FollowUI ui = Instantiate(damageTextPrefab, followCanvas.transform);
-        ui.SetFloating(
-            killEvent.Position,
-            $"+{killEvent.GoldReward}",
-            UIduration,
-            Color.yellow
-        );
+        
+        ui.SetFloating(killEvent.Position, $"+{killEvent.GoldReward}",
+            floatUIduration, Color.yellow);
     }
     
     private void HandleCombatEvent(CombatEvent combatEvent)
@@ -37,11 +39,8 @@ public class FollowUIController : MonoBehaviour
         if (combatEvent.Receiver == null) return;
 
         FollowUI ui = Instantiate(damageTextPrefab, followCanvas.transform);
-        ui.Set(
-            combatEvent.Receiver.transform, "-" +
-            Mathf.RoundToInt(combatEvent.Damage).ToString(),
-            0.5f,
-            Color.red
-        );
+        
+        ui.Set(combatEvent.Receiver.transform, "-" + Mathf.RoundToInt(combatEvent.Damage).ToString(),
+            UIduration, Color.red);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 미니맵 상 유닛 위치 표시
 public class MinimapBlipManager : MonoBehaviour
 {
     public static MinimapBlipManager Instance;  
@@ -10,8 +11,8 @@ public class MinimapBlipManager : MonoBehaviour
     // 아.. 아니네 Register할 때는 또, 필요하겠구나.
     
     [SerializeField] private Camera minimapCam;
-    [SerializeField] private RectTransform blipParent;
-    [SerializeField] private GameObject blipPrefab; // 하나만 있어도 OK!
+    [SerializeField] private RectTransform blipParent; // 카메라가 찍은 미니맵 이미지
+    [SerializeField] private GameObject blipPrefab; // 유닛 표시할 이미지
 
     private readonly List<RectTransform> blips = new List<RectTransform>();     // 자체 캔버스 (미니맵)에 쓸 RectTransform
     private readonly List<Transform> targets = new List<Transform>();           // 월드 좌표 (타겟)
@@ -42,9 +43,10 @@ public class MinimapBlipManager : MonoBehaviour
     {
         for (int i = 0; i < targets.Count; i++)
         {
-            Vector3 vp = minimapCam.WorldToViewportPoint(targets[i].position);
-            float x = (vp.x - 0.5f) * blipParent.sizeDelta.x;
-            float y = (vp.y - 0.5f) * blipParent.sizeDelta.y;
+            Vector3 viewportPoint = minimapCam.WorldToViewportPoint(targets[i].position);
+            float x = (viewportPoint.x - 0.5f) * blipParent.sizeDelta.x;
+            float y = (viewportPoint.y - 0.5f) * blipParent.sizeDelta.y;
+            // '*' 을 써서, 정규화된 뷰포트 값을 실제 blipParent에 맞춰준다. '비율' 생각하면 됨
             blips[i].anchoredPosition = new Vector2(x, y);
         }
     }

@@ -14,16 +14,14 @@ public class Lazer : MonoBehaviour
     private Vector3 boxHalfExtents;     // OverlapBox 절반 크기
     private LayerMask enemyLayerMask;   // 적 레이어 마스크
     private Coroutine tickRoutine;      // 데미지 반복 코루틴
-    private ParticleSystem ps;          // 파티클 시스템
-
-    // 파티클 지속 시간(Inspector에서 설정한 Duration)을 외부에서 읽기 위함
-    public float Duration => ps.main.duration;
+    // tickRoutine을 캐싱한 건 불필요한 중복 코루틴 실행을 막고, 정확히 제어하려는 의도
+    private ParticleSystem particleSystem;          // 파티클 시스템
 
     private void Awake()
     {
-        ps = GetComponent<ParticleSystem>();
+        particleSystem = GetComponent<ParticleSystem>();
         // 처음엔 재생되지 않도록
-        ps.Stop();
+        particleSystem.Stop();
         gameObject.SetActive(false);
     }
 
@@ -37,15 +35,14 @@ public class Lazer : MonoBehaviour
         }
     }
     
-    /// <summary>
-    /// 레이저 발사 초기화
-    /// </summary>
+    // 레이저 발사 데이터 주입
     /// <param name="firePoint">레이저 시작 위치 Transform</param>
     /// <param name="target">레이저를 향할 적의 Transform</param>
     /// <param name="damage">초당 데미지</param>
     /// <param name="damageInterval">데미지 틱 간격(초)</param>
     /// <param name="boxHalfExtents">OverlapBox 절반 크기</param>
     /// <param name="enemyLayerMask">적 레이어 마스크</param>
+    
     public void Initialize(
         Transform firePoint,
         Transform target,
@@ -63,22 +60,18 @@ public class Lazer : MonoBehaviour
         transform.position  = firePoint.position;
         transform.rotation  = Quaternion.LookRotation((target.position - firePoint.position).normalized);
 
-        ps.Play();
+        particleSystem.Play();
         gameObject.SetActive(true);
 
         if (tickRoutine != null) StopCoroutine(tickRoutine);
         tickRoutine = StartCoroutine(DamageRoutine());
     }
     
-    /// <summary>
-    /// 레이저 중지
-    /// </summary>
+    // 레이저 중지
     public void Stop()
     {
-        if (tickRoutine != null)
-            StopCoroutine(tickRoutine);
-        if (ps != null)    // ps가 할당되었을 때만 호출
-            ps.Stop();
+        if (tickRoutine != null) StopCoroutine(tickRoutine);
+        if (particleSystem != null) particleSystem.Stop();   // ps가 할당되었을 때만 호출
         gameObject.SetActive(false);
     }
     /// <summary>
@@ -112,22 +105,20 @@ public class Lazer : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(dir);
 
         Collider[] hits = Physics.OverlapBox(center, boxHalfExtents, rot, enemyLayerMask);
-        foreach (var c in hits)
+        foreach (var col in hits)
         {
             CombatSystem.Instance.AddCombatEvent(new CombatEvent
             {
                 Sender      = this.gameObject,
-                Receiver    = c.gameObject,
+                Receiver    = col.gameObject,
                 Damage      = damage * damageInterval,    // 초당 데미지 × 간격
-                HitPosition = c.ClosestPoint(firePoint.position),
-                Collider    = c
+                HitPosition = col.ClosestPoint(firePoint.position),
+                Collider    = col
             });
         }
     }
     
-    /// <summary>
-    /// 씬 뷰에서 OverlapBox 범위를 확인할 수 있도록 기즈모 그리기
-    /// </summary>
+    /// OverlapBox 범위를 확인할 수 있도록 기즈모
     private void OnDrawGizmosSelected()
     {
         if (firePoint == null || target == null) return;

@@ -26,15 +26,15 @@ public class AreaDamage : MonoBehaviour
 
         // 즉시 폭발 처리
         ApplyAreaDamage();
+        
         var ps = GetComponentInChildren<ParticleSystem>();
         if (ps != null)
         {
-            // main 모듈 가져오기
-            var mainModule = ps.main;
+            // main 모듈 가져오기, Unity의 ParticleSystem은 여러 "모듈(Module)"로 구성돼
+            // main은 그 중 Main Module을 의미하는데, 파티클의 기본 설정(지속 시간, 시작 속도, 루프 여부 등)을 제어
+            ParticleSystem.MainModule mainModule = ps.main;
             // 이펙트의 전체 재생 길이(초) 조회
             float duration = mainModule.duration;
-            // 또는 파티클 1세트 생명주기
-            float lifetime = mainModule.startLifetime.constant;
             // 원하는 값으로 Destroy 시간 결정
             Destroy(gameObject, duration);
         }
@@ -54,11 +54,5 @@ public class AreaDamage : MonoBehaviour
                 Collider    = col
             });
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

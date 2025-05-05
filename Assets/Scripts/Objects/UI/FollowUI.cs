@@ -38,7 +38,7 @@ public class FollowUI : MonoBehaviour
         if (isFloating)
         {
             tempTime += Time.deltaTime;
-            float t = tempTime / Mathf.Max(duration, 0.01f); // 방어
+            float t = tempTime / Mathf.Max(duration, 0.01f); // 방어, 0으로 나누는 것 예외처리
             rectTransform.position = Vector3.Lerp(startPos, endPos, t);
         }
         else if (target != null)
@@ -58,7 +58,7 @@ public class FollowUI : MonoBehaviour
         text.color = color;
         isFloating = false;
         
-        // 💥 생성 직후 target 위치를 즉시 따라가게 한번 위치 설정해주기
+        // 생성 직후 target 위치를 즉시 따라가게 한번 위치 설정해주기
         if (target != null)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position + offset);
@@ -66,7 +66,7 @@ public class FollowUI : MonoBehaviour
         }
     }
 
-    // 🟡 골드 텍스트 전용
+    // 골드 텍스트 전용 (떠오르게 하기)
     public void SetFloating(Vector3 worldPos, string content, float duration, Color color)
     {
         this.duration = duration;

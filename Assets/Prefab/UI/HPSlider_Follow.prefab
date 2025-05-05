@@ -215,8 +215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpViewerPosition: {x: 0, y: 10.5, z: 0}
   hpSlider: {fileID: 7540879538897385955}
-  isStatic: 0
   fillImage: {fileID: 1833244829757149944}
+  isStatic: 0
 --- !u!1 &5818541433030169871
 GameObject:
   m_ObjectHideFlags: 0

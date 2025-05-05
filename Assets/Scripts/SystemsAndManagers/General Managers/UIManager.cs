@@ -205,8 +205,7 @@ public class UIManager : MonoBehaviour
         // 기존 패널들 숨기기
         HideAllBuildingPanels();
 
-        if (targetData == null || towerTransform == null) 
-            return;
+        if (targetData == null || towerTransform == null) return;
 
         // 1) 패널 내용 세팅
         towerNameText.text  = targetData.GetDisplayName();
@@ -214,11 +213,7 @@ public class UIManager : MonoBehaviour
 
         // 2) FollowUIPanel 가져오기
         var follow = towerInfoPanelRoot.GetComponent<FollowUIPanel>();
-        if (follow == null)
-        {
-            Debug.LogError("towerInfoPanelRoot에 FollowUIPanel이 없습니다!");
-            return;
-        }
+        if (follow == null) return;
 
         Vector3 fixedWorldOffset = new Vector3(75f, -25f, 0f); // 오른쪽 2, 위로 1
 

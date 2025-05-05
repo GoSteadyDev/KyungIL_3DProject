@@ -6,8 +6,8 @@ public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float speed = 20f;
     
-    private Transform target;
     private float damage;
+    private Transform target;
 
     public void Initialize(Transform targetTransform, float dmg)
     {
