@@ -46,28 +46,30 @@ public class Lazer : MonoBehaviour
     /// <param name="damageInterval">데미지 틱 간격(초)</param>
     /// <param name="boxHalfExtents">OverlapBox 절반 크기</param>
     /// <param name="enemyLayerMask">적 레이어 마스크</param>
-    public void Initialize(Transform firePoint, Transform target, float damage,
-        float damageInterval, Vector3 boxHalfExtents, LayerMask enemyLayerMask)
+    public void Initialize(
+        Transform firePoint,
+        Transform target,
+        float damage,
+        AttackData attackData,
+        LayerMask enemyLayerMask)
     {
-        this.firePoint        = firePoint;
-        this.target           = target;
-        this.damage           = damage;
-        this.damageInterval   = damageInterval;
-        this.boxHalfExtents   = boxHalfExtents;
-        this.enemyLayerMask   = enemyLayerMask;
+        this.firePoint      = firePoint;
+        this.target         = target;
+        this.damage         = damage;
+        this.damageInterval = attackData.beamInterval;
+        this.boxHalfExtents = attackData.beamBoxHalfExtents;
+        this.enemyLayerMask = enemyLayerMask;
 
-        // 즉시 위치·회전 맞추고
-        transform.position = firePoint.position;
-        transform.rotation = Quaternion.LookRotation((target.position - firePoint.position).normalized);
-        
+        transform.position  = firePoint.position;
+        transform.rotation  = Quaternion.LookRotation((target.position - firePoint.position).normalized);
+
         ps.Play();
         gameObject.SetActive(true);
 
-        // 기존 코루틴이 있으면 중지
         if (tickRoutine != null) StopCoroutine(tickRoutine);
         tickRoutine = StartCoroutine(DamageRoutine());
     }
-
+    
     /// <summary>
     /// 레이저 중지
     /// </summary>

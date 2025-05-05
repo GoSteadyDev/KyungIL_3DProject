@@ -13,7 +13,7 @@ public interface IHasRangeUI : IClickable
     float GetAttackRange();
 }
 
-public interface IHasInfoPanel
+public interface IHasInfoPanel : IClickable
 {
     Sprite GetIcon();
     string GetDisplayName();

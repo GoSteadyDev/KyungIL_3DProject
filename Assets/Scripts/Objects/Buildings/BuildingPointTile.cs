@@ -5,17 +5,13 @@ using UnityEngine;
 
 public class BuildingPointTile : MonoBehaviour
 {
-    private MeshRenderer Renderer;
-    private Collider collider;
-    
     private bool isUsed = false;
+    
+    private Collider collider;
+    private MeshRenderer Renderer;
 
     public bool IsUsed => isUsed;
     
-    public void SetUsed()
-    {
-        isUsed = true;
-    }
     private void Awake()
     {
         Renderer = GetComponent<MeshRenderer>();

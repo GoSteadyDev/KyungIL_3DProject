@@ -22,6 +22,7 @@ public class Castle : MonoBehaviour, IDamageable, IHasInfoPanel
     public string GetDescription() => $"HP : {currentHP}/{maxHP}\nDefend the castle\nfrom attacking\nenemies!";
     public string GetDisplayName() => "Castle"; 
     public Sprite GetIcon() => icon; 
+    public Transform GetTransform() => transform;
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
     

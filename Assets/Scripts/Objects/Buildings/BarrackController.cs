@@ -17,6 +17,7 @@ public class BarrackController : MonoBehaviour, IHasInfoPanel
     public string GetDisplayName() => displayName;
     public string GetDescription() => description;
     public Sprite GetIcon() => icon;
+    public Transform GetTransform() => transform;
 }
 
 // 얘도 굳이 IHasInfoPanel 없으면 딱히 의미 없는 것 같은데 꼭 있어야할까?

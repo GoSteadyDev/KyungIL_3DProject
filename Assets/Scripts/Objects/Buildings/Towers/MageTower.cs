@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class MageTower : BaseTower
 {
     [Header("Effect Origin")]
-    [SerializeField] private Transform effectPoint;
+    [SerializeField] private Transform effectPoint;     // (레이저만) 쏘는 위치
 
     [Header("Child Effects")]
     [SerializeField] private Lazer lazerChild;           // 자식 레이저 이펙트
@@ -21,33 +21,33 @@ public class MageTower : BaseTower
     
     public override string GetDescription()
     {
-        var atk = data.attackData;
+        var attackData = data.attackData;
 
-        // 🔷 Beam (LazerTower, Lv3B)
-        if (atk.attackType == AttackType.Beam)
+        // Beam (LazerTower, Lv3B), F1, F2는 숫자 서식 지정자로 소수점 자리 표현
+        if (attackData.attackType == AttackType.Beam)
         {
             float dps = data.damage;
-            float tick = atk.beamInterval;
+            float tick = attackData.beamInterval;
             return $"\n- DPS: {dps:F1}\n" +
                    $"- Tick Interval: {tick:F2}s\n" +
                    $"- Range: {data.attackRange}";
         }
 
-        // 🔷 AoE Slow (Lv3A)
-        if (atk.areaRadius > 0f)
+        // AoE Slow (Lv3A)
+        if (attackData.areaRadius > 0f)
         {
-            return $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
-                   $"- Slow Duration: {atk.slowDuration:F1}s\n" +
-                   $"- Area Radius: {atk.areaRadius:F1}\n" +
+            return $"- Slow Rate: {attackData.slowRate * 100f:F0}%\n" +
+                   $"- Slow Duration: {attackData.slowDuration:F1}s\n" +
+                   $"- Area Radius: {attackData.areaRadius:F1}\n" +
                    $"- Damage: {data.damage}\n" +
                    $"- Range: {data.attackRange}\n" +
                    $"- Attack Speed: {data.attackSpeed:F2}";
         }
 
-        // 🔷 기본 단일 슬로우
+        // 기본 단일 슬로우
         return $"\n" +
-               $"- Slow Rate: {atk.slowRate * 100f:F0}%\n" +
-               $"- Slow Duration: {atk.slowDuration:F1}s\n" +
+               $"- Slow Rate: {attackData.slowRate * 100f:F0}%\n" +
+               $"- Slow Duration: {attackData.slowDuration:F1}s\n" +
                $"- Damage: {data.damage}\n" +
                $"- Range: {data.attackRange}\n" +
                $"- Attack Speed: {data.attackSpeed:F2}";
@@ -56,13 +56,13 @@ public class MageTower : BaseTower
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        // 시작 시 비활성화
-        // 초기 이펙트 비활성화
+        // 시작 시 레이저 비활성화
         if (lazerChild != null)
         {
             lazerChild.Stop();
             lazerChild.gameObject.SetActive(false);
         }
+        // Lv3A의 이펙트도 비활성화
         if (attackEffect != null) attackEffect.Stop();
     }
 
@@ -84,25 +84,26 @@ public class MageTower : BaseTower
         // 살아있는 적만 골라서 가장 가까운 놈 반환
         Collider[] hits = Physics.OverlapSphere(transform.position, data.attackRange, enemyLayerMask);
         Transform nearest = null;
-        float minD = float.MaxValue;
+        float minDistance = float.MaxValue;
 
-        foreach (var c in hits)
+        foreach (var col in hits)
         {
-            var hp = c.GetComponent<EnemyHP>();
+            var hp = col.GetComponent<EnemyHP>();
+            
             if (hp != null && hp.IsDead) continue;
 
-            float d = (c.transform.position - transform.position).sqrMagnitude;
-            if (d < minD)
+            float distance = (col.transform.position - transform.position).sqrMagnitude;
+            if (distance < minDistance)
             {
-                minD = d;
-                nearest = c.transform;
+                minDistance = distance;
+                nearest = col.transform;
             }
         }
 
         return nearest;
     }
 
-    // Direct 모드만 처리
+    // Direct 모드만 처리, Lazer는 오버라이드 된 Update에서
     protected override void Attack(Transform target)
     {
         if (data.attackData.attackType != AttackType.Direct || target == null)
@@ -112,26 +113,24 @@ public class MageTower : BaseTower
 
         if (data.attackData.areaRadius > 0f)
         {
-            // Lv3A AoE 슬로우
-            if (!isFiring) StartCoroutine(FireSlowAreaRoutine());
+            // Lv3A 범위 슬로우
+            if (isFiring == false) StartCoroutine(FireSlowAreaRoutine());
         }
         else
         {
             // Lv1~2 단일 슬로우
-            if (!isFiring) StartCoroutine(FireSlowSingleRoutine(target));
+            if (isFiring == false) StartCoroutine(FireSlowSingleRoutine(target));
         }
     }
 
     private IEnumerator FireSlowSingleRoutine(Transform target)
     {
         isFiring = true;
+        // 중복 코루틴 실행 방지. 없으면 1초 간격으로 데미지를 주는 여러 코루틴이 동시에 실행되며, 1초에 여러 번씩 데미지가 중첩 적용
 
-        var ec = target.GetComponent<EnemyController>();
-        ec?.ApplySlow(
-            data.attackData.slowRate,
-            data.attackData.slowDuration,
-            data.attackData.slowEffectPrefab
-        );
+        var enemyController = target.GetComponent<EnemyController>();
+        enemyController?.ApplySlow(data.attackData.slowRate, data.attackData.slowDuration, data.attackData.slowEffectPrefab);
+        // ? -> null 조건 연산자, enemyController가 null이 아니면 메서드를 실행하고, null이면 아무 것도 하지 않음
 
         float total = data.attackData.slowDuration;
         int ticks = Mathf.FloorToInt(total);
@@ -162,15 +161,12 @@ public class MageTower : BaseTower
         attackEffect?.Play();
         yield return new WaitForSeconds(0.1f);
 
-        Collider[] hits = Physics.OverlapSphere(
-            transform.position,
-            data.attackData.areaRadius,
-            enemyLayerMask
-        );
-        foreach (var c in hits)
+        Collider[] hits = Physics.OverlapSphere(transform.position, data.attackData.areaRadius, enemyLayerMask);
+        
+        foreach (var col in hits)
         {
-            var ec = c.GetComponent<EnemyController>();
-            ec?.ApplySlow(
+            var enemyController = col.GetComponent<EnemyController>();
+            enemyController?.ApplySlow(
                 data.attackData.slowRate,
                 data.attackData.slowDuration,
                 data.attackData.slowEffectPrefab
@@ -178,10 +174,10 @@ public class MageTower : BaseTower
             CombatSystem.Instance.AddCombatEvent(new CombatEvent
             {
                 Sender      = this.gameObject,
-                Receiver    = ec.gameObject,
+                Receiver    = enemyController.gameObject,
                 Damage      = data.damage,
-                HitPosition = ec.transform.position,
-                Collider    = c
+                HitPosition = enemyController.transform.position,
+                Collider    = col
             });
         }
 
@@ -192,10 +188,12 @@ public class MageTower : BaseTower
     private void HandleBeamMode()
     {
         Transform target = FindTarget();
+        
         if (target != null)
         {
             animator.SetTrigger("IsAttack");
-            if (!lazerChild.gameObject.activeSelf)
+            
+            if (lazerChild.gameObject.activeSelf == false)
             {
                 // 위치·회전 갱신 후 초기화
                 lazerChild.transform.position = effectPoint.position;
@@ -205,8 +203,7 @@ public class MageTower : BaseTower
                     effectPoint,
                     target,
                     data.damage,
-                    data.attackData.beamInterval,
-                    data.attackData.beamBoxHalfExtents,
+                    data.attackData,
                     enemyLayerMask
                 );
             }

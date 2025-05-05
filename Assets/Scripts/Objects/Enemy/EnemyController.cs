@@ -48,7 +48,8 @@ public class EnemyController : MonoBehaviour
     {
         if (castleTarget == null || GameManager.Instance.IsGameOver) return;
 
-        if (!navMeshAgent.enabled) navMeshAgent.enabled = true;
+        if (navMeshAgent.enabled == false) navMeshAgent.enabled = true;
+        
         navMeshAgent.speed = moveSpeed;
         navMeshAgent.SetDestination(castleTarget.position);
     }

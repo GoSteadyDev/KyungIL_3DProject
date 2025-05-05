@@ -21,17 +21,17 @@ public class MinimapBlipManager : MonoBehaviour
         Instance = this;
     }
 
-    public void RegisterTarget(Transform t, Color blipColor)
+    public void RegisterTarget(Transform target, Color blipColor)
     {
-        targets.Add(t);
+        targets.Add(target);
         var imgRT = Instantiate(blipPrefab, blipParent).GetComponent<RectTransform>();
         imgRT.GetComponent<UnityEngine.UI.Image>().color = blipColor;
         blips.Add(imgRT);
     }
 
-    public void UnregisterTarget(Transform t)
+    public void UnregisterTarget(Transform target)
     {
-        int i = targets.IndexOf(t);
+        int i = targets.IndexOf(target);
         if (i < 0) return;
         Destroy(blips[i].gameObject);
         blips.RemoveAt(i);
