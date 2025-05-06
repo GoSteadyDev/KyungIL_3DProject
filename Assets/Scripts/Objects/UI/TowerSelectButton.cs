@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-
 public class TowerSelectButton : MonoBehaviour
 {
     [SerializeField] private TowerData towerData; // For building new tower
@@ -16,6 +15,8 @@ public class TowerSelectButton : MonoBehaviour
         BuildingSystem.Instance.OnTowerSelected(towerData);
     }
 
+    // 이렇게 순차처리와 분기처리를 구분해놓은 이유는, Lv3B -> Lv4B 처리도 생각
+    // 즉 모든 걸 PathCode처리로 해놓을 수도 있었는데, 코드 명확화 + 순차만 가능한 업그레이드 타워도 염두에 두고 작성함
     public void OnUpgradeClicked()
     {
         // Sequential upgrade to next level
@@ -27,12 +28,9 @@ public class TowerSelectButton : MonoBehaviour
         
         // Get upgrade options and find next level
         var options = BuildingSystem.Instance.GetUpgradeOptions(type, level + 1);
-        
-        if (options.Count == 0)
-        {
-            return;
-        }
-        
+
+        if (options.Count == 0) return;
+            
         var nextData = options[0].data;
         BuildingSystem.Instance.UpgradeTower(tower, nextData);
     }
@@ -49,11 +47,7 @@ public class TowerSelectButton : MonoBehaviour
         
         var entry = BuildingSystem.Instance.GetTowerEntry(type, level + 1, pathCode);
         
-        if (entry.prefab == null)
-        {
-            Debug.LogWarning($"No upgrade found for pathCode '{pathCode}'.");
-            return;
-        }
+        if (entry.prefab == null) return;
         
         BuildingSystem.Instance.UpgradeTower(tower, entry.data);
     }
@@ -72,6 +66,7 @@ public class TowerSelectButton : MonoBehaviour
         }
 
         var towerGO = (tower as MonoBehaviour)?.gameObject;
+        
         if (towerGO != null)
         {
             BuildingSystem.Instance.Unregister(tower);

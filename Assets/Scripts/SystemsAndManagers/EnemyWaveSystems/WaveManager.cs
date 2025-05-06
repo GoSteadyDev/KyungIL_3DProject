@@ -17,21 +17,20 @@ public class WaveManager : MonoBehaviour
     private bool isWaveRunning = false;
     private int killedEnemyCount = 0;
     
+    public bool IsWaveRunning => isWaveRunning;
     public int CurrentWaveIndex => currentWaveIndex;
+    
     public void SetWaveIndex(int index)
     {
         currentWaveIndex = Mathf.Clamp(index, 0, waveDatas.Count);
-        // UI 업데이트가 필요하면 여기서 ShowWaveInfo 호출해도 됩니다.
     }
-    public bool IsWaveRunning => isWaveRunning;
-    // 읽기 전용으로 뒀던 프로퍼티를 지우고,
-    // 외부에서 값을 지정할 수 있게 메서드로 바꿔 주세요.
     
     private void Awake()
     {
         Instance = this;
     }
 
+    // 죽은 Enemy 수를 세주기 위한 구독
     private void Start()
     {
         if (KillEventSystem.Instance != null)
@@ -57,13 +56,8 @@ public class WaveManager : MonoBehaviour
             return;
         
         NotificationService.Notify("Wave started! They are coming—prepare for battle.");
+        UIManager.Instance.ShowWaveInfo(currentWaveIndex + 1, killedEnemyCount, CurrentWaveEnemyCount);
         WaveStartButton.gameObject.SetActive(false);
-        
-        UIManager.Instance.ShowWaveInfo(
-            currentWaveIndex + 1,
-            killedEnemyCount,
-            CurrentWaveEnemyCount
-        );
         
         StartCoroutine(RunWave(waveDatas[currentWaveIndex]));
     }
@@ -88,8 +82,7 @@ public class WaveManager : MonoBehaviour
         WaveStartButton.gameObject.SetActive(true);
         
         isWaveRunning = false;
-
-        // ✅ 웨이브 종료 후에 증가
+        // 웨이브 종료 후에 증가
         currentWaveIndex++;
         
         // 모든 웨이브를 끝냈다면 바로 승리 처리
@@ -101,14 +94,11 @@ public class WaveManager : MonoBehaviour
     
     private void HandleKillEvent(KillEvent killEvent)
     {
-        if (!isWaveRunning) return;
+        if (isWaveRunning == false) return;
         
         killedEnemyCount++;
         
-        UIManager.Instance.ShowWaveInfo(
-            currentWaveIndex + 1,killedEnemyCount,
-            CurrentWaveEnemyCount
-        );
+        UIManager.Instance.ShowWaveInfo(currentWaveIndex + 1,killedEnemyCount, CurrentWaveEnemyCount);
     }
     
     public int CurrentWaveEnemyCount

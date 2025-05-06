@@ -7,7 +7,6 @@ public class Archer : MonoBehaviour
 {
     [Header("Attack Settings")]
     [SerializeField] private Transform firePoint;
-    public Transform FirePoint => firePoint;
     
     private float statDamage, statAttackSpeed, statAttackRange;
     private Transform targetTransform;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// EnemyHitBox처럼 무기 HitBox에 붙여둔 컴포넌트
 public class UnitAttack : MonoBehaviour
 {
     [SerializeField] private Collider weaponCollider;
@@ -9,8 +10,7 @@ public class UnitAttack : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Enemy"))
-            return;
+        if (other.CompareTag("Enemy") == false) return;
         
         CombatEvent combatEvent = new CombatEvent
         {

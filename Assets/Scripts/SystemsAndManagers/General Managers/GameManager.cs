@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         var data = SaveSystem.PendingLoad;
 
-        // 💡 세이브가 있을 경우 → 인트로 생략
+        // 세이브가 있을 경우 → 인트로 생략
         if (data != null)
         {
             introCanvas.gameObject.SetActive(false); // 인트로 UI 강제 비활성화
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 🟢 새 게임일 경우만 인트로 실행
+        // 새 게임일 경우만 인트로 실행
         StartCoroutine(BlinkPressAnyKey());
     }
     
@@ -68,15 +67,26 @@ public class GameManager : MonoBehaviour
 
     private void ApplyLoad(GameSaveData data)
     {
-        // 1) 골드
+        StartCoroutine(ApplyLoadRoutine(data));
+    }
+
+    private IEnumerator ApplyLoadRoutine(GameSaveData data)
+    {
+        // 1. 골드 / 웨이브 초기화
         ResourceManager.Instance.SetGold(data.gold);
-        // 2) 웨이브
         WaveManager.Instance.SetWaveIndex(data.waveIndex);
-        // 3) 타워
+
+        // 2. 기존 타워 파괴 요청
         BuildingSystem.Instance.ClearAllTowers();
+
+        // 3. 한 프레임 기다려서 실제 Destroy 처리 시간 확보
+        // 2번 생성되는 건줄 알았는데, ClearAllTowers 메서드 안에서 allTowers.Clear();가 한 프레임 내 모두 처리되기 때문에
+        // Destroy(mb.gameObject);가 제대로 처리되지 않았음
+        yield return null;
+
+        // 4. 타워 다시 생성
         foreach (var ts in data.towers)
             BuildingSystem.Instance.SpawnTowerFromSave(ts);
-        // (유닛 복원도 여기에)
     }
     
     private void Update()

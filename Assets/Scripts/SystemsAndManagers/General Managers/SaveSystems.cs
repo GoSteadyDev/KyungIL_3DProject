@@ -59,7 +59,7 @@ public static class SaveSystem
 
     public static void QueueLoad() 
     {
-        PendingLoad = Load(); // JSON 파싱
+        PendingLoad = Load(); // JSON 파싱해서 저장
     }
     
     public static GameSaveData Load()

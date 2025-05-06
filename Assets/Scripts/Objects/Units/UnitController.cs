@@ -103,7 +103,7 @@ public class UnitController : MonoBehaviour, IHasRangeUI, IHasInfoPanel
             return;
         }
 
-        if (navMeshAgent.remainingDistance <= 0.3f && navMeshAgent.pathPending == false)
+        if (navMeshAgent.remainingDistance <= 0.3f && navMeshAgent.pathPending == false)    // navMeshAgent.pathPending, true면 경로 계산 중
         {
             switch (currentState)
             {

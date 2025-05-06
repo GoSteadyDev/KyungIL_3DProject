@@ -22,6 +22,42 @@ public class PreviewController : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+    private void Update()
+    {
+        if (isActive == false || currentPreview == null) return;
+
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Vector3 snappedPos = hit.collider.transform.position;
+            currentPreview.transform.position = snappedPos;
+
+            var tile = hit.collider.GetComponent<BuildingPointTile>();
+            var renderer = currentPreview.GetComponent<Renderer>();
+
+            if (tile != null)
+            {
+                renderer.material = validMaterial;
+                
+                if (Input.GetMouseButtonDown(0))
+                {
+                    TowerBuilder.Instance.OnTileClicked(tile);
+                    DeactivatePreview();
+                }
+            }
+            else
+            {
+                renderer.material = invalidMaterial;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            DeactivatePreview(); // 우클릭 시 취소
+        }
+    }
+    
     public void ActivatePreview()
     {
         if (currentPreview != null) Destroy(currentPreview);
@@ -44,42 +80,7 @@ public class PreviewController : MonoBehaviour
         if (currentPreview != null) Destroy(currentPreview);
         isActive = false;
 
-        tileDetector.ClearTileHighlight(); // ✅ 타일 렌더 꺼주기
+        tileDetector.ClearTileHighlight(); // 타일 렌더 꺼주기
         tileDetector.enabled = false;
-    }
-    
-    private void Update()
-    {
-        if (isActive == false || currentPreview == null) return;
-
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Vector3 snappedPos = hit.collider.transform.position;
-            currentPreview.transform.position = snappedPos;
-
-            var tile = hit.collider.GetComponent<BuildingPointTile>();
-            var renderer = currentPreview.GetComponent<Renderer>();
-
-            if (tile != null)
-            {
-                renderer.material = validMaterial;
-                if (Input.GetMouseButtonDown(0))
-                {
-                    TowerBuilder.Instance.OnTileClicked(tile);
-                    DeactivatePreview();
-                }
-            }
-            else
-            {
-                renderer.material = invalidMaterial;
-            }
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            DeactivatePreview(); // 우클릭 시 취소
-        }
     }
 }

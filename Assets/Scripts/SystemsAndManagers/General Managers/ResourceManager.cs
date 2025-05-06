@@ -7,9 +7,9 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
 
+    [SerializeField] private int gold = 500;
     public event Action OnGoldChanged;
 
-    [SerializeField] private int gold = 500;
     public int Gold => gold;
 
     private void Awake()

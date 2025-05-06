@@ -42,7 +42,7 @@ public class PausePanelController : MonoBehaviour
 
         // 슬라이더 초기화 & 바인딩
         cameraSpeedSlider.value = cameraControl.moveSpeed;
-        cameraSpeedSlider.onValueChanged.AddListener(val => { cameraControl.SetPanSpeed(val); });
+        cameraSpeedSlider.onValueChanged.AddListener(speed => { cameraControl.SetPanSpeed(speed); });
 
         // 시작할 땐 Settings 서브패널 닫아두기
         settingsPanel.SetActive(false);
@@ -53,7 +53,7 @@ public class PausePanelController : MonoBehaviour
             bgmVolumeSlider.minValue = 0f;
             bgmVolumeSlider.maxValue = 1f;
             bgmVolumeSlider.value = bgmSource.volume;
-            bgmVolumeSlider.onValueChanged.AddListener(v => bgmSource.volume = v);
+            bgmVolumeSlider.onValueChanged.AddListener(volume => bgmSource.volume = volume);
         }
     }
 
@@ -91,46 +91,28 @@ public class PausePanelController : MonoBehaviour
     }
     
     // Load (불러온 뒤 자동 Resume)
+    // QueueLoad() → SceneManager.LoadScene() → GameManager.Start() → ApplyLoad() 의 흐름
     private void OnLoad()
     {
+        if (!SaveSystem.HasSave())
+        {
+            NotificationService.Notify("No save data.");
+            return;
+        }
+
         if (WaveManager.Instance.IsWaveRunning)
         {
             NotificationService.Notify("Cannot Load during a wave!");
             GameManager.Instance.TogglePause();
             return;
         }
-        
-        DoLoad();
-        NotificationService.Notify("Game Loaded!");
+
+        SaveSystem.QueueLoad(); // Load → PendingLoad에 저장
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.Instance.TogglePause();
-        
-        if (SaveSystem.HasSave())
-        {
-            SaveSystem.QueueLoad();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        else NotificationService.Notify("No save data.");
+        NotificationService.Notify("Game Loaded!");
     }
 
-    private void DoLoad()
-    {
-        GameSaveData data = SaveSystem.Load();
-        if (data == null) return;
-        
-        // 1) 리셋
-        BuildingSystem.Instance.ClearAllTowers();
-        // … 유닛도 동일
-
-        // 2) 값 복원
-        ResourceManager.Instance.SetGold(data.gold);
-
-        // ③ 저장된 타워 순회하며 재생성
-        foreach (var ts in data.towers)
-        {
-            BuildingSystem.Instance.SpawnTowerFromSave(ts);
-        }
-    }
-    
     // Settings 열기: Pause 닫고 Settings 열기
     private void OpenSettings()
     {

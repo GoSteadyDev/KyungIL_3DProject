@@ -30,7 +30,7 @@ public class RangeViewerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!isFollowing || targetTransform == null) return;
+        if (isFollowing == false || targetTransform == null) return;
         UpdateTransform();
     }
 

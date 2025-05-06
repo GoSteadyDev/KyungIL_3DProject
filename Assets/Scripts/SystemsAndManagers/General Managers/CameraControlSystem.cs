@@ -39,9 +39,7 @@ public class CameraControlSystem : MonoBehaviour
         moveSpeed = speed;
     }
     
-    /// <summary>
-    /// 클릭 지점이 카메라 시야 정중앙에 오도록 카메라 위치를 재설정
-    /// </summary>
+    // 클릭 지점이 카메라 시야 정중앙에 오도록 카메라 위치를 재설정
     public void MoveCameraTo(Vector3 target)
     {
         // 1) 카메라가 내려다보는 방향(월드)

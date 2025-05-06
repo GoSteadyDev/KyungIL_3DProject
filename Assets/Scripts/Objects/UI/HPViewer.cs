@@ -48,7 +48,7 @@ public class HPViewer : MonoBehaviour
 
     private void Update()
     {
-        if (hpTarget == null)
+        if (hpTarget == null || hpTarget.CurrentHP <= 0f)
         {
             gameObject.SetActive(false);  // 위치 갱신 막기
             Destroy(gameObject);          // 다음 프레임에 파괴

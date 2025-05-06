@@ -7,19 +7,21 @@ using UnityEngine.UI;
 public class UnitHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHP = 10f;
-    public float MaxHP => maxHP;
-    private float currentHP;
-    public float CurrentHP => currentHP;
     [SerializeField] private float deathTime = 0.5f;
-
-    private bool isDead = false;
+    
     private UnitController unitController;
-
+    
+    private float currentHP;
+    private bool isDead = false;
+    
+    public float MaxHP => maxHP;
+    public float CurrentHP => currentHP;
+    
     private void Awake()
     {
         unitController = GetComponent<UnitController>();
         
-        currentHP = Mathf.Clamp( currentHP, 0, maxHP);
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         currentHP = maxHP;
     }
     

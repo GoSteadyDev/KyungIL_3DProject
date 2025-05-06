@@ -13,7 +13,7 @@ public static class NotificationService
     // 메시지를 받을 구독자(UIManager 등)
     public static event Action<string> OnNotify;
 
-    // 어디서든 이 메서드 한 줄만 호출하면 구독자들에게 메시지가 전달됩니다
+    // 어디서든 이 메서드 한 줄만 호출하면 구독자들에게 메시지가 전달되게끔
     public static void Notify(string message)
     {
         OnNotify?.Invoke(message);
@@ -45,15 +45,15 @@ public class UIManager : MonoBehaviour
     private bool waveStartHintShown = false;
     
     [Header("ObjectInfoUI Settings")]
-    [SerializeField] private GameObject objectInfoPanelRoot;
-    [SerializeField] private GameObject barracksPanelRoot;
+    [SerializeField] private GameObject objectInfoPanel;
+    [FormerlySerializedAs("barracksPanelRoot")] [SerializeField] private GameObject barracksPanel;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private Image iconImage;
     
     [Header("TowerUI Settings")]
     [SerializeField] private Canvas towerBuildCanvas;             // World Space Canvas (부모)
-    [SerializeField] private GameObject towerInfoPanelRoot;
+    [SerializeField] private GameObject towerInfoPanel;
     [SerializeField] private GameObject towerGuidePanel;    // 업그레이드 분기 패널
     [SerializeField] private TextMeshProUGUI guideText;
     [SerializeField] private GameObject towerCreatePanel; // Lv0 (빌딩 포인트 클릭 시)
@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            // 이미 다른 UIManager 가 있다면 이놈은 지워버린다!
+            // 이미 다른 UIManager 가 있다면 지우기
             Destroy(gameObject);
             return;
         }
@@ -167,12 +167,10 @@ public class UIManager : MonoBehaviour
         WaveDescriptionText.text = $"Wave {waveNumber} Enemies {totalEnemies - killedEnemies} / {totalEnemies}";
     }
     
-    /// <summary>
-    /// level에 맞는 패널을 target 위에 띄웁니다.
-    /// </summary>
+    // level에 맞는 패널을 target 위에 띄우기
     public void ShowTowerPanelByLevel(int level, Transform target)
     {
-        // 레벨별로 원하는 Y 오프셋을 정해 둡니다.
+        // 레벨별로 원하는 Y 오프셋을 정하기
         // level 0 → 건설용, level 1~3 → 업그레이드용
         // panel 선택
         GameObject panelGO;
@@ -189,7 +187,6 @@ public class UIManager : MonoBehaviour
         StartCoroutine(ShowPanelWithDelay(panelGO, target, fixedWorldOffset));
     }
     
-    // 🔧 파라미터: Vector3 → float
     public IEnumerator ShowPanelWithDelay(GameObject panelGO, Transform target, Vector3 fixedWorldOffset)
     {
         yield return new WaitForEndOfFrame();
@@ -212,7 +209,7 @@ public class UIManager : MonoBehaviour
         towerDescText.text  = targetData.GetDescription();
 
         // 2) FollowUIPanel 가져오기
-        var follow = towerInfoPanelRoot.GetComponent<FollowUIPanel>();
+        var follow = towerInfoPanel.GetComponent<FollowUIPanel>();
         if (follow == null) return;
 
         Vector3 fixedWorldOffset = new Vector3(75f, -25f, 0f); // 오른쪽 2, 위로 1
@@ -226,7 +223,7 @@ public class UIManager : MonoBehaviour
 
         if (target == null) return;
 
-        objectInfoPanelRoot.SetActive(true);
+        objectInfoPanel.SetActive(true);
         nameText.text = target.GetDisplayName();
         descText.text = target.GetDescription();
         iconImage.sprite = target.GetIcon();
@@ -234,8 +231,9 @@ public class UIManager : MonoBehaviour
 
     public void ShowBarrackPanel()
     {
-        barracksPanelRoot.SetActive(true);
+        barracksPanel.SetActive(true);
     }
+    
     public void HideAllTowerPanels()
     {
         // Lv0 타워 건설 패널 닫기
@@ -256,6 +254,7 @@ public class UIManager : MonoBehaviour
                 if (panelGO != null)
                 {
                     var panel = panelGO.GetComponent<FollowUIPanel>();
+                    
                     if (panel != null)
                     {
                         panel.Close();
@@ -276,11 +275,12 @@ public class UIManager : MonoBehaviour
     }
     private void HideAllBuildingPanels()
     {
-        towerInfoPanelRoot.SetActive(false);
-        objectInfoPanelRoot.SetActive(false);
-        barracksPanelRoot.SetActive(false);
+        towerInfoPanel.SetActive(false);
+        objectInfoPanel.SetActive(false);
+        barracksPanel.SetActive(false);
     }
     
+    // 레벨에 따라 생기는 패널
     public void UpdateTowerGuidePanel(ITower tower)
     {
         if (tower == null)
@@ -293,7 +293,7 @@ public class UIManager : MonoBehaviour
         var level = tower.GetCurrentLevel();
         var path = (tower as BaseTower)?.PathCode ?? ""; // fallback 처리
 
-        // 📌 TowerDatabase에서 직접 조회 (Initialize 여부와 무관)
+        // TowerDatabase에서 직접 조회 (Initialize 여부와 무관)
         var entry = BuildingSystem.Instance.GetTowerEntry(type, level, path);
         var data = entry.data;
 
@@ -304,34 +304,35 @@ public class UIManager : MonoBehaviour
         }
 
         towerGuidePanel.SetActive(true);
-        var sb = new StringBuilder();
+        var stringBuilder = new StringBuilder();
 
-        sb.AppendLine($"<b>{data.displayName}</b>\n");
+        stringBuilder.AppendLine($"<b>{data.displayName}</b>\n");
 
         if (data.nextUpgrades == null || data.nextUpgrades.Count == 0)
         {
-            sb.AppendLine("\nThis tower cannot be upgraded further.\n\n");
+            stringBuilder.AppendLine("\nThis tower cannot be upgraded further.\n\n");
         }
         else if (data.nextUpgrades.Count == 1)
         {
             var next = data.nextUpgrades[0];
-            sb.AppendLine($"Upgrade \n{next.description}\n");
-            sb.AppendLine($"Cost: {next.upgradeCost}\n");
+            stringBuilder.AppendLine($"Upgrade \n{next.description}\n");
+            stringBuilder.AppendLine($"Cost: {next.upgradeCost}\n");
         }
         else
         {
             for (int i = 0; i < data.nextUpgrades.Count; i++)
             {
                 var next = data.nextUpgrades[i];
-                sb.AppendLine($"Upgrade {(char)('A' + i)} \n{next.description}\n");
-                sb.AppendLine($"Cost: {next.upgradeCost}\n");
+                stringBuilder.AppendLine($"Upgrade {(char)('A' + i)} \n{next.description}\n");
+                stringBuilder.AppendLine($"Cost: {next.upgradeCost}\n");
             }
         }
 
-        sb.AppendLine($"Sell Price: {data.sellPrice}");
-        guideText.text = sb.ToString();
+        stringBuilder.AppendLine($"Sell Price: {data.sellPrice}");
+        guideText.text = stringBuilder.ToString();
     }
     
+    // 생성 시 최초 1회 생기는 패널
     public void UpdateTowerGuidePanelForCreation(List<TowerData> baseTowers)
     {
         StartCoroutine(UpdateTowerGuidePanelForCreationRoutine(baseTowers));
@@ -339,19 +340,19 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator UpdateTowerGuidePanelForCreationRoutine(List<TowerData> baseTowers)
     {
-        yield return new WaitForEndOfFrame();  // ✅ UI 닫기 이후 다음 프레임
+        yield return new WaitForEndOfFrame();  // UI 닫기 이후 다음 프레임
 
         towerGuidePanel.SetActive(true);
 
-        var sb = new StringBuilder();
+        var stringBuilder = new StringBuilder();
         foreach (var data in baseTowers)
         {
-            sb.AppendLine($"<b>{data.displayName}</b>");
-            sb.AppendLine($"{data.description}");
-            sb.AppendLine($"Cost: {data.buildCost}\n");
+            stringBuilder.AppendLine($"<b>{data.displayName}</b>");
+            stringBuilder.AppendLine($"{data.description}");
+            stringBuilder.AppendLine($"Cost: {data.buildCost}\n");
         }
 
-        guideText.text = sb.ToString();
+        guideText.text = stringBuilder.ToString();
     }
     
     public void HideTowerGuidePanel()

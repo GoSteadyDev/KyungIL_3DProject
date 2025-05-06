@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 using UnityEngine.EventSystems;
 public class TileDetector : MonoBehaviour
 {
+    [SerializeField] private List<BuildingPointTile> allTiles = new List<BuildingPointTile>();
+    
     private Ray ray;
     private RaycastHit hit;
     private Camera mainCamera;
@@ -13,7 +15,6 @@ public class TileDetector : MonoBehaviour
     private BuildingPointTile currentTile = null;
     private BuildingPointTile previousTile = null;
 
-    [SerializeField] private List<BuildingPointTile> allTiles = new List<BuildingPointTile>();
     public List<BuildingPointTile> Tiles => allTiles;
     
     private void Awake()
